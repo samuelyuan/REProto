@@ -11455,208 +11455,171 @@ jr_000_2eda:
     ld e, c
     dec bc
     nop
-    nop
-    ld b, b
-    ret nz
 
-    ld d, h
-    ld [bc], a
-    nop
-    jr z, jr_000_2f52
+TitleScreenImageTable:: ; 0x2ef4
+    dw $4000
+    dw $54c0
+    dw $0002
 
-    sub b
-    ld d, a
-    ret nc
-
+TitleScreenPaletteTable:: ; 0x2efa
+    dw $5628
+    dw $5790
+    db $d0
+    
 Call_000_2eff:
 Jump_000_2eff:
-    ld d, a
+    db $57
 
 Call_000_2f00:
-    ld [bc], a
-    nop
-    ret c
+    dw $0002
 
-    ld d, a
-    ret c
+SelectCharacterImageTable:: ; 0x2f02
+    dw $57d8
+    dw $62d8
+    dw $0002
 
-    ld h, d
-    ld [bc], a
-    nop
-    ld a, [hl+]
-    ld h, l
-    ld a, h
-    ld h, a
-    cp h
-    ld h, a
-    ld [bc], a
+SelectCharacterPaletteTable:: ; 0x2f08
+    dw $652a
+    dw $677c
+    dw $67bc
+    db $02
 
 Jump_000_2f0f:
-    nop
+    db $00
 
+SaveScreenImageTable::
 Jump_000_2f10:
-    ld b, b
-    ld d, a
-    jr nc, jr_000_2f7d
-
-    dec c
-    nop
-    cp h
-    ld l, d
-    ld c, b
-    ld l, h
-    adc b
-    ld l, h
-    dec c
-    nop
-    nop
-    ld b, b
-    jr nz, jr_000_2f6b
-
-    inc c
+    dw $5740 
+    dw $6930 
+    dw $000d
+    
+SaveScreenPaletteTable::
+    dw $6abc
+    dw $6c48
+    dw $6c88
+    dw $000d
+    
+InventoryScreenImageTable::
+    dw $4000
+    dw $4920
+    db $0c
 
 Call_000_2f23:
-    nop
-    ld [hl], d
+    db $00
+
+InventoryScreenPaletteTable:: ; 0x2f24
+    db $72
 
 Call_000_2f25:
-    ld c, e
-    call nz, $044d
-    ld c, [hl]
-    inc c
-    nop
-    nop
-    ld b, b
-    and b
-    ld c, c
-    rrca
-    nop
-    ld [$704b], sp
-    ld c, h
-    or b
-    ld c, h
-    rrca
-    nop
-    nop
-    ld b, b
-    ldh [rDMA], a
-    dec c
-    nop
+    db $4b
+    dw $4dc4
+    dw $4e04
+    dw $000c
+    
+CompanyLogoImageTable::
+    dw $4000
+    dw $49a0 
+    dw $000f
 
+CompanyLogoPaletteTable::
+    dw $4b08
+    dw $4c70
+    dw $4cb0
+    dw $000f
+    
+DeathScreenImageTable:: ; 0x2f3a
+    dw $4000
+    dw $46e0
+    dw $000d
+
+DeathScreenPaletteTable:: ; 0x2f40
 Jump_000_2f40:
-    jr nz, @+$4b
+    dw $4920
+    dw $4b60
+    dw $4ba0
+    dw $000d
+    
+PauseScreenImageTable::
+    dw $4bb0
+    dw $5420
+    dw $000d
 
-    ld h, b
-    ld c, e
-    and b
-    ld c, e
-    dec c
-    nop
-    or b
-    ld c, e
-    jr nz, jr_000_2fa0
-
-    dec c
-    nop
-    adc b
-    ld d, l
-    ldh a, [rRP]
+PauseScreenPaletteTable::
+    dw $5588
+    dw $56f0
 
 jr_000_2f52:
-    jr nc, jr_000_2fab
+    dw $5730
+    dw $000d
 
-    dec c
-    nop
-    nop
-    ld b, b
-    db $10
-    ld b, d
-    rst $00
-    nop
-    ld a, b
-    ld b, e
-    ldh [rLY], a
-    jr nz, @+$47
-
-    rst $00
-    nop
-    jr nz, jr_000_2fab
-
-    ld [hl], b
-    ld b, a
-    rst $00
-    nop
-    ret c
+    dw $4000
+    dw $4210
+    dw $00c7
+    
+    dw $4378
+    dw $44e0
+    dw $4520
+    dw $00c7
+    
+    dw $4520 
+    dw $4770 
+    dw $00c7
+    
+    db $d8
 
 jr_000_2f6b:
-    ld c, b
-    ld b, b
-    ld c, d
-    add b
-    ld c, d
+    db $48
+    dw $4a40 
+    dw $4a80
 
 Call_000_2f70:
-    rst $00
-    nop
-    jr nz, jr_000_2fb9
+    dw $00c7
 
-    ld [hl], b
-    ld b, a
-    rst $00
-    nop
-    ret c
+    db $20, $45
+    db $70, $47
+    dw $00c7
 
-    ld c, b
-    ld b, b
-    ld c, d
-    add b
+    db $d8, $48
+    db $40, $4a
+    db $80
 
 jr_000_2f7d:
-    ld c, d
-    rst $00
+    db $4a
+    db $c7
 
 Jump_000_2f7f:
-    nop
-    add b
-    ld c, d
-    ldh [rWY], a
-    rst $00
-    nop
-    ld c, b
-    ld c, h
-    or b
-    ld c, l
-    ldh a, [rKEY1]
-    rst $00
-    nop
-    ldh a, [rKEY1]
-    ld b, b
-    ld c, [hl]
-    rst $00
-    nop
-    xor b
-    ld c, a
-    db $10
-    ld d, c
-    ld d, b
-    ld d, c
-    rst $00
-    nop
-    add b
-    ld c, d
+    db $00
+
+    db $80, $4a
+    db $e0, $4a
+    dw $00c7
+
+    db $48, $4c
+    db $b0, $4d
+    db $f0, $4d
+    dw $00c7
+    
+    db $f0, $4d
+    db $40, $4e
+    dw $00c7
+    
+    db $a8, $4f
+    db $10, $51
+    db $50, $51
+    dw $00c7
+    
+    db $80, $4a
     ldh [rWY], a
 
 jr_000_2fa0:
-    rst $00
-    nop
-    ld c, b
-    ld c, h
-    or b
-    ld c, l
-    ldh a, [rKEY1]
-    rst $00
-    nop
-    cp h
+    dw $00c7
+    
+    db $48, $4c
+    db $b0, $4d
+    db $f0, $4d
+    dw $00c7
+    
+    db $bc
 
 jr_000_2fab:
     ld c, [hl]
