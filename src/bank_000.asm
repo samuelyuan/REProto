@@ -11465,7 +11465,7 @@ TitleScreenPaletteTable:: ; 0x2efa
     dw $5628
     dw $5790
     db $d0
-    
+
 Call_000_2eff:
 Jump_000_2eff:
     db $57
@@ -11552,127 +11552,115 @@ jr_000_2f52:
     dw $5730
     dw $000d
 
+Stairs1ImageTable::
     dw $4000
     dw $4210
     dw $00c7
-    
+
+Stairs1PaletteTable::
     dw $4378
     dw $44e0
     dw $4520
     dw $00c7
-    
+
+Stairs2ImageTable::
     dw $4520 
     dw $4770 
     dw $00c7
-    
-    db $d8
 
-jr_000_2f6b:
-    db $48
+Stairs2PaletteTable::
+    dw $48d8
     dw $4a40 
     dw $4a80
 
 Call_000_2f70:
     dw $00c7
 
-    db $20, $45
-    db $70, $47
+    dw $4520
+    dw $4770 
     dw $00c7
 
-    db $d8, $48
-    db $40, $4a
-    db $80
+    dw $48d8
+    dw $4a40 
+    dw $4a80
 
-jr_000_2f7d:
-    db $4a
     db $c7
 
 Jump_000_2f7f:
     db $00
 
-    db $80, $4a
-    db $e0, $4a
+LadderScreenImageTable::
+    dw $4a80 
+    dw $4ae0
     dw $00c7
 
-    db $48, $4c
-    db $b0, $4d
-    db $f0, $4d
+LadderScreenPaletteTable::
+    dw $4c48
+    dw $4db0 
+    dw $4df0
     dw $00c7
-    
-    db $f0, $4d
-    db $40, $4e
-    dw $00c7
-    
-    db $a8, $4f
-    db $10, $51
-    db $50, $51
-    dw $00c7
-    
-    db $80, $4a
-    ldh [rWY], a
 
-jr_000_2fa0:
+RopeScreenImageTable::
+    dw $4df0
+    dw $4e40
+    dw $00c7
+
+RopeScreenPaletteTable::
+    dw $4fa8
+    dw $5110
+    dw $5150
     dw $00c7
     
-    db $48, $4c
-    db $b0, $4d
-    db $f0, $4d
+    dw $4a80
+    dw $4ae0
+    dw $00c7
+
+    dw $4c48
+    dw $4db0
+    dw $4df0
     dw $00c7
     
-    db $bc
+ItemBoxImageTable::
+    dw $4ebc 
+    dw $56bc 
+    dw $00fc
 
-jr_000_2fab:
-    ld c, [hl]
-    cp h
-    ld d, [hl]
-    db $fc
-    nop
-    ld c, $59
-    ld h, b
-    ld e, e
-    and b
-    ld e, e
-    db $fc
-    nop
-    nop
+ItemBoxPaletteTable::
+    dw $590e
+    dw $5b60
+    dw $5ba0
+    dw $00fc
+    
+FirstZombieImageTable::
+    dw $4000
+    dw $4cd0
+    dw $00c4
+    
+FirstZombiePaletteTable::
+    dw $4e38
+    dw $4fa0
+    dw $4fe0
+    dw $00c4
+    
+FallingStatueImageTable::
+    dw $4fe0
+    dw $5f70
+    dw $00c4
 
-jr_000_2fb9:
-    ld b, b
-    ret nc
-
-    ld c, h
-    call nz, Call_000_3800
-    ld c, [hl]
-    and b
-    ld c, a
-    ldh [rVBK], a
-    call nz, $e000
-    ld c, a
-    ld [hl], b
-    ld e, a
-    call nz, $d800
-    ld h, b
-    ld b, b
-    ld h, d
+FallingStatuePaletteTable::
+    dw $60d8
+    dw $6240
 
 Call_000_2fd0:
-    add b
-    ld h, d
+    dw $6280
 
 Call_000_2fd2:
-    call nz, Call_000_1400
-    nop
-    cp b
-    cpl
-    inc d
-    nop
-    add $2f
+    dw $00c4
+    
+    db $14, $00, $b8, $2f, $14, $00, $c6, $2f
 
 Call_000_2fdc:
-    push af
-    ld a, l
-    ld [$c106], a
-    ld a, h
+    db $f5, $7d, $ea, $06, $c1, $7c
     ld [$c107], a
     ld e, [hl]
     inc hl
