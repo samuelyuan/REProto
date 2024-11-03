@@ -443,98 +443,38 @@ jr_00e_4225:
     nop
     nop
     ld b, $0f
-    dec c
-    adc a
-    ld b, c
-    ld b, $64
-    rlca
-    ld bc, $0410
-    inc c
-    sub d
-    ld b, c
-    ld b, $19
-    db $10
-    add h
-    ld b, $32
-    ld c, $95
-    ld b, c
-    ld b, $14
-    rlca
-    ld [bc], a
-    ld b, $32
-    dec c
-    sbc b
-    ld b, c
-    ld b, $32
-    rlca
-    ld bc, $0f1c
-    dec c
-    sbc e
-    ld b, c
-    db $10
-    inc b
-    ld b, $1e
-    jr jr_00e_428f
 
-    ld b, $32
-    ld [$0000], sp
-    db $10
-    add h
-    inc c
-    sbc [hl]
-    ld b, c
-    ld b, $32
-    ld d, $18
-    ld a, [bc]
-    nop
+IntroSceneChrisDialogueTable:: ; 0x4252
+    db $0d
+    dw $418f
+    db $06, $64, $07, $01, $10, $04
+    db $0c
+    dw $4192
+    db $06, $19, $10, $84, $06, $32
+    db $0e
+    dw $4195
+    db $06, $14, $07, $02, $06, $32
+    db $0d
+    dw $4198
+    db $06, $32, $07, $01, $1c, $0f
+    db $0d
+    dw $419b
+    db $10, $04, $06, $1e, $18, $10, $06, $32, $08, $00, $00, $10, $84
+    db $0c
+    dw $419e
+    db $06, $32, $16, $18, $0a, $00, $00
+    db $0e
+    dw $41a1
+    db $06, $1e, $10, $04, $14, $10, $10, $02, $14, $28, $08, $00, $00, $07, $05, $11, $84
+    db $0d
+    dw $41a4
+    db $10, $88, $06, $96, $07, $06
+    db $0d
+    dw $41a7
+    db $06, $64, $07, $05, $10, $08, $14, $1c, $10, $02, $14, $20, $21, $40, $01, $70
+    db $fc, $00, $00, $08, $00, $00, $00, $00
 
-jr_00e_428f:
-    nop
-    ld c, $a1
-    ld b, c
-    ld b, $1e
-    db $10
-    inc b
-    inc d
-    db $10
-    db $10
-    ld [bc], a
-    inc d
-    jr z, jr_00e_42a6
-
-    nop
-    nop
-    rlca
-    dec b
-    ld de, $0d84
-    and h
-
-jr_00e_42a6:
-    ld b, c
-    db $10
-    adc b
-    ld b, $96
-    rlca
-    ld b, $0d
-    and a
-    ld b, c
-    ld b, $64
-    rlca
-    dec b
-    db $10
-    ld [$1c14], sp
-    db $10
-    ld [bc], a
-    inc d
-    jr nz, jr_00e_42de
-
-    ld b, b
-    ld bc, $fc70
-    nop
-    nop
-    ld [$0000], sp
-    nop
-    nop
+bank00e_42c8:
     nop
     nop
     ld bc, $1d00
@@ -2902,85 +2842,44 @@ jr_00e_4da9:
     dec d
 
 jr_00e_4db5:
-    scf
-    add hl, bc
-    nop
-    nop
-    inc hl
-    rrca
-    dec [hl]
-    nop
-    nop
-    ld l, $25
-    ld b, d
-    ld b, $96
-    inc hl
-    inc b
-    ld de, $1582
-    inc b
-    ld c, $28
-    ld b, d
-    ld b, $96
-    dec d
-    inc bc
-    jr nc, jr_00e_4d58
+    db $37, $09, $00, $00, $23, $0f, $35, $00, $00
 
-    dec [hl]
-    nop
-    nop
-    rlca
-    ld [bc], a
-    ld de, $1988
-    inc bc
-    rlca
-    ld b, $09
-    nop
-    nop
-    dec c
-    dec hl
-    ld b, d
-    ld b, $96
-    ld de, $1904
-    ld [bc], a
-    ld c, $2e
-    ld b, d
-    ld b, $96
-    dec c
-    ld sp, $0642
-    sub [hl]
-    inc e
-    rrca
-    ld de, $2e84
-    inc [hl]
-    ld b, d
-    ld b, $96
-    ld c, $37
-    ld b, d
-    ld b, $96
-    ld c, $3a
-    ld b, d
-    ld b, $96
-    ld l, $3d
-    ld b, d
-    ld b, $96
-    ld c, $40
-    ld b, d
-    ld b, $96
-    dec d
-    ld [hl-], a
-    ld de, $0782
-    ld bc, $0430
-    ld c, $43
-    ld b, d
-    ld b, $96
-    inc l
-    dec b
-    inc l
-    dec b
-    inc l
-    dec b
-    inc l
-    dec b
+IntroSceneJillDialogueTable:: ; 0x4dbe
+    db $2e
+    dw $4225
+    db $06, $96, $23, $04, $11, $82, $15, $04
+    db $0e
+    dw $4228
+    db $06, $96, $15, $03, $30, $86, $35, $00, $00, $07, $02, $11, $88, $19, $03, $07, $06, $09, $00, $00
+    db $0d
+    dw $422b
+    db $06, $96, $11, $04, $19, $02
+    db $0e
+    dw $422e
+    db $06, $96
+    db $0d
+    dw $4231
+    db $06, $96, $1c, $0f, $11, $84
+    db $2e
+    dw $4234
+    db $06, $96
+    db $0e
+    dw $4237
+    db $06, $96
+    db $0e
+    dw $423a
+    db $06, $96
+    db $2e
+    dw $423d
+    db $06, $96
+    db $0e
+    dw $4240
+    db $06, $96, $15, $32, $11, $82, $07, $01, $30, $04
+    db $0e
+    dw $4243
+    db $06, $96
+    
+    db $2c, $05, $2c, $05, $2c, $05, $2c, $05
 
 jr_00e_4e25:
     inc l
