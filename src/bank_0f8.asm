@@ -10,6 +10,8 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "RICHARD: ", $01
     db "BRAD: ", $01
     db "????: ", $01
+    
+IntroSceneChris:: ; 0x4054
     db "I don't", $00, "know what happened?", $01
     db "..Barry,", $00, "where is Barry?", $01
     db "Well, I'm", $00, "sorry but he's", $00, "probably..", $01
@@ -18,48 +20,89 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "I'll go", $00, "and check.", $01
     db "...OK,", $00, "Jill and I will stay", $00, "in the hall in case", $00, "of an emergency.", $01
     db "Chris!", $01
-    db "Take care!", $01, $00, "Investigate if you", $00, "hear any gunfire.", $01, $00, "Wesker, Jill..?", $01
+    db "Take care!", $01
+
+    db $00, "Investigate if you", $00, "hear any gunfire.", $01
+    db $00, "Wesker, Jill..?", $01
     db "What", $00, "happened to Jill", $00, "and Wesker?", $01
     db "Whaao!", $00, "What is it?", $01
     db "What?", $00, "Oh! Oh, no! Sorry!", $00, "I didn't mean to", $00, "do that!..", $01
-    db "You must", $00, "be from the Bravo", $00, "Team..", $01, $00, "Yes. I'm Rebecca!", $00, "Rebecca Chambers!", $01
+    db "You must", $00, "be from the Bravo", $00, "Team..", $01
+    db $00, "Yes. I'm Rebecca!", $00, "Rebecca Chambers!", $01
     db "I'm a", $00, "newcomer. I just", $00, "joined the STARS", $00, "Bravo Team last", $00, $04, "month! Well, I'm", $00, $04, "really sorry. Are", $00, $04, "you alright?", $01
     db "Yes.", $00, "I'm Chris Redfield", $00, "from the Alpha Team.", $01
     db "Are you", $00, "the only person here", $00, "from the Bravo Team?", $01
     db "Well,", $00, "because the", $00, "helicopter made a", $00, "forced landing..I", $00, $04, "just ran into this", $00, $04, "house anyway,", $00, $04, "but..I..uh?", $01
-    db "I see.", $00, "There is nothing", $00, "else you could have", $00, "done. Anyway, it is", $00, $04, "good that you are", $00, $04, "here.", $01, $00, "Yes. Sir..", $01, $00, "But, it's strange..", $01, $00, "I serviced the", $00, "helicopter recently,", $00, "but something went", $00, $04, "wrong with the", $00, $04, "engine. It was such", $00, $04, "a short flight..", $01, $00, "I wonder", $00, "if everybody is..", $01
+    db "I see.", $00, "There is nothing", $00, "else you could have", $00, "done. Anyway, it is", $00, $04, "good that you are", $00, $04, "here.", $01
+    db $00, "Yes. Sir..", $01
+    db $00, "But, it's strange..", $01
+    db $00, "I serviced the", $00, "helicopter recently,", $00, "but something went", $00, $04, "wrong with the", $00, $04, "engine. It was such", $00, $04, "a short flight..", $01
+    db $00, "I wonder", $00, "if everybody is..", $01
     db "Well, what", $00, "should I do now?", $01
     db "If you go", $00, "out to search for", $00, "the other members,", $00, "are you letting me", $00, $04, "come with you?", $01
-    db "It's", $00, "pretty dangerous", $00, "outside. Let me take", $00, "care of it.!", $01, $00, "I understand. For", $00, "now, I'll wait here,", $00, "since there are a", $00, $04, "lot of chemicals in", $00, $04, "this room and they", $00, $04
+    db "It's", $00, "pretty dangerous", $00, "outside. Let me take", $00, "care of it.!", $01
+    db $00, "I understand. For", $00, "now, I'll wait here,", $00, "since there are a", $00, $04, "lot of chemicals in", $00, $04, "this room and they", $00, $04
     db "might be useful.", $01
-    db "Well,", $00, "I'll look over the", $00, "chemicals.", $01, $00, "It's me Chris.", $01
-    db "Is that", $00, "you, Rebecca?", $01, $00, "Ah, it's the", $00, "'Moonlight Sonata'.", $01, $00, "Can you play?", $01
-    db "Wait,", $00, "what is that?", $01, $00, "My interpretation", $00, "is off a little.", $01
+    db "Well,", $00, "I'll look over the", $00, "chemicals.", $01
+    db $00, "It's me Chris.", $01
+    db "Is that", $00, "you, Rebecca?", $01
+    db $00, "Ah, it's the", $00, "'Moonlight Sonata'.", $01
+    db $00, "Can you play?", $01
+    db "Wait,", $00, "what is that?", $01
+    db $00, "My interpretation", $00, "is off a little.", $01
     db "Chris,", $00, "may I practice", $00, "for a while?", $01
-    db "See,", $00, "just relax and", $00, "play.", $01, $00, "All right.", $01, $00, "Chris. Chris!", $01, $00, "You like it?", $01, $00, "Oh, that was great!", $01, $00, "What is that!?", $01
+    db "See,", $00, "just relax and", $00, "play.", $01
+    db $00, "All right.", $01
+    db $00, "Chris. Chris!", $01
+    db $00, "You like it?", $01
+    db $00, "Oh, that was great!", $01
+    db $00, "What is that!?", $01
     db "Is that", $00, "you, Rebecca?", $01
     db "Chris.", $00, "Are you alright?", $01
     db "Yeah.", $00, "What happened?", $01
     db "You were", $00, "bitten by a", $00, "poisonous snake.", $00, "Are you OK?", $01
     db "Aouh!", $00, "My head is", $00, "killing me.", $01
     db "I think", $00, "you'll be alright", $00, "because I gave you", $00, "a shot, but please", $00, $04, "stay out of trouble.", $01
-    db "You saved", $00, "my life. I owe", $00, "you one.", $01, $00, "What is this..?", $01
-    db "Wow!", $00, "What a mansion", $01, $00, "Captain Wesker,", $00, "Where's Chris?", $01
-    db "Stop it!", $00, "Don't open that", $00, "door!", $01, $00, "But Chris is....!", $01, $00, "What is it?", $01, $00, "Maybe it's Chris?", $01
-    db "Now Jill,", $00, "can you go?", $01
-    db "I'm going", $00, "with you! Chris is", $00, "our old partner", $00, "you know.", $01
-    db "OK! Let", $00, "me handle this.", $01, $00, "Stay Alert.", $01, $00, "A dining room....", $01
-    db "What?", $00, "What is this...?", $01, $00, "What is it?", $01
+    db "You saved", $00, "my life. I owe", $00, "you one.", $01
+    
+IntroSceneJill:: ; 0x47a9
+    db $00, "What is this..?", $01 ; Barry
+    db "Wow!", $00, "What a mansion", $01 ; Wesker
+    db $00, "Captain Wesker,", $00, "Where's Chris?", $01 ; Jill
+    db "Stop it!", $00, "Don't open that", $00, "door!", $01 ; Wesker
+    db $00, "But Chris is....!", $01 ; Jill
+    db $00, "What is it?", $01 ; Barry
+    db $00, "Maybe it's Chris?", $01 ; Wesker
+    db "Now Jill,", $00, "can you go?", $01 ; Wesker 
+    db "I'm going", $00, "with you! Chris is", $00, "our old partner", $00, "you know.", $01 ; Barry
+    db "OK! Let", $00, "me handle this.", $01 ; Wesker
+    db $00, "Stay Alert.", $01 ; Wesker
+    
+DiningHallEnter:: ; 0x48b2
+    db $00, "A dining room....", $01
+    
+DiningHallFireplace:: ; 0x48c5
+    db "What?", $00, "What is this...?", $01
+    db $00, "What is it?", $01
     db "Blood...", $00, "Jill, see if you can", $00, "find any other", $00, "clues. I'll be", $00, $04, "examining this.", $01
-    db "Hope this", $00, "is not Chris's", $00, "blood.", $01, $00, "Barry....!", $01, $00, "What is it!?", $01
+    db "Hope this", $00, "is not Chris's", $00, "blood.", $01
+    
+JillEncountersFirstZombie:: ; 0x4956
+    db $00, "Barry....!", $01
+    db $00, "What is it!?", $01
     db "Watch out!", $00, "It's a monster!", $01
-    db "Let me", $00, "take care of this!", $01, $00, "What is it?", $01
+    db "Let me", $00, "take care of this!", $01
+    db $00, "What is it?", $01
     db "Kenneth", $00, "was killed too.", $00, "Maybe by this", $00, "creature.", $01
     db "Anyway", $00, "let's report this", $00, "to Wesker.", $01
+    
+JillReturnsEntrance:: ; 0x4a06
     db "Wesker!", $01
-    db "Help me", $00, "look for him Jill,", $00, "and don't leave this", $00, "hall for the time", $00, $04, "being!", $01, $00, "Find anything Jill?", $01
+    db "Help me", $00, "look for him Jill,", $00, "and don't leave this", $00, "hall for the time", $00, $04, "being!", $01
+    db $00, "Find anything Jill?", $01
     db "Nothing.", $01
-    db "What is", $00, "this all about?", $00, "I can't figure it", $00, "out at all.", $01, $00, "Beats me, too.", $01
+    db "What is", $00, "this all about?", $00, "I can't figure it", $00, "out at all.", $01
+    db $00, "Beats me, too.", $01
     db "Now it's", $00, "Wesker's time to", $00, "disappear....I don't", $00, "know what's going", $00, $04, "on!", $01
     db "Well,", $00, "it can't be helped.", $00, "Let's search for him", $00, "separately. I'll", $00, $04, "check the dining", $00, $04, "room again.", $01
     db "OK! I'll", $00, "try the door on the", $00, "opposite side.", $01
@@ -69,15 +112,19 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "No. I'll", $00, "take care of that", $00, "direction. I told", $00, "you to start from", $00, $04, "the other side,", $00, $04, "Jill!", $01
     db "Listen,", $00, "if something", $00, "happens, let's meet", $00, "up in this hall.", $01
     db "This time", $00, "I'll be there.", $01
+
     db "Hey,", $00, "what's going on?", $01
     db "Jill?", $00, "Is that you Jill?", $00, "What happened!?", $01
     db "Barry!?", $00, "Help me, please!", $00, "The door won't", $00, "open. Quick!", $01
-    db "Stay away", $00, "from the door Jill.", $00, "I'm going to kick", $00, "this door down!", $01, $00, "Hurry! This way!", $01, $00, "Oh, Barry.", $01
+    db "Stay away", $00, "from the door Jill.", $00, "I'm going to kick", $00, "this door down!", $01
+    db $00, "Hurry! This way!", $01
+    db $00, "Oh, Barry.", $01
     db "That was", $00, "close! You were", $00, "almost a Jill", $00, "sandwich!", $01
     db "You are", $00, "right Barry. Thanks", $00, "for saving my life!", $01
     db "But Barry.", $00, "Didn't you say you", $00, "were going back to", $00, "the dining room to", $00, $04, "do some research?", $00, $04, "Why on earth are", $00, $04, "you here?", $01
     db "Uh. I just", $00, "had something I", $00, "wanted to check.", $01
-    db "Now, let's", $00, "get back to", $00, "searching for the", $00, "lost Captain and", $00, $04, "Chris, shall we?", $01, $00, "Thank you, Barry!", $01
+    db "Now, let's", $00, "get back to", $00, "searching for the", $00, "lost Captain and", $00, $04, "Chris, shall we?", $01
+    db $00, "Thank you, Barry!", $01
     db "Yah, yah!", $01
     db "Barry!", $01
     db "Jill!", $00, "What's going on?", $00, "Any clues?", $01
@@ -85,20 +132,25 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Whoa!", $00, "This hall is", $00, "dangerous. Maybe", $00, "it's better to", $00, $04, "secure our escape", $00, $04, "route first.", $01
     db "There must", $00, "be a back door", $00, "somewhere....Let's", $00, "try to find it", $00, $04, "first, shall we?", $01
     db "Ok, let's", $00, "separate again.", $01
-    db "Just a", $00, "moment. I've found", $00, "something.", $01, $00, "What is it!?", $01
+    db "Just a", $00, "moment. I've found", $00, "something.", $01
+    db $00, "What is it!?", $01
     db "It's a", $00, "weapon. It's really", $00, "powerful especially", $00, "against living", $00, $04, "things. Better take", $00, $04, "it with you.", $01
-    db "But how", $00, "about you, Barry?", $01, $00, "I have this", $01
+    db "But how", $00, "about you, Barry?", $01
+    db $00, "I have this", $01
     db "Thank you.", $00, "I'll take this then.", $01
     db "Jill!", $01
     db "Don't", $00, "scare me!", $01
     db "That's", $00, "what I was going to", $00, "say. Aren't you", $00, "supposed to be going", $00, $04, "over the first floor", $00, $04, "Barry?", $01
-    db "Yah,", $00, "you're right. But", $00, "just take a look", $00, "at this.", $01, $00, "It's Forest....", $00, "Oh my God", $01, $00, "It's awful....", $01
+    db "Yah,", $00, "you're right. But", $00, "just take a look", $00, "at this.", $01
+    db $00, "It's Forest....", $00, "Oh my God", $01
+    db $00, "It's awful....", $01
     db "I'm going", $00, "to find out what", $00, "caused Forest's", $00, "death. It looks", $00, $04, "like a crow or", $00, $04, "something killed", $00, $04, "him. Can you look", $00, $04, "around the first", $00, $04, "floor Jill.", $01
     db "OK!", $01
     db "Hey, Jill.", $00, "This must have been", $00, "Forest's. You don't", $00, "have a weapon. Take", $00, $04
     db "this with you!", $01
     db "Is that", $00, "you Jill...?", $01
-    db "What's", $00, "going on? How come", $00, "you look so scared?", $01, $00, "Look at this.", $01
+    db "What's", $00, "going on? How come", $00, "you look so scared?", $01
+    db $00, "Look at this.", $01
     db "What do", $00, "you think of it...?", $01
     db "I've been", $00, "thinking something", $00, "is wrong with this", $00, "house...", $01
     db "Right.", $01
@@ -109,25 +161,35 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "You're", $00, "wounded! What kind", $00, "of demon attacked", $00, "you?", $01
     db "It was a", $00, "huge snake..and also", $00, "poisonous!", $01
     db "Poisonous?", $00, "Oh no. Richard,", $00, "hold on!", $01
-    db "There is", $00, "serum!.. Oh no. I", $00, "should have brought", $00, "some with me.", $01, $00, "No problem! I'll", $00, "go and get it!", $01
+    db "There is", $00, "serum!.. Oh no. I", $00, "should have brought", $00, "some with me.", $01
+    db $00, "No problem! I'll", $00, "go and get it!", $01
     db "Thanks..", $01
     db "Here's the", $00, "serum! Richard,", $00, "hold on! I'll give", $00, "you a shot now!", $01
-    db "Jill,", $00, "here's my radio,", $00, "you should keep it.", $00, "I'm..!", $01, $00, "No! Richard!", $01
+    db "Jill,", $00, "here's my radio,", $00, "you should keep it.", $00, "I'm..!", $01
+    db $00, "No! Richard!", $01
     db "Jill..", $00, "be careful..!", $00, "U..u..uh..", $01
     db "Am I", $00, "poisoned? Damn it...", $00, "give me serum..", $01
     db "This is", $00, "Brad. STARS Alpha", $00, "team...Please", $00, "respond. What the", $00, $04, "hell? Is nobody out", $00, $04, "there?", $01
     db "This is", $00, "Brad. STARS Alpha", $00, "Team, Bravo Team,", $00, "it doesn't matter!", $00, $04, "Anybody answer me!", $00, $04, "This is Brad.", $01
     db "This is", $00, "Brad. I know you", $00, "can't answer me!", $00, "But somehow,", $00, $04, "give me a sign.", $01
     db "Don't come", $00, "any closer, Chris.", $01
-    db "Wait.", $00, "What happened?", $01, $00, "Double-crosser!", $01
+    db "Wait.", $00, "What happened?", $01
+    db $00, "Double-crosser!", $01
     db "Don't!", $01
-    db "Who is it!", $00, "....is somebody", $00, "there!?", $01, $00, "Hell, Umbrella....", $01, $00, "Double-crosser...?", $01
+    db "Who is it!", $00, "....is somebody", $00, "there!?", $01
+    db $00, "Hell, Umbrella....", $01
+    db $00, "Double-crosser...?", $01
     db "What's he mean", $00, "by that?", $01
     db "Oh, Jill.", $00, "What good timing.", $00, "A moment ago I heard", $00, "someone's voice", $00, $04, "coming from this", $00, $04, "hole. Let's go", $00, $04, "together since it's", $00, $04, "dark and we can't", $00, $04, "see very well.", $01
     db "OK,", $00, "let's go!", $01
     db "OK, then", $00, "I'm going to cover", $00, "you. Let's hurry.", $01
-    db "Hey, are", $00, "you alright? I can", $00, "go first if you", $00, "want me to...", $01, $00, "Is that Jill?", $01, $00, "Is that voice..", $00, "Enrico's?", $01
-    db "Yeah.", $01, $00, "You're alive!", $01, $00, "Wait there!", $00, "Are you with", $00, "anybody, Jill?", $01, $00, "What? Oh, yes.", $01
+    db "Hey, are", $00, "you alright? I can", $00, "go first if you", $00, "want me to...", $01
+    db $00, "Is that Jill?", $01
+    db $00, "Is that voice..", $00, "Enrico's?", $01
+    db "Yeah.", $01
+    db $00, "You're alive!", $01
+    db $00, "Wait there!", $00, "Are you with", $00, "anybody, Jill?", $01
+    db $00, "What? Oh, yes.", $01
     db "Enrico!!!", $01
     db "So, Barry", $00, "and Jill together...", $01
     db "Are you", $00, "alright Enrico?", $01
@@ -136,7 +198,8 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Arrgh!", $01
     db "Enrico!!!", $01
     db "Huh!", $00, "I'm really", $00, "embarrassed. I was", $00, "clumsy.", $01
-    db "Brad!", $00, "This is Jill..", $01, $00, "Brad? Brad!..", $01
+    db "Brad!", $00, "This is Jill..", $01
+    db $00, "Brad? Brad!..", $01
     db "This is", $00, "Jill. Brad! Oh..", $00, "It's broken!", $01
     db "Chris!?", $01
     db "It can't", $00, "be true. I've been", $00, "told a different", $00, "story.", $01
@@ -144,7 +207,8 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "But it's", $00, "not necessary for", $00, "you to destroy", $00, "STARS!", $01
     db "It's not", $00, "my intention, but", $00, "Umbrella's.", $00, "I can't help it.", $01
     db "What", $00, "about my family?", $01
-    db "I will", $00, "guarantee their", $00, "safety.", $01, $00, "So everything", $00, "depends on me,", $00, "huh?", $01
+    db "I will", $00, "guarantee their", $00, "safety.", $01
+    db $00, "So everything", $00, "depends on me,", $00, "huh?", $01
     db "Hi, Jill.", $01
     db "Hi, Barry.", $00, "I heard someone", $00, "talking", $01
     db "So you", $00, "heard it. I think", $00, "I'm getting old.", $00, "It seems that", $00, $04, "talking to myself", $00, $04, "is becoming a habit.", $01
@@ -159,13 +223,16 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Is that", $00, "right? Anyway,", $00, "it's good to see", $00, "you are safe.", $01
     db "OK. I'll", $00, "go to the other", $00, "house and see if I", $00, "can find any clues.", $01
     db "Wesker!", $01
-    db "Chris!", $00, "You're alive!", $01, $00, "My words exactly!", $01, $00, "Where's Jill?", $00, "Aren't you with", $00, "Jill?", $01
+    db "Chris!", $00, "You're alive!", $01
+    db $00, "My words exactly!", $01
+    db $00, "Where's Jill?", $00, "Aren't you with", $00, "Jill?", $01
     db "I'm sorry.", $00, "We were attacked by", $00, "a strange monster..", $00, "I lost track of her", $00, $04, "while we were", $00, $04, "scouting around.", $00, $04, "I hope she's OK!", $01
     db "I see..", $00, "Well, it's not your", $00, "fault.. This place", $00, "is crazy! If we", $00, $04, "stay here, all of", $00, $04, "us will end up", $00, $04, "dead..What should", $00, $04, "we do Wesker?", $01
     db "We have", $00, "to complete this", $00, "mission. Whether we", $00, "escape or stay and", $00, $04, "look for Jill, we", $00, $04, "don't have many", $00, $04, "bullets left and we", $00, $04, "can't even protect", $00, $04
     db "ourselves. We're", $00, $04, "still in trouble.", $00, $04, "Chris, there are", $00, $04, "still a lot of", $00, $04, "locked rooms in", $00, $04, "that house. Check", $00, $04, "them one more time.", $00, $04
     db "There may be a", $00, $04
-    db "place to hide", $00, $04, "safely. I'll look", $00, $04, "around the house a", $00, $04, "little more.", $01, $00, "Let's get going.", $01
+    db "place to hide", $00, $04, "safely. I'll look", $00, $04, "around the house a", $00, $04, "little more.", $01
+    db $00, "Let's get going.", $01
     db "Rebecca!", $00, "You are safe!", $01
     db "I saw", $00, "you in the garden.", $00, "I've caught up with", $00, "you at last. But", $00, $04, "it's a strange", $00, $04, "place, isn't it.", $00, $04, "Is this a meeting", $00, $04
     db "room or something?", $01
@@ -183,15 +250,20 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Now the", $00, "worst possible", $00, "situation has", $00, "occurred! The", $00, $04, "failure of the", $00, $04, "experiment created a", $00, $04, "virus, a biological", $00, $04, "weapon - polluting", $00, $04, "the entire lab.", $01
     db "The worst happened", $00, "with the Tyrant", $00, "virus.. I lost some", $00, "of my STARS team", $00, $04, "members because", $00, $04, "of it.", $01
     db "You killed", $00, "them with your own", $00, "hands! Did you", $00, "kill Enrico?", $01
-    db "Really!", $01, $00, "Yeah, Like this!", $01
-    db "Rebecca!", $01, $00, "Don't move!", $00, "If you move,", $00, "I'll kill you!", $01
-    db "Chris,", $00, "I have something", $00, "to show you.", $01, $00, "Now, walk!", $01, $00, "Is this..!?", $01
+    db "Really!", $01
+    db $00, "Yeah, Like this!", $01
+    db "Rebecca!", $01
+    db $00, "Don't move!", $00, "If you move,", $00, "I'll kill you!", $01
+    db "Chris,", $00, "I have something", $00, "to show you.", $01
+    db $00, "Now, walk!", $01
+    db $00, "Is this..!?", $01
     db "That's", $00, "right, this is the", $00, "ultimate life form", $00, "- Tyrant!", $01
     db "Chris..", $01
     db "Stop it!", $01
     db "Wesker,", $00, "you're pitiful.", $01
     db "This is", $00, "your savior? You", $00, "say this 'Failure'", $00, "is your savior!?", $01
-    db "You can", $00, "make sure yourselves", $00, "whether the Tyrant", $00, "is a failure or not!", $01, $00, "Go to hell!", $00, "Jill will join", $00, "you too!", $01
+    db "You can", $00, "make sure yourselves", $00, "whether the Tyrant", $00, "is a failure or not!", $01
+    db $00, "Go to hell!", $00, "Jill will join", $00, "you too!", $01
     db "What!?", $01
     db "Don't come", $00, "this way!", $00, "Oh! NO...!", $01
     db "You can't", $00, "kill me!", $01
@@ -199,12 +271,15 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Hah!", $00, "It seems like this", $00, "bulletproof jacket", $00, "is pretty strong.", $01
     db "I see.", $01
     db "How about", $00, "Captain Wesker?", $01
-    db "He is", $00, "sleeping with the", $00, "'Ultimate Failure.'", $00, "Hurry up! I want to", $00, $04, "get out of here!", $01, $00, "Excuse me Chris!", $01, $00, "What? Rebecca.", $01
+    db "He is", $00, "sleeping with the", $00, "'Ultimate Failure.'", $00, "Hurry up! I want to", $00, $04, "get out of here!", $01
+    db $00, "Excuse me Chris!", $01
+    db $00, "What? Rebecca.", $01
     db "I saw a", $00, "Research file in", $00, "this lab. It said", $00, "that a great deal", $00, $04, "of research on the", $00, $04, "Tyrant virus exists", $00, $04, "right here..We", $00, $04, "should blow this", $00, $04
     db "place up.", $01
     db "We are", $00, "already into it", $00, "over our heads.", $00, "Rebecca, can you", $00, $04, "do it?", $01
     db "Yes, Sir.", $00, "I'll set-off a", $00, "triggering system", $00, "for a bomb.", $01
-    db "OK!", $00, "Now we have a", $00, "chance to escape!", $00, "See you outside", $00, $04, "the house!", $01, $00, "The triggering", $00, "system has now been", $00, "activated. All", $00, $04, "researchers and", $00, $04, "guards should take", $00, $04, "cover immediately.", $00, $04, "Unlock all routes", $00, $04, "for evacuation.", $00, $04, "There is ten minutes", $00, $04, "before explosion.", $01
+    db "OK!", $00, "Now we have a", $00, "chance to escape!", $00, "See you outside", $00, $04, "the house!", $01
+    db $00, "The triggering", $00, "system has now been", $00, "activated. All", $00, $04, "researchers and", $00, $04, "guards should take", $00, $04, "cover immediately.", $00, $04, "Unlock all routes", $00, $04, "for evacuation.", $00, $04, "There is ten minutes", $00, $04, "before explosion.", $01
     db "Jill!", $00, "Sorry for making", $00, "you wait.!", $01
     db "Chris..", $01
     db "I knew", $00, "I could trust you.", $01
@@ -220,7 +295,8 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Chris,", $00, "use it! Destroy", $00, "the monsters", $00, "with it!", $01
     db "Jill!", $00, "You're here too!", $01
     db "Yes,", $00, "you're here too!", $01
-    db "Look,", $00, "I lost my way.", $01, $00, "Let's get going.", $01
+    db "Look,", $00, "I lost my way.", $01
+    db $00, "Let's get going.", $01
     db "Of course!", $00, "Damn it, we are in", $00, "quite a predicament,", $00, "Jill!", $01
     db "I know", $00, "Chris. Anyway I have", $00, "to open this room.", $01
     db "Oh, it", $00, "doesn't work. Well,", $00, "Chris, be sure to", $00, "come back and help", $00, $04, "you soon! So, will", $00, $04, "you just wait here!", $01
@@ -244,7 +320,8 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "If you", $00, "succeeded in", $00, "developing the", $00, "world's most", $00, $04, "powerful biological", $00, $04, "weapon, what would", $00, $04, "you do? What if you", $00, $04, "were in charge?", $01
     db "You must", $00, "stop this now!", $01
     db "So, you're", $00, "going to steal all", $00, "this research?", $01
-    db "Barry!", $01, $00, "Sorry, Jill..", $01
+    db "Barry!", $01
+    db $00, "Sorry, Jill..", $01
     db "Uh...I was", $00, "listening to what", $00, "you and Wesker were", $00, "talking about. I", $00, $04, "wish I realized it", $00, $04, "earlier. I thought", $00, $04, "it must have", $00, $04, "something to do with", $00, $04, "Umbrella you know.", $01
     db "So it's", $00, "all been", $00, "masterminded by him.", $01
     db "But it's", $00, "good that you know", $00, "that now. Anyway", $00, "let's get out of", $00, $04, "this house first.", $01
@@ -260,9 +337,13 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "Tyrant", $00, "is not completely", $00, "developed yet.", $01
     db "But we", $00, "can't let it live.", $01
     db "That must", $00, "be the computer", $00, "for monitoring", $00, "this creature.", $01
-    db "Watch out!", $01, $00, "What happened", $00, "to Wesker?", $01
+    db "Watch out!", $01
+    db $00, "What happened", $00, "to Wesker?", $01
     db "Wesker", $00, "must have set it", $00, "off. There's not", $00, "much time left", $00, $04, "for us.", $01
-    db "Oh Jill!", $01, $00, "Sorry for keeping", $00, "you waiting!", $01, $00, "So everything", $00, "is done?", $01, $00, "Well, almost, yes.", $00, "Now let's go!", $01
+    db "Oh Jill!", $01
+    db $00, "Sorry for keeping", $00, "you waiting!", $01
+    db $00, "So everything", $00, "is done?", $01
+    db $00, "Well, almost, yes.", $00, "Now let's go!", $01
     db "Oh Chris!", $00, "So you're OK!?", $01
     db "Let's talk", $00, "about that later!", $00, "Let's get out", $00, "of here.", $01
     db "Barry...", $01
@@ -276,15 +357,22 @@ SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
     db "I'm sorry", $00, "that you were", $00, "worried about me.", $01
     db "We are", $00, "in great danger.", $01
     db "We must", $00, "organise a search", $00, "for the others and", $00, "get the hell out", $00, $04, "of here!", $01
-    db "Yes, Sir!", $01, $00, "Understood?", $01
-    db "OK. I'll", $00, "go first, proceed", $00, "with your own", $00, "judgement.", $00, $04, "All right?", $00, $04, "Can you do it?", $01, $00, "Yes I can!", $01, $00, "Good luck.", $01, $00, "What are they!?", $01
+    db "Yes, Sir!", $01
+    db $00, "Understood?", $01
+    db "OK. I'll", $00, "go first, proceed", $00, "with your own", $00, "judgement.", $00, $04, "All right?", $00, $04, "Can you do it?", $01
+    db $00, "Yes I can!", $01
+    db $00, "Good luck.", $01
+    db $00, "What are they!?", $01
     db "Jill!", $00, "Have you found", $00, "anything", $00, "interesting?", $01
     db "Yes.", $00, "But I can't see", $00, "very well....", $01
-    db "How about", $00, "going down to check", $00, "by yourself? I have", $00, "a rope here.", $01, $00, "Oh, do you?...", $00, "Well, then I'll try", $00, "to go down using", $00, $04, "the rope..", $01
+    db "How about", $00, "going down to check", $00, "by yourself? I have", $00, "a rope here.", $01
+    db $00, "Oh, do you?...", $00, "Well, then I'll try", $00, "to go down using", $00, $04, "the rope..", $01
     db "Wait!", $01
     db "Hey!", $00, "What's going on?", $01
-    db "Now I've", $00, "done it! Sorry Jill.", $00, "Wait! I'll go and", $00, "get another rope!", $01, $00, "Barry? Barry!", $01
-    db "Hey!", $00, "Are you there. Jill?", $00, "Grab the rope!", $01, $00, "I'm sorry Jill.", $01
+    db "Now I've", $00, "done it! Sorry Jill.", $00, "Wait! I'll go and", $00, "get another rope!", $01
+    db $00, "Barry? Barry!", $01
+    db "Hey!", $00, "Are you there. Jill?", $00, "Grab the rope!", $01
+    db $00, "I'm sorry Jill.", $01
     db "I didn't", $00, "know that was going", $00, "to happen!", $01
     db "Sorry. I", $00, "was really", $00, "careless.", $01
     db "Are you", $00, "OK. Barry? Maybe", $00, "you're getting", $00, "tired..", $01
