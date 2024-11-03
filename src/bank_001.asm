@@ -609,8 +609,12 @@ Jump_001_4394:
     call Call_000_37b8
     ld a, $01
     ld [$c105], a
-    ld hl, $458b
-    ld a, [$c1fc]
+    db $21
+    ; Loads intro dialogue at bank 0xfa at the beginning of the game
+    dw $458b
+    db $fa
+
+    db $fc, $c1
     or a
     jr z, jr_001_43b4
 
@@ -4038,7 +4042,6 @@ jr_001_56ce:
     ld [$c1e0], a
     ret
 
-
     ld hl, $c900
     call Call_000_3d85
     ld a, [$c10e]
@@ -4056,230 +4059,43 @@ jr_001_56ce:
     ld [hl], $20
     ret
 
+bank001_5701:
+    db $01, $06
+    db "LOAD  GAME", $00
+    db $01, $06
+    db "SAVE  GAME", $00
+    db "CHRIS JILL  EMPTY ", $00
+    db "MHALL 1F STOR1 1F STOR2 1F STOR3 1F STOR4 1F "
+    
+bank001_575b:
+    db "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 "
 
-    ld bc, $4c06
-    ld c, a
-    ld b, c
-    ld b, h
-    jr nz, jr_001_5729
-
-    ld b, a
-    ld b, c
-    ld c, l
-    ld b, l
-    nop
-    ld bc, $5306
-    ld b, c
-    ld d, [hl]
-    ld b, l
-    jr nz, jr_001_5736
-
-    ld b, a
-    ld b, c
-    ld c, l
-    ld b, l
-    nop
-    ld b, e
-    ld c, b
-    ld d, d
-    ld c, c
-    ld d, e
-    jr nz, @+$4c
-
-    ld c, c
-    ld c, h
-    ld c, h
-    jr nz, jr_001_5747
-
-    ld b, l
-    ld c, l
-
-jr_001_5729:
-    ld d, b
-    ld d, h
-    ld e, c
-    jr nz, jr_001_572e
-
-jr_001_572e:
-    ld c, l
-    ld c, b
-    ld b, c
-    ld c, h
-    ld c, h
-    jr nz, jr_001_5766
-
-    ld b, [hl]
-
-jr_001_5736:
-    jr nz, jr_001_578b
-
-    ld d, h
-    ld c, a
-    ld d, d
-    ld sp, $3120
-    ld b, [hl]
-    jr nz, jr_001_5794
-
-    ld d, h
-    ld c, a
-    ld d, d
-    ld [hl-], a
-    jr nz, @+$33
-
-jr_001_5747:
-    ld b, [hl]
-    jr nz, jr_001_579d
-
-    ld d, h
-    ld c, a
-    ld d, d
-    inc sp
-    jr nz, @+$33
-
-    ld b, [hl]
-    jr nz, jr_001_57a6
-
-    ld d, h
-    ld c, a
-    ld d, d
-    inc [hl]
-    jr nz, @+$33
-
-    ld b, [hl]
-    jr nz, @+$32
-
-    ld sp, $3020
-    ld [hl-], a
-    jr nz, @+$32
-
-    inc sp
-    jr nz, jr_001_5795
-
-    inc [hl]
-
-jr_001_5766:
-    jr nz, jr_001_5798
-
-    dec [hl]
-    jr nz, jr_001_579b
-
-    ld [hl], $20
-    jr nc, jr_001_57a6
-
-    jr nz, jr_001_57a1
-
-    jr c, @+$22
-
-    jr nc, jr_001_57ae
-
-    jr nz, jr_001_57a8
-
-    jr nc, jr_001_5799
-
-    ld sp, $2031
-    ld sp, $2032
-    ld sp, $2033
-    ld sp, $2034
-    ld sp, $2035
-    ld sp, $2036
-
-jr_001_578b:
-    ld sp, $2037
-    ld sp, $2038
-    ld sp, $2039
-
-jr_001_5794:
-    ld [hl-], a
-
-jr_001_5795:
-    jr nc, jr_001_57b7
-
-    ld e, e
-
-jr_001_5798:
-    ld d, a
-
-jr_001_5799:
-    ld e, [hl]
-    ld d, a
-
-jr_001_579b:
-    ld h, c
-    ld d, a
-
-jr_001_579d:
-    ld h, h
-    ld d, a
-    ld h, a
-    ld d, a
-
-jr_001_57a1:
-    ld l, d
-    ld d, a
-    ld l, l
-    ld d, a
-    ld [hl], b
-
-jr_001_57a6:
-    ld d, a
-    ld [hl], e
-
-jr_001_57a8:
-    ld d, a
-    db $76
-    ld d, a
-    ld a, c
-    ld d, a
-    ld a, h
-
-jr_001_57ae:
-    ld d, a
-    ld a, a
-    ld d, a
-    add d
-    ld d, a
-    add l
-    ld d, a
-    adc b
-    ld d, a
-
-jr_001_57b7:
-    adc e
-    ld d, a
-    adc [hl]
-    ld d, a
-    sub c
-    ld d, a
-    sub h
-    ld d, a
-    inc c
-    inc b
-    ld b, h
-    ld c, a
-    jr nz, @+$50
-
-    ld c, a
-    ld d, h
-    jr nz, jr_001_5815
-
-    ld c, a
-    ld b, c
-    ld b, h
-    nop
-    inc c
-    inc b
-    ld b, h
-    ld c, a
-    jr nz, jr_001_5821
-
-    ld c, a
-    ld d, h
-    jr nz, jr_001_582a
-
-    ld b, c
-    ld d, [hl]
-    ld b, l
-    nop
+bank001_5797:
+    dw $575b
+    dw $575e
+    dw $5761
+    dw $5764
+    dw $5767
+    dw $576a
+    dw $576d
+    dw $5770
+    dw $5773
+    dw $5776
+    dw $5779
+    dw $577c
+    dw $577f
+    dw $5782
+    dw $5785
+    dw $5788
+    dw $578b
+    dw $578e
+    dw $5791
+    dw $5794
+    
+    db $0c, $04
+    db "DO NOT LOAD", $00
+    db $0c, $04
+    db "DO NOT SAVE", $00
 
 Call_001_57db:
     ld a, $ff
@@ -4518,7 +4334,6 @@ jr_001_58ea:
     ld [$bfff], a
     jp Jump_001_4394
 
-
     call Call_000_3ee0
     ld a, [$c10e]
     add a
@@ -4532,6 +4347,7 @@ jr_001_58ea:
     ld a, [$c10e]
     add a
     add a
+bank001_5921:
     ld c, a
     add a
     add a
@@ -4541,12 +4357,11 @@ jr_001_58ea:
     ld hl, $bf14
     add hl, bc
     push hl
-    ld de, $571b
-    ld a, [$c30b]
-    cp $92
-    jr z, jr_001_593a
-
-    ld de, $5721
+    db $11
+    dw $571b
+    db $fa, $0b, $c3, $fe, $92, $28, $03
+    db $11
+    dw $5721
 
 jr_001_593a:
     ld bc, $0006

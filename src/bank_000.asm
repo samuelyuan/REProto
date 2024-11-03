@@ -11449,12 +11449,8 @@ jr_000_2eda:
     nop
     nop
     nop
-    nop
-    ld e, c
-    ld b, b
-    ld e, c
-    dec bc
-    nop
+    
+    db $00, $59, $40, $59, $0b, $00
 
 TitleScreenImageTable:: ; 0x2ef4
     dw $4000
@@ -11482,13 +11478,9 @@ SelectCharacterPaletteTable:: ; 0x2f08
     dw $652a
     dw $677c
     dw $67bc
-    db $02
-
-Jump_000_2f0f:
-    db $00
+    dw $0002
 
 SaveScreenImageTable::
-Jump_000_2f10:
     dw $5740 
     dw $6930 
     dw $000d
@@ -11502,16 +11494,10 @@ SaveScreenPaletteTable::
 InventoryScreenImageTable::
     dw $4000
     dw $4920
-    db $0c
-
-Call_000_2f23:
-    db $00
+    dw $000c
 
 InventoryScreenPaletteTable:: ; 0x2f24
-    db $72
-
-Call_000_2f25:
-    db $4b
+    dw $4b72
     dw $4dc4
     dw $4e04
     dw $000c
@@ -11533,7 +11519,6 @@ DeathScreenImageTable:: ; 0x2f3a
     dw $000d
 
 DeathScreenPaletteTable:: ; 0x2f40
-Jump_000_2f40:
     dw $4920
     dw $4b60
     dw $4ba0
@@ -11547,8 +11532,6 @@ PauseScreenImageTable::
 PauseScreenPaletteTable::
     dw $5588
     dw $56f0
-
-jr_000_2f52:
     dw $5730
     dw $000d
 
@@ -11572,8 +11555,6 @@ Stairs2PaletteTable::
     dw $48d8
     dw $4a40 
     dw $4a80
-
-Call_000_2f70:
     dw $00c7
 
     dw $4520
@@ -11583,11 +11564,7 @@ Call_000_2f70:
     dw $48d8
     dw $4a40 
     dw $4a80
-
-    db $c7
-
-Jump_000_2f7f:
-    db $00
+    dw $00c7
 
 LadderScreenImageTable::
     dw $4a80 
@@ -11650,11 +11627,7 @@ FallingStatueImageTable::
 FallingStatuePaletteTable::
     dw $60d8
     dw $6240
-
-Call_000_2fd0:
     dw $6280
-
-Call_000_2fd2:
     dw $00c4
     
     db $14, $00, $b8, $2f, $14, $00, $c6, $2f
