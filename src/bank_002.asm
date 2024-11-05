@@ -3,8 +3,6 @@ SECTION "ROM Bank $002", ROMX[$4000], BANK[$2]
 TitleScreenImage:: ; 0x4000
     INCBIN "gfx/bank002_title_4000.2bpp"
 
-    INCBIN "gfx/image_002_5400.2bpp"
-
 TitleScreenTilemap:: ; 0x54c0
     db $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0a, $00, $00, $0b, $0c, $0d, $0e, $0f
     db $10, $11, $12, $13, $14, $13, $15, $16, $16, $17, $18, $19, $1a, $1b, $1c, $1d, $1e, $0f
