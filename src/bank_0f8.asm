@@ -1,14 +1,24 @@
 SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
 
+NameChris:: ; 0x4000
     db "CHRIS: ", $01
+NameJill:: ; 0x4008
     db "JILL: ", $01
+NameWesker:: ; 0x400f
     db "WESKER: ", $01
+NameRebecca:: ; 0x4018
     db "REBECCA: ", $01
+NameBarry:: ; 0x4022
     db "BARRY: ", $01
+NameTyrant:: ; 0x402a
     db "TYRANT: ", $01
+NameEnrico:: ; 0x4033
     db "ENRICO: ", $01
+NameRichard:: ; 0x403c
     db "RICHARD: ", $01
+NameBrad:: ; 0x4046
     db "BRAD: ", $01
+NameUnknown:: ; 0x404d
     db "????: ", $01
     
 IntroSceneChris:: ; 0x4054
