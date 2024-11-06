@@ -1203,7 +1203,7 @@ jr_0fc_45fa:
     or a
     jp nz, Jump_0fc_45a8
 
-    ld a, [$c1ef]
+    ld a, [INVENTORY_EQUIPPED_ITEM]
     cp $1f
     jr z, jr_0fc_462f
 
@@ -2346,7 +2346,7 @@ jr_0fc_4c49:
 Jump_0fc_4c61:
 jr_0fc_4c61:
     ld c, $0c
-    ld a, [$c1ef]
+    ld a, [INVENTORY_EQUIPPED_ITEM]
     cp $1f
     jr z, jr_0fc_4c6c
 
@@ -2813,7 +2813,7 @@ jr_0fc_4e9b:
     ld c, a
 
 jr_0fc_4ea1:
-    call Call_000_328a
+    call func_rstat
     ld a, [de]
     ld [hl+], a
     inc de

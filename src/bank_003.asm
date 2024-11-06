@@ -2449,13 +2449,13 @@ Jump_003_7b03:
 
 jr_003_7b16:
     call Call_000_32ef
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, e
     ldh [rBCPD], a
     inc c
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, d
@@ -2476,13 +2476,13 @@ jr_003_7b36:
     ld a, [$c105]
     and $1f
     call Call_000_32ef
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rOCPS], a
     ld a, e
     ldh [rOCPD], a
     inc c
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rOCPS], a
     ld a, d

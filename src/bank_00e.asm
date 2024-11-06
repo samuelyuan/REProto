@@ -4208,7 +4208,7 @@ sprite_anim_init:
 
 Jump_00e_6142:
     ld a, [hl]
-    ld [$c1c3], a
+    ld [DOOR_TRANSITION_TYPE], a
     srl a
     srl a
     srl a

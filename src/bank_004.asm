@@ -459,12 +459,12 @@ jr_004_4c40:
     and $03
     ret nz
 
-    ld a, [$c30e]
+    ld a, [PLAYER_HEALTH]
     or a
     ret z
 
     dec a
-    ld [$c30e], a
+    ld [PLAYER_HEALTH], a
     or a
     ret nz
 
@@ -472,19 +472,20 @@ jr_004_4c40:
     ld [$c105], a
     ret
 
-
+InitPlayerVariables:: ; 0x4c5c
     ld a, $03
     ld [$c184], a
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jp nz, Jump_004_4ca5
 
-    ld a, $19
-    ld [$c1e7], a
-    ld a, $0e
-    ld [$c1e8], a
+    ; Chris start game
+    ld a, $19 ; combat knife
+    ld [INVENTORY_ITEM_ID_BASE], a
+    ld a, $0e ; first aid spray
+    ld [INVENTORY_ITEM_ID_BASE + 1], a
     ld a, $00
-    ld [$c1ef], a
+    ld [INVENTORY_EQUIPPED_ITEM], a
     ld a, $00
     ld [$c306], a
     ld a, $80
@@ -496,25 +497,26 @@ jr_004_4c40:
     ld [$c30c], a
     ld [$c30d], a
     ld a, $20
-    ld [$c30e], a
+    ld [PLAYER_HEALTH], a
     xor a
-    ld [$c125], a
-    ld [$c124], a
+    ld [INVENTORY_FLAG_RADIO], a
+    ld [INVENTORY_FLAG_MAP], a
     ld a, $ff
-    ld [$c126], a
-    ld [$c127], a
+    ld [INVENTORY_FLAG_FILE], a
+    ld [INVENTORY_FLAG_EXIT], a
     ret
 
 
 Jump_004_4ca5:
-    ld a, $1f
-    ld [$c1e7], a
-    ld a, $19
-    ld [$c1e8], a
-    ld a, $0e
-    ld [$c1e9], a
+    ; Jill start game
+    ld a, $1f ; beretta
+    ld [INVENTORY_ITEM_ID_BASE], a
+    ld a, $19 ; combat knife
+    ld [INVENTORY_ITEM_ID_BASE + 1], a
+    ld a, $0e ; first aid spray
+    ld [INVENTORY_ITEM_ID_BASE + 2], a
     ld a, $00
-    ld [$c1ef], a
+    ld [INVENTORY_EQUIPPED_ITEM], a
     ld a, $00
     ld [$c306], a
     ld a, $80
@@ -526,13 +528,13 @@ Jump_004_4ca5:
     ld [$c30c], a
     ld [$c30d], a
     ld a, $20
-    ld [$c30e], a
+    ld [PLAYER_HEALTH], a
     xor a
-    ld [$c125], a
-    ld [$c124], a
+    ld [INVENTORY_FLAG_RADIO], a
+    ld [INVENTORY_FLAG_MAP], a
     ld a, $ff
-    ld [$c126], a
-    ld [$c127], a
+    ld [INVENTORY_FLAG_FILE], a
+    ld [INVENTORY_FLAG_EXIT], a
     ret
 
 
@@ -649,7 +651,7 @@ jr_004_4d7d:
 
 
 jr_004_4d9c:
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     ret z
 

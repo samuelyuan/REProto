@@ -4,211 +4,104 @@ InventroyItemsTileset:: ; 0x4000
     INCBIN "gfx/bank005_inventoryitems_4000.2bpp"
 
 bank005_5b00:
-    nop
-    ld b, b
-    jr nz, jr_005_5b44
+    dw $4000
+    dw $4020
+    dw $4040
+    dw $4060
+    dw $4080
+    dw $40a0
+    dw $4180
+    dw $41a0
+    dw $41c0
+    dw $41e0
+    dw $4200
+    dw $4220
+    dw $4300
+    dw $4320
+    dw $4340
+    dw $4360
+    dw $4380
+    dw $43a0
+    dw $4480
+    dw $44a0
+    dw $44c0
+    dw $44e0
+    dw $4500
+    dw $4520
+    dw $4600
+    dw $4620
+    dw $4640
+    dw $4660
+    dw $4680
+    dw $46a0
+    dw $4780
+    dw $47a0
+    dw $47c0
+    dw $47e0
+    dw $4800
+    dw $4820
+    dw $4900
+    dw $4920
+    dw $4940
+    dw $4960
+    dw $4980
+    dw $49a0
+    dw $4a80
+    dw $4aa0
+    dw $4ac0
+    dw $4ae0
+    dw $4b00
+    dw $4b20
+    dw $4c00
+    dw $4c20
+    dw $4c40
+    dw $4c60
+    dw $4c80
+    dw $4ca0
+    dw $4d80
+    dw $4da0
+    dw $4dc0
+    dw $4de0
+    dw $4e00
+    dw $4e20
+    dw $4f00
+    dw $4f20
+    dw $4f40
+    dw $4f60
+    dw $4f80
+    dw $4fa0
+    dw $5080
+    dw $50a0
+    dw $50c0
+    dw $50e0
+    dw $5100
+    dw $5120
+    dw $5200
+    dw $5220
+    dw $5240
+    dw $5260
+    dw $5280
+    dw $52a0
+    dw $5380
+    dw $53a0
+    dw $53c0
+    dw $53e0
+    dw $5400
+    dw $5420
+    dw $5500
+    dw $5520
+    dw $5540
+    dw $5560
+    dw $5580
+    dw $55a0
+    dw $5680
+    dw $56a0
+    dw $56c0
+    dw $56e0
+    dw $5700
+    dw $5720
 
-    ld b, b
-    ld b, b
-    ld h, b
-    ld b, b
-    add b
-    ld b, b
-    and b
-    ld b, b
-    add b
-    ld b, c
-    and b
-    ld b, c
-    ret nz
-
-    ld b, c
-    ldh [rSTAT], a
-    nop
-    ld b, d
-    jr nz, jr_005_5b5a
-
-    nop
-    ld b, e
-    jr nz, @+$45
-
-    ld b, b
-    ld b, e
-    ld h, b
-    ld b, e
-    add b
-    ld b, e
-    and b
-    ld b, e
-    add b
-    ld b, h
-    and b
-    ld b, h
-    ret nz
-
-    ld b, h
-    ldh [rLY], a
-    nop
-    ld b, l
-    jr nz, jr_005_5b75
-
-    nop
-    ld b, [hl]
-    jr nz, jr_005_5b7a
-
-    ld b, b
-    ld b, [hl]
-    ld h, b
-    ld b, [hl]
-    add b
-    ld b, [hl]
-    and b
-    ld b, [hl]
-    add b
-    ld b, a
-    and b
-    ld b, a
-    ret nz
-
-    ld b, a
-    ldh [rBGP], a
-
-jr_005_5b44:
-    nop
-    ld c, b
-    jr nz, jr_005_5b90
-
-    nop
-    ld c, c
-    jr nz, jr_005_5b95
-
-    ld b, b
-    ld c, c
-    ld h, b
-    ld c, c
-    add b
-    ld c, c
-    and b
-    ld c, c
-    add b
-    ld c, d
-    and b
-    ld c, d
-    ret nz
-
-    ld c, d
-
-jr_005_5b5a:
-    ldh [rWY], a
-    nop
-    ld c, e
-    jr nz, @+$4d
-
-    nop
-    ld c, h
-    jr nz, jr_005_5bb0
-
-    ld b, b
-    ld c, h
-    ld h, b
-    ld c, h
-    add b
-    ld c, h
-    and b
-    ld c, h
-    add b
-    ld c, l
-    and b
-    ld c, l
-    ret nz
-
-    ld c, l
-    ldh [rKEY1], a
-    nop
-
-jr_005_5b75:
-    ld c, [hl]
-    jr nz, jr_005_5bc6
-
-    nop
-    ld c, a
-
-jr_005_5b7a:
-    jr nz, jr_005_5bcb
-
-    ld b, b
-    ld c, a
-    ld h, b
-    ld c, a
-    add b
-    ld c, a
-    and b
-    ld c, a
-    add b
-    ld d, b
-    and b
-    ld d, b
-    ret nz
-
-    ld d, b
-    ldh [$50], a
-    nop
-    ld d, c
-    jr nz, jr_005_5be1
-
-jr_005_5b90:
-    nop
-    ld d, d
-    jr nz, jr_005_5be6
-
-    ld b, b
-
-jr_005_5b95:
-    ld d, d
-    ld h, b
-    ld d, d
-    add b
-    ld d, d
-    and b
-    ld d, d
-    add b
-    ld d, e
-    and b
-    ld d, e
-    ret nz
-
-    ld d, e
-    ldh [rHDMA3], a
-    nop
-    ld d, h
-    jr nz, jr_005_5bfc
-
-    nop
-    ld d, l
-    jr nz, jr_005_5c01
-
-    ld b, b
-    ld d, l
-    ld h, b
-    ld d, l
-
-jr_005_5bb0:
-    add b
-    ld d, l
-    and b
-    ld d, l
-    add b
-    ld d, [hl]
-    and b
-    ld d, [hl]
-    ret nz
-
-    ld d, [hl]
-    ldh [rRP], a
-    nop
-    ld d, a
-    jr nz, jr_005_5c17
-
+bank005_5bc0:
     nop
     nop
     nop
@@ -545,7 +438,7 @@ jr_005_5d2e:
     ld b, a
 
 jr_005_5d38:
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ld [de], a
     inc de
@@ -619,13 +512,13 @@ jr_005_5d8a:
     ld a, [$c105]
     and $1f
     call Call_000_32ef
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, e
     ldh [rBCPD], a
     inc c
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, d
@@ -756,7 +649,7 @@ Call_005_5dfb:
     ld [hl], $36
     ld h, e
     inc c
-    ld a, [$c1ef]
+    ld a, [INVENTORY_EQUIPPED_ITEM]
     ld hl, $5bc0
     add l
     ld l, a
@@ -782,7 +675,7 @@ Call_005_5dfb:
     inc l
     ld [hl], d
     inc l
-    ld a, [$c1ef]
+    ld a, [INVENTORY_EQUIPPED_ITEM]
     ld l, a
     ld h, $00
     add hl, hl
@@ -1265,7 +1158,7 @@ jr_005_60ce:
     ld a, [de]
     ld c, a
     inc de
-    call Call_000_328a
+    call func_rstat
     ld a, [hl]
     and c
     ld b, a
@@ -1305,7 +1198,7 @@ jr_005_6107:
     ld b, $20
 
 jr_005_6109:
-    call Call_000_328a
+    call func_rstat
     ld a, [hl]
     and $f8
     or d
@@ -1316,7 +1209,7 @@ jr_005_6109:
     ld b, $20
 
 jr_005_6116:
-    call Call_000_328a
+    call func_rstat
     ld a, [hl]
     and $f8
     or e
@@ -1361,7 +1254,7 @@ jr_005_6151:
     ld c, $14
 
 jr_005_6153:
-    call Call_000_328a
+    call func_rstat
     ld a, [de]
     ld [hl+], a
     inc e

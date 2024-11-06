@@ -4231,7 +4231,7 @@ Call_0fd_52d9:
     ldh [rVBK], a
 
 jr_0fd_52dd:
-    call Call_000_328a
+    call func_rstat
     ld a, [hl]
     or $80
     ld [hl+], a

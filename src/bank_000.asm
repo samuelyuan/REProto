@@ -686,7 +686,7 @@ Call_000_018e:
 Jump_000_0191:
     ld [$c104], a
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call $446f
     call $4488
     ld a, $03
@@ -785,14 +785,14 @@ jr_000_020b:
     ld [$c180], a
     call Call_000_333b
     call $4515
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
     ld [$c1fc], a
     or a
     jr z, jr_000_022d
 
     ld a, $00
-    call Call_000_2dd0
-    ld a, [$c10e]
+    call LoadSaveScreen
+    ld a, [MENU_CURSOR_OPTION]
     cp $04
     jr z, jr_000_020b
 
@@ -800,15 +800,15 @@ jr_000_020b:
 
 jr_000_022d:
     call Call_000_33eb
-    ld a, [$c10e]
-    ld [$c11b], a
+    ld a, [MENU_CURSOR_OPTION]
+    ld [SELECTED_CHARACTER_INDEX], a
 
 jr_000_0236:
     call $439a
     call Call_000_039d
 
 Jump_000_023c:
-    ld a, [$c30e]
+    ld a, [PLAYER_HEALTH]
 
 Call_000_023f:
 Jump_000_023f:
@@ -818,10 +818,10 @@ Jump_000_023f:
 
 
 Call_000_0246:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $06
-    call Call_000_02ee
+    call SwitchBank
     call $4000
     pop af
     jp Jump_000_02ee
@@ -829,10 +829,10 @@ Call_000_0246:
 
 Call_000_0256:
     ld c, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $06
-    call Call_000_02ee
+    call SwitchBank
     ld a, c
     ld [$c180], a
     call $4006
@@ -843,10 +843,10 @@ Call_000_0256:
 Call_000_026b:
 Jump_000_026b:
     ld c, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $06
-    call Call_000_02ee
+    call SwitchBank
     ld a, c
     ld [$c17f], a
 
@@ -857,7 +857,7 @@ Jump_000_0279:
 
 
 Jump_000_0280:
-    call Call_000_02ee
+    call SwitchBank
     ld de, $0288
     push de
     jp hl
@@ -865,7 +865,7 @@ Jump_000_0280:
 
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     pop af
 
 Jump_000_028f:
@@ -873,7 +873,7 @@ Jump_000_028f:
 
 
 Jump_000_0290:
-    call Call_000_02ee
+    call SwitchBank
     ld bc, $0298
     push bc
     jp hl
@@ -881,17 +881,17 @@ Jump_000_0290:
 
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     pop af
     ret
 
 
 Jump_000_02a0:
     ld c, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, c
-    call Call_000_02ee
+    call SwitchBank
     ld de, $02ae
     push de
     jp hl
@@ -969,11 +969,11 @@ Jump_000_02e9:
     ret
 
 
-Call_000_02ee:
+SwitchBank:
 Jump_000_02ee:
     push bc
     ld b, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
 
 Call_000_02f3:
     ld c, a
@@ -981,7 +981,7 @@ Call_000_02f3:
 
 Call_000_02f5:
 Jump_000_02f5:
-    ld [$c102], a
+    ld [CURRENT_BANK_NUMBER], a
     ld [$2000], a
 
 Call_000_02fb:
@@ -1078,18 +1078,18 @@ jr_000_0347:
     ldh [rVBK], a
     ld a, [$c1c0]
     ldh [rSCY], a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call Call_000_02bb
     xor a
     ld [$c103], a
     ld a, $06
-    call Call_000_02ee
+    call SwitchBank
     call $4009
     pop af
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $c112
     inc [hl]
     ld hl, $c1b0
@@ -1127,7 +1127,7 @@ Jump_000_038c:
 Jump_000_0391:
     di
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call $4515
     jp Jump_000_016b
 
@@ -1143,7 +1143,7 @@ Call_000_039d:
     ld [$c17d], a
     call Call_000_0890
     ld a, $c5
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c17c]
     ld l, a
 
@@ -1188,7 +1188,7 @@ Jump_000_03dc:
 
 Call_000_03e0:
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call Call_000_08b2
     call Call_000_0906
 
@@ -1246,7 +1246,7 @@ Call_000_0423:
     ld a, $1f
     ld [$c105], a
     ld c, $92
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
 
 Call_000_0439:
 Jump_000_0439:
@@ -1478,7 +1478,7 @@ Jump_000_057e:
 
 
 Jump_000_058d:
-    ld a, [$c30e]
+    ld a, [PLAYER_HEALTH]
     or a
     ret z
 
@@ -1512,7 +1512,7 @@ Call_000_05bd:
 
 Jump_000_05c1:
     call $4515
-    ld a, [$c1c3]
+    ld a, [DOOR_TRANSITION_TYPE]
     cp $7c
     jr c, jr_000_05d0
 
@@ -1542,7 +1542,7 @@ Jump_000_05eb:
     xor a
     ld [$c307], a
     ld a, $01
-    call Call_000_2dd0
+    call LoadSaveScreen
     ld a, $01
     ld [$c105], a
     jp Jump_000_0405
@@ -1553,7 +1553,7 @@ Jump_000_05ff:
     ld a, [$c1b8]
 
 Jump_000_0602:
-    ld [$c1f4], a
+    ld [INVENTORY_CURSOR_OPTION_ITEM_ID], a
 
 Jump_000_0605:
     call Call_000_366f
@@ -1563,10 +1563,10 @@ Jump_000_0605:
 
 
 Call_000_0610:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, c
 
 Call_000_061a:
@@ -1580,10 +1580,10 @@ Call_000_0620:
 
 
 Call_000_0623:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $fa
-    call Call_000_02ee
+    call SwitchBank
     ld a, [de]
     ld c, a
     inc de
@@ -1599,7 +1599,7 @@ Call_000_0630:
 
 Jump_000_0634:
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, e
     call Call_000_3d9a
 
@@ -1612,14 +1612,14 @@ Jump_000_063e:
 
 Call_000_0641:
 Jump_000_0641:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
 
 Call_000_0644:
 Jump_000_0644:
     push af
     push hl
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call $4515
     call $4488
     call Call_000_0741
@@ -1633,10 +1633,10 @@ Jump_000_0644:
 
 
 Call_000_0664:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call $4515
     call $4488
     call Call_000_0741
@@ -1645,10 +1645,10 @@ Call_000_0664:
 
 
 Call_000_067a:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, c
     ld [$c105], a
     ld b, $20
@@ -1689,12 +1689,12 @@ jr_000_06ad:
 
 
 Call_000_06b5:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call $4515
-    ld a, [$c1c3]
+    ld a, [DOOR_TRANSITION_TYPE]
     cp $7c
     jr nc, jr_000_06cf
 
@@ -1715,10 +1715,10 @@ Jump_000_06d3:
 
 Call_000_06d6:
 Jump_000_06d6:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
 
 Call_000_06df:
     call Call_000_1342
@@ -1736,7 +1736,7 @@ Jump_000_06f8:
 
 
 Call_000_06fb:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
 
 Call_000_06ff:
@@ -1745,7 +1745,7 @@ Jump_000_06ff:
 
 Call_000_0701:
 Jump_000_0701:
-    call Call_000_02ee
+    call SwitchBank
 
 Call_000_0704:
 Jump_000_0704:
@@ -1767,12 +1767,12 @@ Call_000_0713:
     ld c, a
 
 Jump_000_0714:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
 
 Call_000_0718:
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     push bc
     call $4515
     pop bc
@@ -1789,7 +1789,7 @@ Call_000_0718:
     ld h, [hl]
     ld l, a
     ld a, c
-    call Call_000_2fdc
+    call LoadImageFromTable
     pop af
     jp Jump_000_02ee
 
@@ -1803,7 +1803,7 @@ Jump_000_073e:
 
 Call_000_0741:
     ld a, $07
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c17c]
     ld l, a
     ld a, [$c17d]
@@ -1873,7 +1873,7 @@ Call_000_0781:
     and $40
     ld [$c1e3], a
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call Call_000_1138
     call Call_000_091b
     ld a, [$c17c]
@@ -1901,15 +1901,15 @@ Jump_000_07d4:
     ld a, $0f
 
 Jump_000_07da:
-    call Call_000_02ee
+    call SwitchBank
 
 Call_000_07dd:
     ld de, $4cb0
     ld hl, $8800
     ld bc, $0800
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
 
 Jump_000_07ee:
     xor a
@@ -1917,7 +1917,7 @@ Jump_000_07ee:
     ld a, $0c
 
 Call_000_07f3:
-    call Call_000_02ee
+    call SwitchBank
     ld de, $4f04
 
 Call_000_07f9:
@@ -1929,18 +1929,18 @@ Jump_000_07fc:
 
 Call_000_07ff:
 Jump_000_07ff:
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
 
 Call_000_0802:
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $9a00
     ld b, $80
 
 jr_000_080c:
     xor a
     ldh [rVBK], a
-    call Call_000_328a
+    call func_rstat
     ld [hl], $80
     ld a, $01
     ldh [rVBK], a
@@ -1961,17 +1961,17 @@ Jump_000_0824:
 
 
 Call_000_0829:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $04
-    call Call_000_02ee
+    call SwitchBank
     call $4bc4
     pop af
     jp Jump_000_02ee
 
 
 Call_000_0839:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
 
 Jump_000_083c:
     push af
@@ -1981,7 +1981,7 @@ Jump_000_083d:
 
 Call_000_083f:
 Jump_000_083f:
-    call Call_000_02ee
+    call SwitchBank
     call $4b80
     pop af
     jp Jump_000_02ee
@@ -1989,7 +1989,7 @@ Jump_000_083f:
 
 Jump_000_0849:
     ld a, $03
-    call Call_000_02ee
+    call SwitchBank
     call $7a80
     ld a, $01
     jp Jump_000_02ee
@@ -2021,7 +2021,7 @@ Call_000_086e:
 
 Call_000_0876:
     ld a, $04
-    call Call_000_02ee
+    call SwitchBank
     call $4a33
     ld a, $01
     jp Jump_000_02ee
@@ -2029,7 +2029,7 @@ Call_000_0876:
 
 Call_000_0883:
     ld a, $08
-    call Call_000_02ee
+    call SwitchBank
     call $4000
     ld a, $01
     jp Jump_000_02ee
@@ -2750,7 +2750,7 @@ Call_000_0c0a:
     ld a, $fa
 
 Call_000_0c0c:
-    call Call_000_02ee
+    call SwitchBank
 
 Call_000_0c0f:
     ld c, [hl]
@@ -2759,7 +2759,7 @@ Call_000_0c0f:
     inc hl
     ld e, [hl]
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, e
     ld hl, $1000
     jp Jump_000_3dda
@@ -2870,7 +2870,7 @@ Call_000_0c85:
     ld bc, $0400
 
 jr_000_0c92:
-    call Call_000_328a
+    call func_rstat
     xor a
     ldh [rVBK], a
     ld [hl], $80
@@ -3703,7 +3703,7 @@ Call_000_1134:
 
 Call_000_1138:
     ld a, $0b
-    call Call_000_02ee
+    call SwitchBank
 
 Jump_000_113d:
     ld de, $4000
@@ -3742,7 +3742,7 @@ Jump_000_1161:
     ld a, [hl]
     ld [$c12d], a
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     jp $564a
 
 
@@ -3755,7 +3755,7 @@ Call_000_117e:
     ld l, e
     ld h, d
     ld a, $0b
-    call Call_000_02ee
+    call SwitchBank
     ld de, $4000
     ld a, h
     and $0f
@@ -10525,10 +10525,10 @@ Jump_000_29b2:
     inc de
     push de
     push hl
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $0a
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $4000
     ld a, [$c128]
 
@@ -10543,7 +10543,7 @@ Jump_000_29cc:
     ld l, b
     ld b, [hl]
     pop af
-    call Call_000_02ee
+    call SwitchBank
 
 Jump_000_29d6:
     ld a, h
@@ -10555,16 +10555,16 @@ Jump_000_29d6:
     inc de
     ld a, [de]
     ld b, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $0a
-    call Call_000_02ee
+    call SwitchBank
     ld l, c
     ld c, [hl]
     ld l, b
     ld b, [hl]
     pop af
-    call Call_000_02ee
+    call SwitchBank
     pop de
     ld hl, $2a07
     push hl
@@ -10746,7 +10746,7 @@ jr_000_2a9b:
     ld [$c118], a
     inc de
     ld a, [de]
-    call Call_000_02ee
+    call SwitchBank
     inc de
     ld a, [de]
     ld l, a
@@ -10808,7 +10808,7 @@ Jump_000_2aff:
     ld a, h
     ld [$c114], a
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c165]
     ld l, a
     ld h, $00
@@ -11059,7 +11059,7 @@ jr_000_2c6f:
     ld d, $00
     add hl, de
     ld a, $fd
-    call Call_000_02ee
+    call SwitchBank
     ld a, [hl+]
     ld c, a
     inc hl
@@ -11080,7 +11080,7 @@ Jump_000_2c98:
     inc hl
     ld d, [hl]
     ld a, c
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c113]
     ld l, a
     ld a, [$c114]
@@ -11092,7 +11092,7 @@ Jump_000_2c98:
     ld a, h
     ld [$c114], a
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     pop hl
     push hl
     call Call_000_0876
@@ -11208,7 +11208,7 @@ jr_000_2d4d:
 
 Call_000_2d62:
     ld a, $0b
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c160]
     ld l, a
     ld h, $00
@@ -11225,7 +11225,7 @@ Call_000_2d62:
     ld d, a
     call Call_000_2687
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c160]
     ld l, a
     ld h, $00
@@ -11269,19 +11269,19 @@ jr_000_2db8:
     jp Jump_000_3d04
 
 
-Call_000_2dd0:
+LoadSaveScreen:
     ld [$c10f], a
-    ld hl, $2f10
+    ld hl, SaveScreenImageTable
     ld a, $16
-    call Call_000_2fdc
+    call LoadImageFromTable
     ld a, $02
-    call Call_000_02ee
+    call SwitchBank
     ld de, $6c7c
     ld hl, $cb00
     ld bc, $0020
     call Call_000_321c
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
 
 Jump_000_2df1:
     ld de, $5701
@@ -11306,7 +11306,7 @@ jr_000_2e11:
     call $4488
     call Call_000_11ad
     xor a
-    ld [$c10e], a
+    ld [MENU_CURSOR_OPTION], a
     ld a, $20
 
 Jump_000_2e20:
@@ -11315,7 +11315,7 @@ Jump_000_2e20:
 Jump_000_2e23:
     call Call_000_3ed2
     call $56e7
-    ld hl, $c10e
+    ld hl, MENU_CURSOR_OPTION
     ld a, [$c100]
     and $40
     jr z, jr_000_2e4a
@@ -11342,7 +11342,7 @@ jr_000_2e4a:
     ld [$c110], a
 
 jr_000_2e4e:
-    ld hl, $c10e
+    ld hl, MENU_CURSOR_OPTION
     ld a, [$c100]
     and $80
     jr z, jr_000_2e70
@@ -11378,7 +11378,7 @@ jr_000_2e74:
     and $0b
     jr z, jr_000_2eda
 
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
 
 Jump_000_2e87:
     cp $04
@@ -11424,7 +11424,7 @@ Call_000_2ec4:
     cp $00
     jr nz, jr_000_2eda
 
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
 
 Jump_000_2ed1:
     cp $04
@@ -11450,7 +11450,9 @@ jr_000_2eda:
     nop
     nop
     
-    db $00, $59, $40, $59, $0b, $00
+    dw $5900
+    dw $5940
+    dw $000b
 
 TitleScreenImageTable:: ; 0x2ef4
     dw $4000
@@ -11480,7 +11482,7 @@ SelectCharacterPaletteTable:: ; 0x2f08
     dw $67bc
     dw $0002
 
-SaveScreenImageTable::
+SaveScreenImageTable:: ; 0x2f10
     dw $5740 
     dw $6930 
     dw $000d
@@ -11491,7 +11493,7 @@ SaveScreenPaletteTable::
     dw $6c88
     dw $000d
     
-InventoryScreenImageTable::
+InventoryScreenImageTable:: ; 0x2f1e
     dw $4000
     dw $4920
     dw $000c
@@ -11524,7 +11526,7 @@ DeathScreenPaletteTable:: ; 0x2f40
     dw $4ba0
     dw $000d
     
-PauseScreenImageTable::
+PauseScreenImageTable:: ; 0x2f48
     dw $4bb0
     dw $5420
     dw $000d
@@ -11535,7 +11537,7 @@ PauseScreenPaletteTable::
     dw $5730
     dw $000d
 
-Stairs1ImageTable::
+Stairs1ImageTable:: ; 0x2f56
     dw $4000
     dw $4210
     dw $00c7
@@ -11546,7 +11548,7 @@ Stairs1PaletteTable::
     dw $4520
     dw $00c7
 
-Stairs2ImageTable::
+Stairs2ImageTable:: ; 0x2f64
     dw $4520 
     dw $4770 
     dw $00c7
@@ -11557,6 +11559,7 @@ Stairs2PaletteTable::
     dw $4a80
     dw $00c7
 
+Stairs3ImageTable:: ; 0x2f72
     dw $4520
     dw $4770 
     dw $00c7
@@ -11566,7 +11569,7 @@ Stairs2PaletteTable::
     dw $4a80
     dw $00c7
 
-LadderScreenImageTable::
+LadderScreenImageTable:: ; 0x2f80
     dw $4a80 
     dw $4ae0
     dw $00c7
@@ -11577,7 +11580,7 @@ LadderScreenPaletteTable::
     dw $4df0
     dw $00c7
 
-RopeScreenImageTable::
+RopeScreenImageTable:: ; 0x2f8e
     dw $4df0
     dw $4e40
     dw $00c7
@@ -11587,7 +11590,8 @@ RopeScreenPaletteTable::
     dw $5110
     dw $5150
     dw $00c7
-    
+
+LadderScreen2ImageTable:: ; 0x2f9c
     dw $4a80
     dw $4ae0
     dw $00c7
@@ -11597,7 +11601,7 @@ RopeScreenPaletteTable::
     dw $4df0
     dw $00c7
     
-ItemBoxImageTable::
+ItemBoxImageTable:: ; 0x2faa
     dw $4ebc 
     dw $56bc 
     dw $00fc
@@ -11608,7 +11612,7 @@ ItemBoxPaletteTable::
     dw $5ba0
     dw $00fc
     
-FirstZombieImageTable::
+FirstZombieImageTable:: ; 0x2fb8
     dw $4000
     dw $4cd0
     dw $00c4
@@ -11619,7 +11623,7 @@ FirstZombiePaletteTable::
     dw $4fe0
     dw $00c4
     
-FallingStatueImageTable::
+FallingStatueImageTable:: ; 0x2fc6
     dw $4fe0
     dw $5f70
     dw $00c4
@@ -11629,24 +11633,33 @@ FallingStatuePaletteTable::
     dw $6240
     dw $6280
     dw $00c4
-    
+
     db $14, $00, $b8, $2f, $14, $00, $c6, $2f
 
-Call_000_2fdc:
-    db $f5, $7d, $ea, $06, $c1, $7c
-    ld [$c107], a
+LoadImageFromTable:
+    push af
+    ; load address of table into register
+    ld a, l
+    ld [IMAGE_TILESET_BASE], a
+    ld a, h
+    ld [IMAGE_TILESET_BASE + 1], a
+    ; load tileset address into register DE
     ld e, [hl]
     inc hl
     ld d, [hl]
     inc hl
+    ; skip next address
     ld bc, $0002
     add hl, bc
+    ; load bank number into register A
     ld a, [hl]
-    call Call_000_02ee
+    call SwitchBank
     push hl
+    ; Copy tileset data into VRAM 0x8800
     ld hl, $8800
+    ; read 4096 bytes, which is 256 8x8 blocks
     ld bc, $1000
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld a, $01
     ldh [rVBK], a
 
@@ -11655,25 +11668,29 @@ Jump_000_2fff:
     ld hl, $8800
 
 Call_000_3002:
+    ; read 4096 bytes, which is 256 8x8 blocks
     ld bc, $1000
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     xor a
     ldh [rVBK], a
     pop hl
+    ; subtract 2 to go back to previous address
     ld bc, $fffe
     add hl, bc
+    ; load tilemap address into register DE
     ld e, [hl]
     inc hl
     ld d, [hl]
+    ; load into 0x9800
     ld hl, $9800
     pop bc
 
 jr_000_3017:
     push hl
-    ld c, $12
-
+    ld c, $12 ; each column has 18 (0x12) rows
+ 
 jr_000_301a:
-    call Call_000_328a
+    call func_rstat
 
 Jump_000_301d:
     ld a, [de]
@@ -11711,21 +11728,27 @@ Jump_000_303c:
     push de
 
 Jump_000_303d:
-    ld a, [$c106]
+    ; load base address of image tileset into register HL
+    ld a, [IMAGE_TILESET_BASE]
     ld l, a
-    ld a, [$c107]
+    ld a, [IMAGE_TILESET_BASE + 1]
     ld h, a
+    ; add offset 2 to skip tileset address in table
     ld bc, $0002
     add hl, bc
+    ; load address of tilemap into register DE
     ld e, [hl]
     inc hl
     ld d, [hl]
     inc hl
+    ; add offset 2 to skip bank num in table 
     ld bc, $0002
     add hl, bc
+    ; load address of palette index into register BC
     ld c, [hl]
     inc hl
     ld b, [hl]
+
     dec hl
     ld a, c
     sub e
@@ -11746,7 +11769,7 @@ Jump_000_305b:
     ld d, a
     ld a, $01
     ldh [rVBK], a
-    call Call_000_328a
+    call func_rstat
     ld a, [de]
     ld [hl], a
     xor a
@@ -11758,20 +11781,20 @@ Jump_000_305b:
 
 Call_000_3073:
 Jump_000_3073:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     xor a
     push hl
     jr jr_000_308d
 
 Call_000_3080:
 Jump_000_3080:
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     push af
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     push hl
     ld a, [$c11f]
 
@@ -11792,15 +11815,15 @@ jr_000_308d:
     inc hl
     ld a, c
     ld [$c10a], a
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $0280
     add hl, de
     call Call_000_31fd
     ld a, l
-    ld [$c1d2], a
+    ld [INVENTORY_TILESET_BASE], a
     ld a, h
-    ld [$c1d3], a
-    ld a, [$c102]
+    ld [INVENTORY_TILESET_BASE + 1], a
+    ld a, [CURRENT_BANK_NUMBER]
     ld [$c10b], a
 
 Call_000_30b8:
@@ -11815,7 +11838,7 @@ Jump_000_30c2:
 
 Call_000_30c4:
     ld a, [$c10a]
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c108]
     and $0f
 
@@ -11889,7 +11912,7 @@ Call_000_3103:
     pop hl
     and $f7
     ld c, a
-    call Call_000_328a
+    call func_rstat
     ld a, [$c108]
     ld [hl], a
 
@@ -11907,7 +11930,7 @@ Call_000_313c:
 
 jr_000_314b:
     ld a, [$c10a]
-    call Call_000_02ee
+    call SwitchBank
     ld a, [$c108]
     and $0f
     inc a
@@ -11960,10 +11983,10 @@ Call_000_317f:
     add hl, hl
     add hl, hl
     ld a, [$c10b]
-    call Call_000_02ee
-    ld a, [$c1d2]
+    call SwitchBank
+    ld a, [INVENTORY_TILESET_BASE]
     ld e, a
-    ld a, [$c1d3]
+    ld a, [INVENTORY_TILESET_BASE + 1]
     ld d, a
     add hl, de
     ld e, l
@@ -12014,7 +12037,7 @@ Call_000_31ef:
 
     sub $40
     ld d, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     inc a
     jp Jump_000_02ee
 
@@ -12026,7 +12049,7 @@ Call_000_31fd:
 
     sub $40
     ld h, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
     inc a
     jp Jump_000_02ee
 
@@ -12085,7 +12108,7 @@ Call_000_323b:
     ret
 
 
-Call_000_323c:
+LoadTilesetIntoVRAM:
 jr_000_323c:
     ldh a, [rSTAT]
     and $03
@@ -12152,11 +12175,11 @@ Call_000_3270:
 
     sub $40
     ld d, a
-    ld a, [$c102]
+    ld a, [CURRENT_BANK_NUMBER]
 
 Jump_000_3280:
     inc a
-    call Call_000_02ee
+    call SwitchBank
 
 jr_000_3284:
     dec bc
@@ -12167,7 +12190,7 @@ jr_000_3284:
     ret
 
 
-Call_000_328a:
+func_rstat:
 jr_000_328a:
     ldh a, [rSTAT]
     and $03
@@ -12182,7 +12205,7 @@ jr_000_3290:
 
 
 Jump_000_3297:
-    call Call_000_02ee
+    call SwitchBank
     push de
     ld c, $00
     ld b, $20
@@ -12195,13 +12218,13 @@ jr_000_329f:
     ld a, [$c105]
     and $1f
     call Call_000_32ef
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, e
     ldh [rBCPD], a
     inc c
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, d
@@ -12224,13 +12247,13 @@ jr_000_32c7:
     ld a, [$c105]
     and $1f
     call Call_000_32ef
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rOCPS], a
     ld a, e
     ldh [rOCPD], a
     inc c
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rOCPS], a
     ld a, d
@@ -12326,13 +12349,13 @@ Jump_000_3338:
 
 
 Call_000_333b:
-    ld hl, $2ef4
+    ld hl, TitleScreenImageTable
     ld a, $14
 
 Jump_000_3340:
-    call Call_000_2fdc
+    call LoadImageFromTable
     xor a
-    ld [$c10e], a
+    ld [MENU_CURSOR_OPTION], a
     call $4488
     ld a, $20
 
@@ -12410,32 +12433,32 @@ jr_000_339d:
     ld a, $ff
 
 Jump_000_33c0:
-    call Call_000_02ee
+    call SwitchBank
     call $4000
     ld a, $01
 
 Jump_000_33c8:
-    call Call_000_02ee
+    call SwitchBank
     ld bc, $1388
     call Call_000_3d7f
     ld hl, $4d1a
     ld de, $0480
     ld bc, $00cc
     ld a, $ff
-    call Call_000_02ee
+    call SwitchBank
     call $4000
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ei
     jp Jump_000_335a
 
 
 Call_000_33eb:
-    ld hl, $2f02
+    ld hl, SelectCharacterImageTable
     ld a, $14
-    call Call_000_2fdc
+    call LoadImageFromTable
     ld a, $02
-    call Call_000_02ee
+    call SwitchBank
     ld de, $6afc
     ld hl, $cb00
     ld bc, $0180
@@ -12449,12 +12472,12 @@ Call_000_33eb:
     ld bc, $0020
     call Call_000_321c
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call Call_000_11ad
 
 Call_000_3424:
     xor a
-    ld [$c10e], a
+    ld [MENU_CURSOR_OPTION], a
     ld a, $28
 
 Call_000_342a:
@@ -12489,9 +12512,9 @@ jr_000_3437:
     cp $c0
     jr nz, jr_000_3480
 
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
     xor $01
-    ld [$c10e], a
+    ld [MENU_CURSOR_OPTION], a
     jr jr_000_3480
 
 jr_000_346c:
@@ -12542,7 +12565,7 @@ jr_000_34b2:
     ld c, $08
 
 jr_000_34b5:
-    call Call_000_328a
+    call func_rstat
     ld [hl], e
     ld a, $01
     ldh [rVBK], a
@@ -12567,16 +12590,17 @@ Jump_000_34cb:
     ret
 
 
-Call_000_34d1:
+InventoryDrawLoop:: ;0x34d1
     ld hl, $9841
-    ld b, $0b
+    ; Register BC is used to store dimensions of tile array
+    ld b, $0b ; columns is 11
 
 jr_000_34d6:
     push hl
-    ld c, $08
+    ld c, $08 ; rows is 8
 
 jr_000_34d9:
-    call Call_000_328a
+    call func_rstat
     ld a, $01
     ldh [rVBK], a
     ld a, [de]
@@ -12589,12 +12613,12 @@ jr_000_34d9:
     add hl, bc
     pop bc
     inc de
-    dec c
+    dec c ; move on to next tile
     jr nz, jr_000_34d9
 
     pop hl
     inc l
-    dec b
+    dec b ; draw next column
 
 Call_000_34f4:
     jr nz, jr_000_34d6
@@ -12643,7 +12667,7 @@ jr_000_3506:
 
 Call_000_351d:
     ld a, $05
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $5ee7
     ld b, $2d
 
@@ -12655,7 +12679,7 @@ jr_000_3527:
     jr nz, jr_000_3527
 
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld a, $09
     ld hl, $4040
     jp Jump_000_353c
@@ -12663,7 +12687,7 @@ jr_000_3527:
 
 Call_000_353c:
 Jump_000_353c:
-    call Call_000_02ee
+    call SwitchBank
     ld c, $00
     ld b, $20
 
@@ -12675,13 +12699,13 @@ jr_000_3543:
     ld a, [$c105]
     and $1f
     call Call_000_32ef
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, e
     ldh [rBCPD], a
     inc c
-    call Call_000_328a
+    call func_rstat
     ld a, c
     ldh [rBCPS], a
     ld a, d
@@ -12693,152 +12717,139 @@ jr_000_3543:
     ld a, $01
     jp Jump_000_02ee
 
+InventoryMapTable:: ; 0x356b
+    dw $0009
+    dw $42b0
+    dw $4140
+    dw $4308
 
-    add hl, bc
-    nop
-    or b
-    ld b, d
-    ld b, b
-    ld b, c
-    ld [$0943], sp
-    nop
-    nop
-    ld b, b
-    add hl, bc
-    nop
-    sub b
-    ld c, a
-    ldh a, [rKEY1]
-    add sp, $4f
-    add hl, bc
-    nop
-    add b
-    ld b, b
-    add hl, bc
-    nop
-    nop
-    ld d, d
-    ld b, b
-    ld d, b
-    ld e, b
-    ld d, d
-    add hl, bc
-    nop
-    ret nz
+    dw $0009
+    dw $4000
 
-    ld b, b
-    add hl, bc
-    nop
-    ld d, b
-    ld d, h
-    or b
-    ld d, d
-    xor b
-    ld d, h
-    add hl, bc
-    nop
-    nop
-    ld b, c
-    add hl, bc
-    nop
-    nop
-    ld d, [hl]
-    nop
-    ld d, l
-    ld e, b
-    ld d, [hl]
-    add hl, bc
-    nop
-    add b
-    ld b, b
-    add hl, bc
-    nop
-    or b
-    ld d, a
-    or b
-    ld d, [hl]
-    ld [$0958], sp
-    nop
-    ret nz
+InventoryFile1Table:: ; 0x3577
+    dw $0009
+    dw $4f90
+    dw $4df0
+    dw $4fe8
 
-    ld b, b
-    add hl, bc
+    dw $0009
+    dw $4080
 
-Jump_000_35b4:
-    nop
-    ld h, b
-    ld e, c
-    ld h, b
-    ld e, b
-    cp b
-    ld e, c
-    add hl, bc
-    nop
-    nop
-    ld b, c
+InventoryFile2Table:: ; 0x3583
+    dw $0009
+    dw $5200
+    dw $5040
+    dw $5258
+
+    dw $0009
+    dw $40c0
+
+InventoryFile3Table:: ; 0x358f
+    dw $0009
+    dw $5450
+    dw $52b0
+    dw $54a8
+
+    dw $0009
+    dw $4100
+
+ItemOptionsCheckTable:: ; 0x359b
+    dw $0009
+    dw $5600
+    dw $5500
+    dw $5658
+
+    dw $0009
+    dw $4080
+    
+ItemOptionsCombineTable:: ; 0x35a7
+    dw $0009
+    dw $57b0
+    dw $56b0
+    dw $5808
+
+    dw $0009
+    dw $40c0
+
+ItemOptionsUseTable:: ; 0x35b3
+    dw $0009
+    dw $5960
+    dw $5860
+    dw $59b8
+
+    dw $0009
+    dw $4100
 
 Call_000_35bf:
 Jump_000_35bf:
-    ld hl, $3577
-    ld a, [$c1d4]
+    ld hl, InventoryFile1Table
+    ld a, [SELECTED_FILE_BOOK_INDEX]
     or a
     jr z, jr_000_35d5
 
-    ld hl, $3583
+    ld hl, InventoryFile2Table
 
 Jump_000_35cb:
-    ld a, [$c1d4]
+    ld a, [SELECTED_FILE_BOOK_INDEX]
     cp $01
     jr z, jr_000_35d5
 
-    ld hl, $358f
+    ld hl, InventoryFile3Table
 
 jr_000_35d5:
     jr jr_000_35f2
 
 Call_000_35d7:
-    ld hl, $35b3
+    ld hl, ItemOptionsUseTable
 
 Jump_000_35da:
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $80
     jr z, jr_000_35eb
 
-    ld hl, $359b
+    ld hl, ItemOptionsCheckTable
     cp $81
     jr z, jr_000_35eb
 
-    ld hl, $35a7
+    ld hl, ItemOptionsCombineTable
 
 jr_000_35eb:
     jr jr_000_35f2
 
 Call_000_35ed:
-    ld hl, $356b
+    ld hl, InventoryMapTable
     jr jr_000_35f2
 
 jr_000_35f2:
+    ; load bank number into register BC
     ld c, [hl]
     inc hl
     inc hl
+
+    ; load tilemap address into register DE
     ld e, [hl]
     inc hl
     ld d, [hl]
     inc hl
+
+    ; load tileset address
     ld a, [hl+]
-    ld [$c1d2], a
+    ld [INVENTORY_TILESET_BASE], a
     ld a, [hl+]
-    ld [$c1d3], a
+    ld [INVENTORY_TILESET_BASE + 1], a
+
     push bc
     push hl
+
     ld a, c
-    call Call_000_02ee
+    call SwitchBank
     ld a, $01
     ldh [rVBK], a
     ld hl, $9000
+    ; read 88 (0x58) blocks
     ld b, $58
 
-jr_000_3610:
+InventoryReadTilesetLoop:
     push bc
     push hl
     ld a, [de]
@@ -12848,19 +12859,24 @@ jr_000_3610:
     add hl, hl
     add hl, hl
     add hl, hl
-    ld a, [$c1d2]
+    ld a, [INVENTORY_TILESET_BASE]
     ld c, a
-    ld a, [$c1d3]
+    ld a, [INVENTORY_TILESET_BASE + 1]
     ld b, a
     add hl, bc
     ld c, l
     ld b, h
     pop hl
+    ; each iteration reads 4 bytes
+    ; run loop 4 times to read 16 (4*4) bytes which is one 8x8 block
     ld a, $04
 
-jr_000_3628:
+InventoryRead4BytesLoop:
     push af
-    call Call_000_328a
+    call func_rstat
+    ; register BC stores tileset
+    ; HL is set to VRAM address
+    ; copy tileset into VRAM
     ld a, [bc]
     ld [hl+], a
     inc bc
@@ -12871,25 +12887,24 @@ jr_000_3628:
     ld [hl+], a
     inc bc
     ld a, [bc]
-
-Jump_000_3636:
     ld [hl+], a
     inc bc
     pop af
     dec a
-    jr nz, jr_000_3628
+    jr nz, InventoryRead4BytesLoop
 
-    inc de
+    inc de ; increase index of tilemap
     pop bc
     dec b
-    jr nz, jr_000_3610
+    jr nz, InventoryReadTilesetLoop
 
     xor a
     ldh [rVBK], a
     pop hl
     pop bc
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
+    ; loads address of palette index into register DE
     ld e, [hl]
     inc hl
     ld d, [hl]
@@ -12898,14 +12913,16 @@ Jump_000_364e:
     inc hl
     push hl
     ld a, c
-    call Call_000_02ee
-    call Call_000_34d1
+    call SwitchBank
+    call InventoryDrawLoop
     pop hl
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
+    ; load bank number into register BC
     ld c, [hl]
     inc hl
     inc hl
+    ; load palette address into register HL
     ld a, [hl+]
     ld h, [hl]
     ld l, a
@@ -12915,7 +12932,7 @@ Jump_000_364e:
 
 Call_000_3667:
     ld a, $0c
-    ld hl, $4dc4
+    ld hl, $4dc4 ; load palette for inventory screen in bank 0xc
     jp Jump_000_353c
 
 
@@ -12926,13 +12943,13 @@ Call_000_366f:
     ld a, $01
     ld [$c105], a
     ld a, $ff
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld hl, $2f26
     call $44a7
     call Call_000_08ce
     ld a, $fa
-    call Call_000_02ee
-    ld a, [$c1f4]
+    call SwitchBank
+    ld a, [INVENTORY_CURSOR_OPTION_ITEM_ID]
     ld l, a
     ld h, $00
     add hl, hl
@@ -12944,7 +12961,7 @@ Call_000_366f:
     inc hl
     ld b, [hl]
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $0f00
     ld a, $fa
     call Call_000_3dda
@@ -12973,12 +12990,14 @@ Call_000_36d2:
     ld hl, $0f00
     ld a, $fa
     call Call_000_3dda
-    ld de, $4597
-    ld a, [$c123]
+    ld de, $4597 ; base address for item name in bank 0xfa
+    ld a, [INVENTORY_CURSOR_OPTION] 
+
+    ; Inventory options
     cp $04
     jr c, jr_000_3727
 
-    cp $0c
+    cp $0c ; displays item name
     jr c, jr_000_36fd
 
     cp $e0
@@ -12988,12 +13007,12 @@ Call_000_36d2:
     jr jr_000_36fd
 
 jr_000_36f3:
-    cp $81
+    cp $81 ; player selects check, show item description
     jr nz, jr_000_3727
 
 Jump_000_36f7:
-    ld de, $4599
-    ld a, [$c1f3]
+    ld de, $4599 ; base address for item description in bank 0xfa
+    ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
 
 jr_000_36fd:
     sub $04
@@ -13002,25 +13021,32 @@ jr_000_36fd:
 Call_000_3700:
 Jump_000_3700:
     ld h, $00
-    ld bc, $c1e7
+    ld bc, INVENTORY_ITEM_ID_BASE
+    ; Add offset (0 to 7)
     add hl, bc
     ld a, [hl]
     cp $00
     jr z, jr_000_3727
 
+    ; Related to inventory items
+    ; Loads strings from bank 0xfa
     ld a, $fa
-    call Call_000_02ee
+    call SwitchBank
     ld l, [hl]
     ld h, $00
+    ; base address is loaded before at $(DE)
+    ; offset is itemId * 8, since each item takes 8 bytes (4 addresses)
     add hl, hl
     add hl, hl
     add hl, hl
+    ; Add offset in HL to DE
     add hl, de
+    ; Load item string from address
     ld c, [hl]
     inc hl
     ld b, [hl]
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $0f00
     ld a, $fa
     jp Jump_000_3dda
@@ -13034,47 +13060,47 @@ Call_000_3728:
     or a
     jr z, jr_000_3735
 
-    ld hl, $2faa
+    ld hl, ItemBoxImageTable
     ld a, $20
-    call Call_000_2fdc
+    call LoadImageFromTable
 
 Call_000_3733:
     jr jr_000_3743
 
 Jump_000_3735:
 jr_000_3735:
-    ld hl, $2f1e
+    ld hl, InventoryScreenImageTable
     ld a, $20
-    call Call_000_2fdc
+    call LoadImageFromTable
     call Call_000_34a9
     call Call_000_34f7
 
 jr_000_3743:
     ld a, $0c
-    call Call_000_02ee
+    call SwitchBank
     ld de, $4e84
     ld hl, $cb00
     ld bc, $0080
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     call Call_000_37b8
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_000_37b1
 
     ld de, $98ec
     ld hl, $98ac
     ld bc, $0008
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld de, $990c
     ld hl, $98cc
     ld bc, $0008
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld de, $992c
     ld hl, $98ec
     ld bc, $0008
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld a, $01
 
 Jump_000_3788:
@@ -13082,15 +13108,15 @@ Jump_000_3788:
     ld de, $98ec
     ld hl, $98ac
     ld bc, $0008
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld de, $990c
     ld hl, $98cc
     ld bc, $0008
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld de, $992c
     ld hl, $98ec
     ld bc, $0008
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     xor a
     ldh [rVBK], a
 
@@ -13112,12 +13138,12 @@ jr_000_37c0:
     ld a, $01
     ldh [rVBK], a
     ld a, $0f
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $8800
     ld bc, $0800
-    call Call_000_323c
+    call LoadTilesetIntoVRAM
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     xor a
     ldh [rVBK], a
     ret
@@ -13130,7 +13156,7 @@ Call_000_37db:
 
 
 Call_000_37e3:
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     jr nc, jr_000_3814
 
@@ -13202,7 +13228,7 @@ Call_000_383f:
 
     ld a, $ff
     ld [$c110], a
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     jr z, jr_000_3863
 
@@ -13210,19 +13236,19 @@ Call_000_383f:
     ret c
 
     dec a
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_35d7
     ld a, $00
     jp Jump_000_026b
 
 
 jr_000_3863:
-    ld a, [$c1ae]
+    ld a, [SELECTED_FILE_DOCUMENT_INDEX]
     or a
     ret z
 
     dec a
-    ld [$c1ae], a
+    ld [SELECTED_FILE_DOCUMENT_INDEX], a
     ret
 
 
@@ -13243,7 +13269,7 @@ Call_000_3872:
 
     ld a, $ff
     ld [$c111], a
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     jr z, jr_000_389c
 
@@ -13254,19 +13280,19 @@ Call_000_3872:
     ret nc
 
     inc a
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_35d7
     ld a, $00
     jp Jump_000_026b
 
 
 jr_000_389c:
-    ld a, [$c1ae]
+    ld a, [SELECTED_FILE_DOCUMENT_INDEX]
     cp $0c
     ret z
 
     inc a
-    ld [$c1ae], a
+    ld [SELECTED_FILE_DOCUMENT_INDEX], a
     ret
 
 
@@ -13281,18 +13307,18 @@ Call_000_38ac:
     and $20
     ret z
 
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     ret nz
 
-    ld a, [$c1d4]
+    ld a, [SELECTED_FILE_BOOK_INDEX]
 
 Call_000_38bb:
     or a
     ret z
 
     dec a
-    ld [$c1d4], a
+    ld [SELECTED_FILE_BOOK_INDEX], a
     ld a, $00
 
 Jump_000_38c3:
@@ -13311,17 +13337,17 @@ Call_000_38d1:
     ret z
 
 Call_000_38d7:
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     ret nz
 
-    ld a, [$c1d4]
+    ld a, [SELECTED_FILE_BOOK_INDEX]
     cp $02
     ret z
 
 Call_000_38e3:
     inc a
-    ld [$c1d4], a
+    ld [SELECTED_FILE_BOOK_INDEX], a
     ld a, $00
     call Call_000_026b
     call Call_000_35bf
@@ -13347,7 +13373,7 @@ Call_000_3902:
 
     dec a
     ld [$c1fb], a
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     jr z, jr_000_3939
 
@@ -13361,7 +13387,7 @@ Call_000_3902:
     ret c
 
     ld a, $04
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_34a9
     call Call_000_3667
 
@@ -13388,7 +13414,7 @@ Call_000_393f:
 Jump_000_393f:
     call Call_000_34f7
     ld a, $04
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call $42d3
     ld a, $03
     jp Jump_000_026b
@@ -13398,7 +13424,7 @@ jr_000_394f:
     call Call_000_3667
     call Call_000_34f7
     ld a, $04
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $03
     jp Jump_000_026b
 
@@ -13408,7 +13434,7 @@ jr_000_395f:
     call Call_000_34f7
     call Call_000_35ed
     ld a, $0e
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $03
     call Call_000_026b
     ld b, $20
@@ -13434,15 +13460,15 @@ Call_000_3980:
 
     ld a, $ff
     ld [$c1af], a
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $80
-    jr z, jr_000_39c3
+    jr z, InventoryOptionSelectUseEquip
 
     cp $81
-    jp z, Jump_000_3a07
+    jp z, InventoryOptionSelectCheck
 
     cp $82
-    jp z, Jump_000_3a40
+    jp z, InventoryOptionSelectCombine
 
     cp $0c
     jp z, Jump_000_3a60
@@ -13457,13 +13483,13 @@ Call_000_3980:
     call Call_000_34a9
     call Call_000_351d
     ld a, $12
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $02
     jp Jump_000_026b
 
 
-jr_000_39c3:
-    ld a, [$c1f3]
+InventoryOptionSelectUseEquip:
+    ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
 
 Call_000_39c6:
     sub $04
@@ -13471,24 +13497,24 @@ Call_000_39c6:
     ld d, $00
 
 Jump_000_39cb:
-    ld hl, $c1e7
+    ld hl, INVENTORY_ITEM_ID_BASE
     add hl, de
     ld a, [hl]
-    cp $1f
-    jr z, jr_000_39df
+    cp $1f ; beretta
+    jr z, InventoryOptionEquipItem
 
-    cp $19
-    jr z, jr_000_39df
+    cp $19 ; combat knife
+    jr z, InventoryOptionEquipItem
 
-    cp $37
-    jr z, jr_000_39df
+    cp $37 ; shotgun
+    jr z, InventoryOptionEquipItem
 
     jp $4d7d
 
 
-jr_000_39df:
+InventoryOptionEquipItem:
     ld c, a
-    ld a, [$c1ef]
+    ld a, [INVENTORY_EQUIPPED_ITEM]
     cp c
     jr nz, jr_000_39e8
 
@@ -13496,11 +13522,11 @@ jr_000_39df:
 
 jr_000_39e8:
     ld a, c
-    ld [$c1ef], a
+    ld [INVENTORY_EQUIPPED_ITEM], a
     ld a, $02
     call Call_000_026b
     ld a, $04
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_34a9
     call Call_000_3667
     call Call_000_34f7
@@ -13512,7 +13538,7 @@ Jump_000_39ff:
 
 
 Call_000_3a07:
-Jump_000_3a07:
+InventoryOptionSelectCheck:
     call Call_000_34a9
     call Call_000_34f7
     call Call_000_08ce
@@ -13520,12 +13546,12 @@ Jump_000_3a07:
     ld a, $02
     call Call_000_026b
     ld a, $84
-    ld [$c123], a
-    ld a, [$c1f3]
+    ld [INVENTORY_CURSOR_OPTION], a
+    ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
     sub $04
     ld e, a
     ld d, $00
-    ld hl, $c1e7
+    ld hl, INVENTORY_ITEM_ID_BASE
     add hl, de
     ld a, [hl]
 
@@ -13554,15 +13580,15 @@ Jump_000_3a3f:
     ret
 
 
-Jump_000_3a40:
+InventoryOptionSelectCombine:
     call Call_000_34a9
     call Call_000_3667
     call Call_000_34f7
     ld a, $02
     call Call_000_026b
-    ld a, [$c1f3]
+    ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
     add $e0
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld b, $08
     jp Jump_000_02b2
 
@@ -13574,7 +13600,7 @@ Jump_000_3a5b:
 
 
 Jump_000_3a60:
-    ld a, [$c1d4]
+    ld a, [SELECTED_FILE_BOOK_INDEX]
     ld c, a
     add a
     add a
@@ -13588,7 +13614,7 @@ Call_000_3a66:
     ld b, $00
     ld hl, $c186
     add hl, bc
-    ld a, [$c1ae]
+    ld a, [SELECTED_FILE_DOCUMENT_INDEX]
     ld c, a
 
 Jump_000_3a75:
@@ -13626,11 +13652,11 @@ Call_000_3a92:
     or a
     ret nz
 
-    ld a, [$c123]
-    cp $04
+    ld a, [INVENTORY_CURSOR_OPTION]
+    cp $04 ; any item
     jr nc, jr_000_3b05
 
-    cp $03
+    cp $03 ; exit
     jr nz, jr_000_3abe
 
     ld a, $5c
@@ -13645,7 +13671,7 @@ jr_000_3abe:
 Jump_000_3ac0:
     jr nz, jr_000_3ad6
 
-    ld a, [$c126]
+    ld a, [INVENTORY_FLAG_FILE]
 
 Call_000_3ac5:
 Jump_000_3ac5:
@@ -13653,8 +13679,9 @@ Jump_000_3ac5:
     jp z, Jump_000_3b37
 
     call Call_000_35bf
+    ; current option is file
     ld a, $0c
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $02
     jp Jump_000_026b
 
@@ -13663,25 +13690,25 @@ jr_000_3ad6:
     cp $01
     jr nz, jr_000_3aea
 
-    ld a, [$c125]
+    ld a, [INVENTORY_FLAG_RADIO]
     or a
     jr z, jr_000_3b37
 
     ld a, $0d
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $02
     jp Jump_000_026b
 
 
 jr_000_3aea:
-    ld a, [$c124]
+    ld a, [INVENTORY_FLAG_MAP]
     or a
     jr z, jr_000_3b37
 
     call Call_000_3667
     call Call_000_35ed
     ld a, $0e
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $02
     call Call_000_026b
 
@@ -13691,21 +13718,25 @@ Jump_000_3b00:
 
 
 jr_000_3b05:
-    ld a, [$c123]
-    sub $04
+    ; cursor options from items goes from 0x4 to 0xb
+    ; subtract 0x4 to get correct offset
+    ; offset = inventoryOption - 4
+    ld a, [INVENTORY_CURSOR_OPTION]
+    sub $04 
     ld l, a
     ld h, $00
-    ld de, $c1e7
+    ; Add offset to base address
+    ld de, INVENTORY_ITEM_ID_BASE
     add hl, de
     ld a, [hl]
     cp $00
     jr z, jr_000_3b36
 
-    ld [$c1f4], a
-    ld a, [$c123]
-    ld [$c1f3], a
+    ld [INVENTORY_CURSOR_OPTION_ITEM_ID], a
+    ld a, [INVENTORY_CURSOR_OPTION]
+    ld [INVENTORY_CURSOR_OPTION_ITEM_INDEX], a
     ld a, $80
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     ld a, $00
     call Call_000_026b
     ld c, $00
@@ -13740,13 +13771,13 @@ Call_000_3b41:
     and $20
     ret z
 
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     and $01
     ret z
 
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     and $fe
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_36d2
     ld a, $01
     jp Jump_000_026b
@@ -13757,13 +13788,13 @@ Call_000_3b5d:
     and $10
     ret z
 
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     and $01
     ret nz
 
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     or $01
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_36d2
     ld a, $01
     jp Jump_000_026b
@@ -13780,12 +13811,12 @@ Call_000_3b79:
 
     ld a, $ff
     ld [$c110], a
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $02
     ret c
 
     sub $02
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_36d2
     ld a, $01
     jp Jump_000_026b
@@ -13809,14 +13840,14 @@ Call_000_3ba2:
     ld a, $ff
     ld [$c111], a
     ld c, $08
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_000_3bbd
 
     ld c, $0a
 
 jr_000_3bbd:
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
 
 Call_000_3bc0:
     cp c
@@ -13826,7 +13857,7 @@ Call_000_3bc0:
 
 Call_000_3bc4:
 Jump_000_3bc4:
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_36d2
     ld a, $01
     jp Jump_000_026b
@@ -13849,12 +13880,12 @@ Call_000_3bd4:
 
     ld a, $ff
     ld [$c110], a
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $e6
     ret c
 
     sub $02
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
 
 Call_000_3bf0:
     call Call_000_36d2
@@ -13885,19 +13916,19 @@ Call_000_3c08:
     ld a, $ff
     ld [$c111], a
     ld c, $e8
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_000_3c18
 
     ld c, $ea
 
 jr_000_3c18:
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp c
     ret nc
 
     add $02
-    ld [$c123], a
+    ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_36d2
     ld a, $01
     jp Jump_000_026b
@@ -13917,7 +13948,7 @@ Call_000_3c2f:
 
 Call_000_3c37:
     ld a, $02
-    call Call_000_02ee
+    call SwitchBank
 
 Jump_000_3c3c:
     ld hl, $6440
@@ -13925,7 +13956,7 @@ Jump_000_3c3c:
 Call_000_3c3f:
 Jump_000_3c3f:
     ld de, $6692
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
     or a
     jr z, jr_000_3c4e
 
@@ -13985,7 +14016,7 @@ jr_000_3c8f:
     ld c, a
     ld a, [$c10b]
     ld b, a
-    call Call_000_328a
+    call func_rstat
     ld a, [de]
     add $80
     ld [hl], a
@@ -14211,33 +14242,35 @@ jr_000_3d8d:
 
 
 Call_000_3d8f:
-    call Call_000_02ee
+    call SwitchBank
     xor a
     ld [$c1fd], a
     ld a, $08
     jr jr_000_3de3
 
 Call_000_3d9a:
-    call Call_000_02ee
+    call SwitchBank
     ld a, $ff
     jr jr_000_3dde
 
 Call_000_3da1:
     ld a, $fa
-    call Call_000_02ee
+    call SwitchBank
     ld c, [hl]
     inc hl
     ld b, [hl]
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld hl, $0f00
     ld a, $fa
     jr jr_000_3dda
 
 Call_000_3db5:
 Jump_000_3db5:
+    ; Related to inventory files
+    ; Loads strings from bank 0xfa
     ld a, $fa
-    call Call_000_02ee
+    call SwitchBank
     ld c, [hl]
     inc hl
     ld b, [hl]
@@ -14249,7 +14282,7 @@ Jump_000_3db5:
 
 Jump_000_3dc3:
     ld a, $fa
-    call Call_000_02ee
+    call SwitchBank
     ld c, [hl]
     inc hl
     ld b, [hl]
@@ -14261,7 +14294,7 @@ Call_000_3dce:
     ld h, d
 
 Call_000_3dcf:
-    call Call_000_02ee
+    call SwitchBank
     xor a
     ld [$c1fd], a
     ld a, $08
@@ -14270,7 +14303,7 @@ Call_000_3dcf:
 Call_000_3dda:
 Jump_000_3dda:
 jr_000_3dda:
-    call Call_000_02ee
+    call SwitchBank
     xor a
 
 jr_000_3dde:
@@ -14337,7 +14370,7 @@ jr_000_3e29:
     ld d, a
 
 jr_000_3e2f:
-    call Call_000_328a
+    call func_rstat
 
 Call_000_3e32:
     ld [hl], d
@@ -14418,7 +14451,7 @@ Jump_000_3e82:
     ld bc, $0400
 
 jr_000_3e94:
-    call Call_000_328a
+    call func_rstat
     ld [hl], $80
     inc hl
     dec bc
@@ -14499,8 +14532,8 @@ jr_000_3ed7:
 
 Call_000_3ee0:
     ld a, $0d
-    call Call_000_02ee
-    ld a, [$c10e]
+    call SwitchBank
+    ld a, [MENU_CURSOR_OPTION]
     add a
     ld l, a
     ld h, $00
@@ -14540,7 +14573,7 @@ Jump_000_3f03:
     add hl, de
     push hl
     ld de, $6930
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
     add a
     add $04
     add e
@@ -14553,7 +14586,7 @@ Jump_000_3f03:
     add $80
     ld b, a
     ld de, $6abc
-    ld a, [$c10e]
+    ld a, [MENU_CURSOR_OPTION]
 
 Jump_000_3f20:
     add a
@@ -14569,7 +14602,7 @@ Call_000_3f23:
     add hl, de
     ld c, [hl]
     pop hl
-    call Call_000_328a
+    call func_rstat
 
 Jump_000_3f30:
     ld [hl], b
@@ -14617,14 +14650,14 @@ jr_000_3f45:
     ld de, $4597
     add hl, de
     ld a, $fa
-    call Call_000_02ee
+    call SwitchBank
     ld e, [hl]
     inc hl
 
 Call_000_3f67:
     ld d, [hl]
     ld a, $01
-    call Call_000_02ee
+    call SwitchBank
     ld h, b
     dec h
     ld l, $00
@@ -14632,7 +14665,7 @@ Call_000_3f67:
     cp $02
     jr nz, jr_000_3f86
 
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     cp $0c
     jr c, jr_000_3f86
 
@@ -14662,18 +14695,18 @@ Jump_000_3f91:
 
 
 Jump_000_3f92:
-    ld a, [$c1f3]
+    ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
     sub $04
     ld e, a
     ld d, $00
-    ld hl, $c1e7
+    ld hl, INVENTORY_ITEM_ID_BASE
     add hl, de
     push hl
-    ld a, [$c123]
+    ld a, [INVENTORY_CURSOR_OPTION]
     sub $e4
     ld e, a
     ld d, $00
-    ld hl, $c1e7
+    ld hl, INVENTORY_ITEM_ID_BASE
     add hl, de
     pop de
     ld a, [de]
