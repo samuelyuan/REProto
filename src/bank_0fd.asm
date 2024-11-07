@@ -808,9 +808,9 @@ jr_0fd_4370:
     adc $ff
     ld [hl+], a
     nop
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     add hl, hl
@@ -3922,9 +3922,9 @@ jr_0fd_50f0:
     jr nc, jr_0fd_511c
 
 jr_0fd_511c:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     ld de, $4430
@@ -4189,7 +4189,7 @@ Call_0fd_528e:
     ret
 
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $6c
     jp z, Jump_0fd_52a0
 
@@ -4197,7 +4197,7 @@ Call_0fd_528e:
 
 
 Jump_0fd_52a0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr z, jr_0fd_52a8
 

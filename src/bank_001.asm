@@ -254,10 +254,10 @@ Call_001_4193:
     add hl, de
     ld e, l
     ld d, h
-    ld a, [$c185]
+    ld a, [ITEM_BOX_CURSOR_OPTION]
     ld c, a
     ld b, $00
-    ld hl, $c280
+    ld hl, ITEM_BOX_BASE
 
 Call_001_41b0:
     add hl, bc
@@ -410,10 +410,10 @@ Call_001_4285:
 
     ld a, $ff
     ld [$c110], a
-    ld a, [$c185]
+    ld a, [ITEM_BOX_CURSOR_OPTION]
     dec a
     and $1f
-    ld [$c185], a
+    ld [ITEM_BOX_CURSOR_OPTION], a
     call Call_000_3f43
     ld a, $0e
     jp Jump_000_026b
@@ -436,10 +436,10 @@ Call_001_42ac:
 
     ld a, $ff
     ld [$c111], a
-    ld a, [$c185]
+    ld a, [ITEM_BOX_CURSOR_OPTION]
     inc a
     and $1f
-    ld [$c185], a
+    ld [ITEM_BOX_CURSOR_OPTION], a
     call Call_000_3f43
     ld a, $0e
     jp Jump_000_026b
@@ -863,9 +863,9 @@ jr_001_44dd:
     cp $5e
     jp nc, Jump_001_4515
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     add hl, hl
@@ -874,7 +874,7 @@ jr_001_44dd:
     ld a, [hl+]
     ld h, [hl]
     ld l, a
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $23
     jr z, jr_001_450a
 
@@ -938,7 +938,7 @@ jr_001_452a:
     ld hl, DeathScreenImageTable
     ld a, $20
     call LoadImageFromTable
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_001_4582
 
@@ -1128,7 +1128,7 @@ jr_001_4657:
 
 jr_001_468c:
     ld a, c
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     pop de
     jp Jump_000_0405
 
@@ -1303,11 +1303,11 @@ Jump_001_47a5:
     ld de, $4836
     add hl, de
     ld a, [hl+]
-    ld [$c17c], a
+    ld [ROOM_NUMBER], a
     ld a, [hl+]
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     xor a
-    ld [$c17d], a
+    ld [ROOM_NUMBER + 1], a
     ld a, [$c1c5]
     push af
     ld a, [$c1c4]
@@ -1690,11 +1690,13 @@ jr_001_49e4:
     ld a, $fa
     call Call_000_3dda
     ld hl, INVENTORY_ITEM_ID_BASE
+    ; Set Chris max inventory slots to 6
     ld b, $06
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_001_4a0d
 
+    ; Set Jill's max inventory slots to 8
     ld b, $08
 
 jr_001_4a0d:
@@ -1762,7 +1764,7 @@ jr_001_4a24:
     jr nz, jr_001_4a79
 
     ld a, $8a
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     jr jr_001_4a79
 
 jr_001_4a79:
@@ -1834,7 +1836,7 @@ Jump_001_4ad0:
 
 
 Jump_001_4afe:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $06
     jp z, Jump_001_4b11
 
@@ -1852,7 +1854,7 @@ Jump_001_4b11:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_001_4b22
 
@@ -1925,7 +1927,7 @@ Jump_001_4b84:
     or a
     ret z
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_001_4b91
 
@@ -1965,33 +1967,33 @@ jr_001_4b91:
 
 
 Jump_001_4bc6:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $0d
     ret nc
 
     cp $04
     ret c
 
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     cp $01
     ret nz
 
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     cp $40
     ret c
 
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     cp $ff
     jr z, jr_001_4bea
 
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     cp $70
     ret nc
 
     jr jr_001_4bf0
 
 jr_001_4bea:
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     cp $b0
     ret c
 
@@ -2029,9 +2031,9 @@ jr_001_4c06:
 jr_001_4c17:
     ld a, $ff
     ld [$c450], a
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     add hl, hl
@@ -2267,16 +2269,16 @@ jr_001_4d44:
     jp Jump_001_4afe
 
 
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_001_7135
     ld c, e
     ld b, d
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_001_7135
     ld a, [$c1f4]
@@ -2371,7 +2373,7 @@ jr_001_4d44:
 
 
 Jump_001_4e2a:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $58
     ret nz
 
@@ -2399,7 +2401,7 @@ jr_001_4e42:
     ret c
 
 jr_001_4e46:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret nc
 
@@ -2410,7 +2412,7 @@ jr_001_4e46:
 
 
 Jump_001_4e56:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $5d
     ret nz
 
@@ -2441,7 +2443,7 @@ jr_001_4e6b:
     cp $d4
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jr c, jr_001_4e80
 
@@ -2456,7 +2458,7 @@ jr_001_4e80:
 
 
 Jump_001_4e8a:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $41
     ret nz
 
@@ -2482,7 +2484,7 @@ Jump_001_4e8a:
     cp $24
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret c
 
@@ -2499,7 +2501,7 @@ Jump_001_4e8a:
 
 
 Jump_001_4ec0:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $41
     ret nz
 
@@ -2522,7 +2524,7 @@ Jump_001_4ec0:
     cp $30
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret nc
 
@@ -2539,7 +2541,7 @@ Jump_001_4ec0:
 
 
 Jump_001_4ef3:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $1f
     jp z, Jump_001_4f01
 
@@ -2574,7 +2576,7 @@ jr_001_4f10:
     cp $f5
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     ret c
 
@@ -2611,7 +2613,7 @@ Jump_001_4f31:
     cp $f0
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $18
     jr nc, jr_001_4f4e
 
@@ -2631,7 +2633,7 @@ jr_001_4f4e:
 
 
 Jump_001_4f61:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $18
     ret nz
 
@@ -2659,7 +2661,7 @@ jr_001_4f76:
     cp $20
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jr c, jr_001_4f87
 
@@ -2690,7 +2692,7 @@ jr_001_4fa1:
 
 
 Jump_001_4fa9:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $59
     jp z, Jump_001_4fb2
 
@@ -2720,7 +2722,7 @@ Jump_001_4fb2:
     cp $8a
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     ret c
 
@@ -2740,7 +2742,7 @@ Jump_001_4fb2:
 
 
 Jump_001_4fed:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $60
     jp z, Jump_001_5000
 
@@ -2776,7 +2778,7 @@ Jump_001_5000:
     cp $f0
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_5021
 
@@ -2823,7 +2825,7 @@ Jump_001_5042:
     cp $55
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_5061
 
@@ -2870,7 +2872,7 @@ Jump_001_5082:
     cp $13
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_50a1
 
@@ -2895,7 +2897,7 @@ Jump_001_50a1:
 
 
 Jump_001_50c2:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $3b
     jp z, Jump_001_5190
 
@@ -2931,7 +2933,7 @@ jr_001_50d4:
     cp $f4
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret nc
 
@@ -2940,7 +2942,7 @@ jr_001_50d4:
     ret nz
 
     ld a, $05
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     push hl
     call Call_000_3ed2
     call Call_001_4515
@@ -2994,7 +2996,7 @@ Jump_001_5130:
     cp $c8
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_5150
 
@@ -3007,7 +3009,7 @@ Jump_001_5150:
     ret nz
 
     ld a, $05
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     push hl
     call Call_000_3ed2
     call Call_001_4515
@@ -3092,7 +3094,7 @@ jr_001_51cc:
 
 
 Jump_001_51d5:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $46
     jp z, Jump_001_51e3
 
@@ -3122,7 +3124,7 @@ Jump_001_51e3:
     cp $0c
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_51ff
 
@@ -3160,7 +3162,7 @@ Jump_001_5210:
     cp $ca
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret c
 
@@ -3174,7 +3176,7 @@ Jump_001_5210:
 
 
 Jump_001_523a:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $38
     ret nz
 
@@ -3197,7 +3199,7 @@ Jump_001_523a:
     cp $58
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $18
     jr nc, jr_001_525b
 
@@ -3218,7 +3220,7 @@ jr_001_525b:
 
 
 Jump_001_5277:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $37
     ret nz
 
@@ -3241,7 +3243,7 @@ Jump_001_5277:
     cp $f0
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     ret c
 
@@ -3249,7 +3251,7 @@ Jump_001_5277:
     ret nc
 
     ld a, $03
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld a, [$c498]
     or a
@@ -3281,7 +3283,7 @@ Jump_001_52d0:
 
 
 Jump_001_52d9:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $13
     ret nz
 
@@ -3301,7 +3303,7 @@ Jump_001_52d9:
     cp $88
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     ret c
 
@@ -3364,7 +3366,7 @@ Jump_001_532b:
     ld a, $ff
     ld [$c41d], a
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld hl, $4078
     call Call_000_0c0a
@@ -3379,7 +3381,7 @@ Jump_001_532b:
 
 jr_001_536f:
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c2e
     jp Jump_001_5623
@@ -3391,7 +3393,7 @@ Jump_001_537d:
     ret
 
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $54
     ret nz
 
@@ -3411,7 +3413,7 @@ Jump_001_537d:
     cp $e0
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret c
 
@@ -3462,7 +3464,7 @@ jr_001_53d5:
 
 
 Jump_001_53eb:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $14
     ret nz
 
@@ -3490,7 +3492,7 @@ jr_001_5400:
     cp $08
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_5412
 
@@ -3501,14 +3503,14 @@ Jump_001_5412:
     ld a, $00
     ld [hl], a
     ld a, $89
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c527], a
     jp Jump_001_5623
 
 
 Jump_001_5422:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $14
     ret nz
 
@@ -3536,7 +3538,7 @@ jr_001_5437:
     cp $08
     ret c
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $08
     jp c, Jump_001_5449
 
@@ -3547,14 +3549,14 @@ Jump_001_5449:
     ld a, $00
     ld [hl], a
     ld a, $8a
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c528], a
     jp Jump_001_5623
 
 
 Jump_001_5459:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $01
     jr z, jr_001_5490
 
@@ -3585,7 +3587,7 @@ Jump_001_5476:
     ret nc
 
 jr_001_547a:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret c
 
@@ -3625,11 +3627,11 @@ Jump_001_54a2:
     ret nc
 
 jr_001_54a6:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret nc
 
-    ld a, [$c502]
+    ld a, [PICKED_WOOD_EMBLEM]
     or a
     ret nz
 
@@ -3679,7 +3681,7 @@ jr_001_54d4:
 
 
 Jump_001_54f1:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $01
     jr z, jr_001_5528
 
@@ -3710,7 +3712,7 @@ Jump_001_550e:
     ret nc
 
 jr_001_5512:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret c
 
@@ -3750,7 +3752,7 @@ Jump_001_553a:
     ret nc
 
 jr_001_553e:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $10
     ret nc
 
@@ -3759,14 +3761,14 @@ jr_001_553e:
     ret nz
 
     ld a, $ff
-    ld [$c502], a
+    ld [PICKED_WOOD_EMBLEM], a
     ld a, $00
     ld [hl], a
     jp Jump_001_5623
 
 
 Jump_001_5554:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $07
     ret nz
 
@@ -3789,14 +3791,14 @@ Jump_001_5554:
     cp $05
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $15
     ret nc
 
     cp $0c
     ret c
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_001_5587
 
@@ -3809,7 +3811,7 @@ Jump_001_5554:
 
 jr_001_5587:
     ld a, $08
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $00
     ld [hl], a
     ld a, $ff
@@ -3865,7 +3867,7 @@ AddHealthToPlayer:
 
 
 Jump_001_55d3:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $06
     ret nz
 
@@ -3885,7 +3887,7 @@ Jump_001_55d3:
     cp $05
     ret nc
 
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $18
     jp nc, Jump_001_55f3
 
@@ -3895,7 +3897,7 @@ Jump_001_55d3:
 Jump_001_55f3:
     push hl
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c4c
     ld hl, $4003
@@ -3939,7 +3941,7 @@ Jump_001_5634:
     ld hl, $0038
     ld de, $002e
     ld bc, $0041
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $07
     jp z, Jump_001_5681
 
@@ -3968,21 +3970,21 @@ Jump_001_5634:
 
 
 Jump_001_5681:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr nz, jr_001_56ce
 
     jr jr_001_56cb
 
 Jump_001_568a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $06
     jr nz, jr_001_56ce
 
     jr jr_001_56cb
 
 Jump_001_5693:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_001_569d
 
@@ -3993,35 +3995,35 @@ jr_001_569d:
     jr jr_001_56cb
 
 Jump_001_569f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr nz, jr_001_56ce
 
     jr jr_001_56cb
 
 Jump_001_56a7:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr nz, jr_001_56ce
 
     jr jr_001_56cb
 
 Jump_001_56b0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr nz, jr_001_56ce
 
     jr jr_001_56cb
 
 Jump_001_56b9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr nz, jr_001_56ce
 
     jr jr_001_56cb
 
 Jump_001_56c2:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr nz, jr_001_56ce
 
@@ -4371,7 +4373,7 @@ jr_001_593a:
     ld bc, $0006
     call Call_000_321c
     ld de, $572e
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     or a
     jr z, jr_001_594c
 
@@ -4549,7 +4551,7 @@ Jump_001_5a5c:
     ret nz
 
     ld a, $03
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c20
     call Call_000_0c4c
@@ -4673,7 +4675,7 @@ jr_001_5b35:
 
 Jump_001_5b3d:
     ld a, $05
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c20
     call Call_000_0c4c
@@ -4704,7 +4706,7 @@ Jump_001_5b7b:
     jr nz, jr_001_5b9e
 
     ld a, $06
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c20
     call Call_000_0c4c
@@ -4717,7 +4719,7 @@ Jump_001_5b7b:
 
 jr_001_5b9e:
     ld a, $06
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c20
     call Call_000_0c4c
@@ -4729,7 +4731,7 @@ jr_001_5b9e:
 
 
 Jump_001_5bbb:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $01
     jp z, Jump_001_5c82
 
@@ -5033,7 +5035,7 @@ jr_001_5d75:
 
 jr_001_5d78:
     ld a, $03
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld hl, $4000
     call Call_000_0c0a
@@ -5126,7 +5128,7 @@ jr_001_5de9:
 
 Jump_001_5def:
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld a, [$c493]
     or a
@@ -5169,7 +5171,7 @@ jr_001_5e24:
 
 Jump_001_5e45:
     ld a, $01
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c20
     call Call_000_0c4c
@@ -5284,7 +5286,7 @@ jr_001_5ee8:
     ret nz
 
     ld a, $03
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld b, $40
     call Call_000_02b2
@@ -5404,7 +5406,7 @@ jr_001_5fa1:
     ret nz
 
     ld a, $02
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld b, $80
     call Call_000_02b2
@@ -5497,12 +5499,12 @@ jr_001_6021:
 
 
 Jump_001_6039:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_001_604e
 
     ld a, $03
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld hl, $40a2
     jp Jump_001_6e21
@@ -5950,7 +5952,7 @@ Jump_001_631d:
     jr z, jr_001_633d
 
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_001_4d2d
     call Call_001_4d32
@@ -5967,7 +5969,7 @@ jr_001_633d:
 
 Jump_001_6343:
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld hl, $40fc
     jp Jump_001_6e21
@@ -5983,7 +5985,7 @@ Jump_001_6351:
 
 Jump_001_635a:
     ld a, $04
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld b, $50
     call Call_000_02b2
@@ -6153,7 +6155,7 @@ jr_001_6461:
 
 jr_001_6471:
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     jp Jump_000_0c2e
 
@@ -6611,9 +6613,9 @@ Jump_001_678b:
     ld [$c492], a
     ld a, $ff
     ld [$c5cf], a
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     add hl, hl
@@ -6738,7 +6740,7 @@ Jump_001_685a:
     jp z, Jump_001_69fc
 
     cp $80
-    jp z, Jump_001_6a02
+    jp z, MessageShowTypewriter
 
     ret
 
@@ -6777,7 +6779,7 @@ jr_001_6898:
 
 Jump_001_68bc:
     ld a, $07
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     call Call_000_0c50
     call Call_000_0c20
@@ -6812,7 +6814,7 @@ jr_001_68f9:
 
 
 Jump_001_6908:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $38
     jr z, jr_001_6915
 
@@ -6841,7 +6843,7 @@ Jump_001_691b:
     call Call_000_0c2e
     call Call_000_0c20
     ld a, $10
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c49a], a
     jp Jump_000_0c50
@@ -6869,7 +6871,7 @@ Jump_001_6969:
     xor a
     ld [$c2e0], a
     ld a, $05
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     call Call_000_0641
     ld de, $c2c0
     ld b, $1b
@@ -6958,7 +6960,7 @@ Jump_001_69fc:
     jp Jump_001_6e21
 
 
-Jump_001_6a02:
+MessageShowTypewriter:
     call Call_000_0c20
     call Call_000_0c4c
     ld hl, $4183

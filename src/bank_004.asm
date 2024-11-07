@@ -6,7 +6,7 @@ bank004_4000:
 bannk004_4a00:
     ld hl, $c960
     call Call_000_3d85
-    ld a, [$c185]
+    ld a, [ITEM_BOX_CURSOR_OPTION]
     add $2c
     ld c, a
     ld [hl], $58
@@ -47,7 +47,7 @@ jr_004_4a28:
     or a
     ret nz
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $4b
     jr z, jr_004_4a48
 
@@ -440,7 +440,7 @@ Jump_004_4b5f:
     ret
 
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $60
     jr z, jr_004_4c40
 
@@ -491,7 +491,7 @@ InitPlayerVariables:: ; 0x4c5c
     ld a, $80
     ld [$c300], a
     ld a, $92
-    ld [$c30b], a
+    ld [PLAYER_CHARACTER_MODEL], a
     xor a
     ld [$c307], a
     ld [$c30c], a
@@ -522,7 +522,7 @@ Jump_004_4ca5:
     ld a, $80
     ld [$c300], a
     ld a, $93
-    ld [$c30b], a
+    ld [PLAYER_CHARACTER_MODEL], a
     xor a
     ld [$c307], a
     ld [$c30c], a
@@ -538,7 +538,7 @@ Jump_004_4ca5:
     ret
 
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $01
     jp z, Jump_004_4d4a
 
@@ -600,7 +600,7 @@ Jump_004_4ca5:
 
 
 Jump_004_4d4a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_004_4d5e
 
@@ -685,7 +685,7 @@ jr_004_4dbb:
 
 
 Jump_004_4dda:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_004_4de6
 
@@ -748,7 +748,7 @@ Jump_004_4e38:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_004_4e49
 
@@ -785,7 +785,7 @@ jr_004_4e63:
 
 
 Jump_004_4e7d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_004_4e85
 
@@ -861,7 +861,7 @@ Call_004_4ef0:
 
 
 Jump_004_4f0a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_004_4f3c
 
@@ -949,7 +949,7 @@ jr_004_4f4f:
     ld a, d
 
 Jump_004_4f90:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_004_4f9f
 
@@ -1034,7 +1034,7 @@ Jump_004_501c:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_004_502b
 
@@ -1059,7 +1059,7 @@ Jump_004_5045:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_004_5059
 
@@ -1112,7 +1112,7 @@ jr_004_508d:
 
 
 Jump_004_50a7:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_004_50ba
 
@@ -1209,7 +1209,7 @@ jr_004_5135:
 
 
 Jump_004_5154:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr z, jr_004_515c
 
@@ -1237,7 +1237,7 @@ jr_004_515c:
 
 
 Jump_004_5180:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr z, jr_004_5188
 
@@ -1269,7 +1269,7 @@ Jump_004_51ac:
     cp $03
     ret nc
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_004_51c6
 
@@ -1369,7 +1369,7 @@ Jump_004_5264:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_004_5275
 
@@ -1410,7 +1410,7 @@ Jump_004_52a9:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_004_52cc
 
@@ -1511,7 +1511,7 @@ Jump_004_534e:
 
 
 Jump_004_5368:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr z, jr_004_5370
 
@@ -1536,7 +1536,7 @@ Jump_004_538a:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_004_53a7
 
@@ -1621,7 +1621,7 @@ jr_004_540f:
 
 
 Jump_004_5429:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_004_5443
 
@@ -1750,7 +1750,7 @@ Jump_004_54fb:
 
 
 Jump_004_551a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_004_552d
 
@@ -1842,7 +1842,7 @@ Jump_004_55b8:
     or a
     ret nz
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_004_55c9
 

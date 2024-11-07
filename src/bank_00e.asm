@@ -91,7 +91,7 @@ bank00e_409a:
     ld hl, $403a
 
 jr_00e_40aa:
-    ld a, [$c1bf]
+    ld a, [CUTSCENE_NUMBER]
     cp $80
     jr c, jr_00e_40b6
 
@@ -164,10 +164,10 @@ Jump_00e_40bf:
     jp z, Jump_00e_61a4
 
     cp $35 ; 2 bytes
-    jp z, Jump_00e_6186
+    jp z, sprite_barry_set_anim
 
     cp $38 ; 2 bytes
-    jp z, Jump_00e_6190
+    jp z, sprite_zombie_set_anim
 
     cp $0c ; Show name for Jill
     jp z, dialogue_name_jill
@@ -242,7 +242,7 @@ Jump_00e_40bf:
     jp z, sprite_c3a0_walk
 
     cp $25
-    jp z, sprite_c3c0_walk
+    jp z, sprite_zombie_walk
 
     ; sprite anim run
     cp $18
@@ -410,7 +410,7 @@ SceneScriptIntroChris:: ; 0x421b
     db $00, $01, $00
     db $1d
 
-SceneScript_42cd:: ; 0x42cd
+SceneScriptChrisReturnsToEntranceBeforeFirstZombie:: ; 0x42cd
     db $00, $00, $05
     db $01
     dw $03d0, $0058, $0014, $0000, $0000
@@ -439,7 +439,7 @@ SceneScript_42cd:: ; 0x42cd
     db $00, $01, $00
     db $1d
 
-SceneScript_431c:: ; 0x431c
+SceneScriptChrisReturnsToEntranceAfterFirstZombie:: ; 0x431c
     db $00, $00, $05
     db $01
     dw $03d0, $0058, $0014, $0000, $0000
@@ -4090,11 +4090,11 @@ jr_00e_608e:
 
 init_room_camera:
     ld a, [hl+]
-    ld [$c17c], a
+    ld [ROOM_NUMBER], a
     xor a
     ld [$c17d], a
     ld a, [hl+]
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     push hl
     call Call_000_0664
     pop hl
@@ -4151,7 +4151,7 @@ sprite_anim_init:
     ld hl, $000b
     add hl, de
     ld [hl], a
-    ld a, [$c30e]
+    ld a, [PLAYER_HEALTH]
     ld hl, $000e
     add hl, de
     ld [hl], a
@@ -4254,7 +4254,7 @@ jr_00e_616d:
 
 change_room_camera:
     ld a, [hl+]
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     push hl
     call Call_000_0641
     pop hl
@@ -4263,14 +4263,14 @@ change_room_camera:
     ret
 
 
-Jump_00e_6186:
+sprite_barry_set_anim:
     ld de, $c380
     jr jr_00e_61a7
 
     ld de, $c3a0
     jr jr_00e_61a7
 
-Jump_00e_6190:
+sprite_zombie_set_anim:
     ld de, $c3c0
     jr jr_00e_61a7
 
@@ -4573,7 +4573,7 @@ sprite_c3a0_walk:
     ld de, $c3a0
     jr sprite_anim_walk
 
-sprite_c3c0_walk:
+sprite_zombie_walk:
     ld de, $c3c0
     jr sprite_anim_walk
 
@@ -4784,7 +4784,7 @@ Jump_00e_63cc:
     nop
 
 Jump_00e_6412:
-    ld a, [$c30e]
+    ld a, [PLAYER_HEALTH]
     push af
     ld de, $c300
     ld bc, $0100
@@ -4799,7 +4799,7 @@ jr_00e_641c:
     jr nz, jr_00e_641c
 
     pop af
-    ld [$c30e], a
+    ld [PLAYER_HEALTH], a
     ret
 
 

@@ -1,24 +1,25 @@
 SECTION "ROM Bank $0c6", ROMX[$4000], BANK[$c6]
 
-    ld a, [$c311]
+RoomCameraHandler_c6_4000: ; 0x4000
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_0c6_64e1
     ld l, e
     ld h, d
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_0c6_64e1
     ld c, $00
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     or a
-    jp z, Jump_0c6_63d5
+    jp z, Room00Handler_0c6_63d5
 
     cp $01
-    jp z, Jump_0c6_62e9
+    jp z, Room01Handler_0c6_62e9
 
     cp $02
     jp z, Jump_0c6_60b8
@@ -30,7 +31,7 @@ SECTION "ROM Bank $0c6", ROMX[$4000], BANK[$c6]
     jp z, Jump_0c6_61f3
 
     cp $05
-    jp z, Jump_0c6_617e
+    jp z, Room05Handler_0c6_617e
 
     cp $06
     jp z, Jump_0c6_6080
@@ -351,12 +352,12 @@ SECTION "ROM Bank $0c6", ROMX[$4000], BANK[$c6]
     jp z, Jump_0c6_4ac3
 
     ld c, $00
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_425b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -436,12 +437,12 @@ jr_0c6_4299:
     ld c, $06
 
 jr_0c6_42a5:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_430d
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr nz, jr_0c6_42ed
@@ -454,12 +455,12 @@ jr_0c6_42a5:
     or a
     jr nz, jr_0c6_42d4
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_430a
 
     ld a, $1a
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c6], a
     jr jr_0c6_430a
@@ -469,12 +470,12 @@ jr_0c6_42d4:
     or a
     jr nz, jr_0c6_430a
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr nz, jr_0c6_430a
 
     ld a, $1b
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c7], a
     jr jr_0c6_430a
@@ -488,12 +489,12 @@ jr_0c6_42ed:
     or a
     jr nz, jr_0c6_430a
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_430a
 
     ld a, $22
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c6], a
 
@@ -553,12 +554,12 @@ jr_0c6_4328:
 jr_0c6_433d:
     xor a
     ld [$c44d], a
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_434e
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -597,17 +598,17 @@ jr_0c6_436b:
     ld c, $02
 
 jr_0c6_436d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_43bc
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr nz, jr_0c6_439c
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr nz, jr_0c6_43b9
 
@@ -620,13 +621,13 @@ jr_0c6_436d:
     jr nz, jr_0c6_43b9
 
     ld a, $19
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c5], a
     jr jr_0c6_43b9
 
 jr_0c6_439c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr nz, jr_0c6_43b9
 
@@ -639,7 +640,7 @@ jr_0c6_439c:
     jr nz, jr_0c6_43b9
 
     ld a, $20
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c5], a
 
@@ -701,12 +702,12 @@ jr_0c6_43e2:
     ld c, $05
 
 jr_0c6_43ee:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_43fb
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -771,12 +772,12 @@ jr_0c6_4421:
     ld c, $03
 
 jr_0c6_4437:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4444
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -900,12 +901,12 @@ jr_0c6_44b9:
     ld c, $07
 
 jr_0c6_44bb:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_44eb
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr nz, jr_0c6_44e8
@@ -918,12 +919,12 @@ jr_0c6_44bb:
     or a
     jr nz, jr_0c6_44e8
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr nz, jr_0c6_44e8
 
     ld a, $16
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4bd], a
 
@@ -979,11 +980,11 @@ jr_0c6_4514:
 jr_0c6_4516:
     xor a
     ld [$c46d], a
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr nz, jr_0c6_4533
 
-    ld a, [$c319]
+    ld a, [PLAYER_POS_Z_VAR]
     cp $20
     jr c, jr_0c6_4533
 
@@ -995,12 +996,12 @@ jr_0c6_4516:
     ld [$c46d], a
 
 jr_0c6_4533:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4540
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1068,12 +1069,12 @@ jr_0c6_4568:
     ld c, $05
 
 jr_0c6_457f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_458c
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1120,12 +1121,12 @@ jr_0c6_45a8:
     ld c, $03
 
 jr_0c6_45b3:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4603
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jp nz, Jump_0c6_45e3
@@ -1138,12 +1139,12 @@ jr_0c6_45b3:
     or a
     jr nz, jr_0c6_4600
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr nz, jr_0c6_4600
 
     ld a, $18
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c4], a
     jr jr_0c6_4600
@@ -1157,12 +1158,12 @@ Jump_0c6_45e3:
     or a
     jr nz, jr_0c6_4600
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr nz, jr_0c6_4600
 
     ld a, $1f
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c4], a
 
@@ -1251,12 +1252,12 @@ jr_0c6_463f:
     ld c, $05
 
 jr_0c6_4659:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4666
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1284,12 +1285,12 @@ Jump_0c6_4668:
     ld c, $01
 
 jr_0c6_467b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4688
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1325,12 +1326,12 @@ jr_0c6_46a1:
     ld c, $02
 
 jr_0c6_46a3:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_46ee
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c4a0]
     or a
     jr z, jr_0c6_46eb
@@ -1343,12 +1344,12 @@ jr_0c6_46a3:
     or a
     jr nz, jr_0c6_46eb
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_46eb
 
     ld a, $11
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b8], a
     jr jr_0c6_46eb
@@ -1358,12 +1359,12 @@ jr_0c6_46d2:
     or a
     jr nz, jr_0c6_46eb
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_46eb
 
     ld a, $18
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b8], a
     jr jr_0c6_46eb
@@ -1437,12 +1438,12 @@ jr_0c6_4722:
     ld c, $03
 
 jr_0c6_472d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4792
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c4a0]
     or a
     jr z, jr_0c6_478f
@@ -1463,12 +1464,12 @@ jr_0c6_472d:
     or a
     jr nz, jr_0c6_478f
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr nz, jr_0c6_478f
 
     ld a, $12
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b9], a
     jr jr_0c6_478f
@@ -1489,12 +1490,12 @@ jr_0c6_476a:
     or a
     jr nz, jr_0c6_478f
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr nz, jr_0c6_478f
 
     ld a, $19
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b9], a
     jr jr_0c6_478f
@@ -1522,12 +1523,12 @@ Jump_0c6_4794:
     ld c, $00
 
 jr_0c6_47a2:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_47af
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1668,12 +1669,12 @@ jr_0c6_4828:
     ld c, $07
 
 jr_0c6_483c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4849
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1774,12 +1775,12 @@ jr_0c6_4897:
     ld c, $05
 
 jr_0c6_48a7:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_48b4
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1883,12 +1884,12 @@ jr_0c6_490d:
     ld c, $04
 
 jr_0c6_4918:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4925
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -1924,12 +1925,12 @@ jr_0c6_493e:
     ld c, $02
 
 jr_0c6_4940:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4993
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr nz, jr_0c6_4971
@@ -1945,12 +1946,12 @@ jr_0c6_4958:
     or a
     jr nz, jr_0c6_4990
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_4990
 
     ld a, $14
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4bb], a
     jr jr_0c6_4990
@@ -1967,12 +1968,12 @@ jr_0c6_4979:
     or a
     jr nz, jr_0c6_4990
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_4990
 
     ld a, $1d
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4bb], a
 
@@ -2020,12 +2021,12 @@ jr_0c6_49b5:
     ld c, $02
 
 jr_0c6_49b7:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4a04
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr nz, jr_0c6_49e5
@@ -2038,12 +2039,12 @@ jr_0c6_49b7:
     or a
     jr nz, jr_0c6_4a01
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr nz, jr_0c6_4a01
 
     ld a, $17
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4be], a
     jr jr_0c6_4a01
@@ -2057,12 +2058,12 @@ jr_0c6_49e5:
     or a
     jr nz, jr_0c6_4a01
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr nz, jr_0c6_4a01
 
     ld a, $1e
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4be], a
 
@@ -2120,12 +2121,12 @@ jr_0c6_4a1f:
     ld c, $03
 
 jr_0c6_4a35:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4a42
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2193,12 +2194,12 @@ jr_0c6_4a74:
     ld c, $05
 
 jr_0c6_4a80:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4a8d
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2217,12 +2218,12 @@ Jump_0c6_4a8f:
     ld c, $01
 
 jr_0c6_4a98:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4aa5
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2246,12 +2247,12 @@ jr_0c6_4ab2:
     ld c, $01
 
 jr_0c6_4ab4:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4ac1
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2317,12 +2318,12 @@ jr_0c6_4af1:
     ld c, $04
 
 jr_0c6_4afc:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4b0e
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ld [$c41b], a
     ld a, $ff
@@ -2400,12 +2401,12 @@ jr_0c6_4b50:
     ld c, $04
 
 jr_0c6_4b52:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4b5f
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2440,12 +2441,12 @@ jr_0c6_4b77:
     ld c, $02
 
 jr_0c6_4b79:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4b86
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2472,12 +2473,12 @@ Jump_0c6_4b88:
     ld c, $01
 
 jr_0c6_4b99:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4ba6
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2524,12 +2525,12 @@ jr_0c6_4bbe:
     ld c, $02
 
 jr_0c6_4bce:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4bdb
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2595,12 +2596,12 @@ jr_0c6_4c0e:
     ld c, $05
 
 jr_0c6_4c19:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4c26
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2694,12 +2695,12 @@ jr_0c6_4c79:
 jr_0c6_4c7b:
     ld a, $ff
     ld [$c4d5], a
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4c8d
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2761,12 +2762,12 @@ jr_0c6_4cb1:
     ld c, $03
 
 jr_0c6_4cc7:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4cd4
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2852,12 +2853,12 @@ jr_0c6_4d11:
     ld c, $01
 
 jr_0c6_4d26:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4d33
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -2956,12 +2957,12 @@ jr_0c6_4d84:
     ld c, $06
 
 jr_0c6_4d90:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4dc9
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $03
     jr nz, jr_0c6_4dc6
 
@@ -2978,14 +2979,14 @@ jr_0c6_4d90:
     jr z, jr_0c6_4dbc
 
     ld a, $12
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c49f], a
     jr jr_0c6_4dc6
 
 jr_0c6_4dbc:
     ld a, $0c
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c49f], a
 
@@ -3036,17 +3037,17 @@ jr_0c6_4ded:
     ld c, $03
 
 jr_0c6_4def:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4e19
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr z, jr_0c6_4e16
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_4e16
 
@@ -3055,7 +3056,7 @@ jr_0c6_4def:
     jr nz, jr_0c6_4e16
 
     ld a, $11
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c9], a
 
@@ -3082,12 +3083,12 @@ Jump_0c6_4e1b:
     ld c, $00
 
 jr_0c6_4e29:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4e36
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3156,12 +3157,12 @@ jr_0c6_4e67:
     ld c, $03
 
 jr_0c6_4e73:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4e80
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3185,12 +3186,12 @@ jr_0c6_4e8e:
     ld c, $02
 
 jr_0c6_4e90:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4e9d
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3257,12 +3258,12 @@ jr_0c6_4ed6:
     ld c, $03
 
 jr_0c6_4ed8:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4ee5
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3285,12 +3286,12 @@ Jump_0c6_4ee7:
     ld c, $01
 
 jr_0c6_4ef3:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4f00
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3411,12 +3412,12 @@ jr_0c6_4f6b:
     ld c, $04
 
 jr_0c6_4f75:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4f8e
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     xor a
     ld [$c462], a
     ld a, $ff
@@ -3440,12 +3441,12 @@ Jump_0c6_4f90:
     ld c, $01
 
 jr_0c6_4f98:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4fa5
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3499,12 +3500,12 @@ jr_0c6_4fc0:
     ld c, $03
 
 jr_0c6_4fd5:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_4fe2
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3582,16 +3583,16 @@ jr_0c6_501c:
     ld c, $02
 
 jr_0c6_5028:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5050
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $01
     jr nz, jr_0c6_504d
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_0c6_504d
 
@@ -3600,7 +3601,7 @@ jr_0c6_5028:
     jr nz, jr_0c6_504d
 
     ld a, $0f
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c497], a
 
@@ -3718,12 +3719,12 @@ jr_0c6_50b1:
     ld c, $07
 
 jr_0c6_50bd:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_50ca
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3847,12 +3848,12 @@ jr_0c6_5140:
     ld c, $03
 
 jr_0c6_5142:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_514f
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -3973,12 +3974,12 @@ jr_0c6_51b1:
     ld c, $07
 
 jr_0c6_51c6:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_51d3
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4046,12 +4047,12 @@ jr_0c6_5205:
     ld c, $05
 
 jr_0c6_5211:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5241
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr z, jr_0c6_523e
@@ -4064,12 +4065,12 @@ jr_0c6_5211:
     or a
     jr nz, jr_0c6_523e
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr nz, jr_0c6_523e
 
     ld a, $13
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4ca], a
 
@@ -4136,12 +4137,12 @@ jr_0c6_5265:
     ld c, $02
 
 jr_0c6_527a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5287
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4199,12 +4200,12 @@ jr_0c6_52b7:
     ld c, $04
 
 jr_0c6_52b9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_52f8
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $03
     jr nz, jr_0c6_52f5
 
@@ -4217,7 +4218,7 @@ jr_0c6_52b9:
     jr nz, jr_0c6_52f5
 
     ld a, $17
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4a2], a
     ld [$c572], a
@@ -4229,7 +4230,7 @@ jr_0c6_52e2:
     jr nz, jr_0c6_52f5
 
     ld a, $10
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4a2], a
     ld [$c572], a
@@ -4302,12 +4303,12 @@ jr_0c6_532b:
     ld c, $04
 
 jr_0c6_5337:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5344
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4417,12 +4418,12 @@ jr_0c6_53a0:
     ld c, $07
 
 jr_0c6_53ac:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_53b9
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4502,12 +4503,12 @@ jr_0c6_53f7:
     ld c, $06
 
 jr_0c6_5402:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_540f
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4526,12 +4527,12 @@ Jump_0c6_5411:
     ld c, $01
 
 jr_0c6_5419:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5426
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4615,12 +4616,12 @@ jr_0c6_5472:
     ld c, $04
 
 jr_0c6_5474:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5481
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4631,12 +4632,12 @@ jr_0c6_5481:
 
 
 Jump_0c6_5483:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5490
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4709,12 +4710,12 @@ jr_0c6_54ca:
     ld c, $05
 
 jr_0c6_54d5:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_54e2
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4822,12 +4823,12 @@ jr_0c6_5540:
     ld c, $07
 
 jr_0c6_554b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5558
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4888,12 +4889,12 @@ jr_0c6_5583:
     ld c, $03
 
 jr_0c6_558e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_559b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -4934,12 +4935,12 @@ jr_0c6_55b0:
     ld c, $03
 
 jr_0c6_55bc:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_55c9
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5021,12 +5022,12 @@ jr_0c6_560c:
     ld c, $06
 
 jr_0c6_5617:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5624
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5045,12 +5046,12 @@ Jump_0c6_5626:
     ld c, $01
 
 jr_0c6_562f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_563c
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5069,12 +5070,12 @@ Jump_0c6_563e:
     ld c, $01
 
 jr_0c6_5647:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5654
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5163,12 +5164,12 @@ jr_0c6_56a3:
     ld c, $05
 
 jr_0c6_56b3:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_56c0
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5243,12 +5244,12 @@ jr_0c6_56f1:
     ld c, $05
 
 jr_0c6_5706:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5713
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5291,12 +5292,12 @@ jr_0c6_5722:
     ld c, $00
 
 jr_0c6_5736:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5743
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5325,16 +5326,16 @@ jr_0c6_5757:
     ld c, $02
 
 jr_0c6_5759:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5781
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $00
     jr nz, jr_0c6_577e
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_0c6_577e
 
@@ -5343,7 +5344,7 @@ jr_0c6_5759:
     jr nz, jr_0c6_577e
 
     ld a, $08
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c486], a
 
@@ -5370,12 +5371,12 @@ Jump_0c6_5783:
     ld c, $01
 
 jr_0c6_5791:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_579e
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5421,12 +5422,12 @@ jr_0c6_57b9:
     ld c, $03
 
 jr_0c6_57c5:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_57d2
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5496,12 +5497,12 @@ jr_0c6_57ff:
     ld c, $03
 
 jr_0c6_5819:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5826
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5551,12 +5552,12 @@ jr_0c6_5841:
     ld c, $03
 
 jr_0c6_5851:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5878
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $02
     jr nz, jr_0c6_5875
 
@@ -5569,7 +5570,7 @@ jr_0c6_5851:
     jr nz, jr_0c6_5875
 
     ld a, $14
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4a1], a
 
@@ -5605,17 +5606,17 @@ jr_0c6_5889:
     ld c, $00
 
 jr_0c6_5892:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_58cc
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr z, jr_0c6_58c9
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0c6_58b3
 
@@ -5637,7 +5638,7 @@ jr_0c6_58b3:
     jr nz, jr_0c6_58c9
 
     ld a, $15
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4dd], a
 
@@ -5660,16 +5661,16 @@ Jump_0c6_58ce:
     ld c, $01
 
 jr_0c6_58d6:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_58fe
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $01
     jr nz, jr_0c6_58fb
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_0c6_58fb
 
@@ -5678,7 +5679,7 @@ jr_0c6_58d6:
     jr nz, jr_0c6_58fb
 
     ld a, $0b
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c488], a
 
@@ -5722,12 +5723,12 @@ jr_0c6_5916:
     ld c, $03
 
 jr_0c6_591e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_592b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5782,12 +5783,12 @@ jr_0c6_5945:
     ld c, $04
 
 jr_0c6_595d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_596a
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5826,12 +5827,12 @@ jr_0c6_5979:
     ld c, $02
 
 jr_0c6_5988:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5995
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5886,12 +5887,12 @@ jr_0c6_59bc:
     ld c, $04
 
 jr_0c6_59c8:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_59d5
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -5970,12 +5971,12 @@ jr_0c6_5a12:
     ld c, $00
 
 jr_0c6_5a1e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5a2b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6007,12 +6008,12 @@ jr_0c6_5a42:
     ld c, $01
 
 jr_0c6_5a44:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5a51
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6047,12 +6048,12 @@ jr_0c6_5a61:
     ld c, $02
 
 jr_0c6_5a6c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5a79
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6084,12 +6085,12 @@ jr_0c6_5a8b:
     ld c, $02
 
 jr_0c6_5a92:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5a9f
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6164,12 +6165,12 @@ jr_0c6_5ae4:
     ld c, $03
 
 jr_0c6_5ae6:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5af3
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6202,12 +6203,12 @@ jr_0c6_5b07:
     ld c, $02
 
 jr_0c6_5b0e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5b1b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6267,16 +6268,16 @@ jr_0c6_5b44:
     ld c, $04
 
 jr_0c6_5b50:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5b7b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $01
     jr nz, jr_0c6_5b78
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr z, jr_0c6_5b78
 
@@ -6285,7 +6286,7 @@ jr_0c6_5b50:
     jr nz, jr_0c6_5b7d
 
     ld a, $0c
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c489], a
     ld [$c505], a
@@ -6322,7 +6323,7 @@ jr_0c6_5b88:
 jr_0c6_5b93:
     ld [hl], $00
     ld a, $0d
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c48a], a
     jr jr_0c6_5b78
@@ -6365,12 +6366,12 @@ jr_0c6_5bb7:
     ld c, $04
 
 jr_0c6_5bc9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5bd6
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6412,12 +6413,12 @@ jr_0c6_5bf6:
     ld c, $05
 
 jr_0c6_5bf8:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5c05
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6477,12 +6478,12 @@ jr_0c6_5c2e:
     ld c, $03
 
 jr_0c6_5c3b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5c48
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6549,12 +6550,12 @@ jr_0c6_5c78:
     ld c, $00
 
 jr_0c6_5c85:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5c92
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6573,12 +6574,12 @@ Jump_0c6_5c94:
     ld c, $00
 
 jr_0c6_5c9c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5ccf
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c11b]
     or a
     jr z, jr_0c6_5ccc
@@ -6591,12 +6592,12 @@ jr_0c6_5c9c:
     or a
     jr nz, jr_0c6_5ccc
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_5ccc
 
     ld a, $07
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4c8], a
     ld [$c413], a
@@ -6620,12 +6621,12 @@ Jump_0c6_5cd1:
     ld c, $01
 
 jr_0c6_5cd9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5d02
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c531]
     or a
     jr nz, jr_0c6_5cff
@@ -6665,12 +6666,12 @@ Jump_0c6_5d04:
     ld c, $01
 
 jr_0c6_5d0d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5d1a
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6689,12 +6690,12 @@ Jump_0c6_5d1c:
     ld c, $01
 
 jr_0c6_5d25:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5d32
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6721,12 +6722,12 @@ jr_0c6_5d44:
     ld c, $02
 
 jr_0c6_5d46:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5d53
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6773,12 +6774,12 @@ jr_0c6_5d79:
     ld c, $03
 
 jr_0c6_5d7b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5dab
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c4a0]
     or a
     jr z, jr_0c6_5da8
@@ -6791,12 +6792,12 @@ jr_0c6_5d7b:
     or a
     jr nz, jr_0c6_5da8
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr nz, jr_0c6_5da8
 
     ld a, $0d
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b5], a
 
@@ -6859,12 +6860,12 @@ jr_0c6_5dde:
     ld c, $02
 
 jr_0c6_5de0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5ded
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6899,12 +6900,12 @@ jr_0c6_5dfc:
     ld c, $02
 
 jr_0c6_5e07:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5e14
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -6951,12 +6952,12 @@ jr_0c6_5e3c:
     ld c, $01
 
 jr_0c6_5e3e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5e4b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7009,12 +7010,12 @@ jr_0c6_5e7a:
     jr jr_0c6_5e7e
 
 jr_0c6_5e7e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5e8b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7038,12 +7039,12 @@ Jump_0c6_5e8d:
     ld c, $02
 
 jr_0c6_5e9c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5ea9
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7084,12 +7085,12 @@ jr_0c6_5eca:
     ld c, $00
 
 jr_0c6_5ecc:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5ed9
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7142,12 +7143,12 @@ jr_0c6_5efc:
     ld c, $03
 
 jr_0c6_5f08:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5f15
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7192,12 +7193,12 @@ jr_0c6_5f39:
     ld c, $04
 
 jr_0c6_5f3b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5f6b
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c4a0]
     or a
     jr z, jr_0c6_5f68
@@ -7210,12 +7211,12 @@ jr_0c6_5f3b:
     or a
     jr nz, jr_0c6_5f68
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nz, jr_0c6_5f68
 
     ld a, $0e
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b6], a
 
@@ -7316,12 +7317,12 @@ jr_0c6_5fbd:
     ld c, $06
 
 jr_0c6_5fc9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5fd6
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7351,12 +7352,12 @@ jr_0c6_5fe5:
     ld c, $01
 
 jr_0c6_5fec:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_5ff9
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7448,12 +7449,12 @@ jr_0c6_603a:
     ld c, $05
 
 jr_0c6_604e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_607e
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, [$c4a0]
     or a
     jr z, jr_0c6_607b
@@ -7466,12 +7467,12 @@ jr_0c6_604e:
     or a
     jr nz, jr_0c6_607b
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr nz, jr_0c6_607b
 
     ld a, $0f
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c4b7], a
 
@@ -7525,12 +7526,12 @@ jr_0c6_609e:
     ld c, $03
 
 jr_0c6_60a9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_60b6
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -7572,12 +7573,12 @@ jr_0c6_60c6:
     ld c, $05
 
 jr_0c6_60dc:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_6106
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     or a
     jr nz, jr_0c6_6103
 
@@ -7588,14 +7589,14 @@ jr_0c6_60dc:
     jr jr_0c6_6103
 
 jr_0c6_60f1:
-    ld a, [$c482]
+    ld a, [FLAG_PLAYER_CUTSCENE_c482]
     or a
     jr nz, jr_0c6_6103
 
     ld a, $04
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c482], a
+    ld [FLAG_PLAYER_CUTSCENE_c482], a
     jr jr_0c6_6103
 
 jr_0c6_6103:
@@ -7671,16 +7672,16 @@ jr_0c6_6143:
     ld c, $04
 
 jr_0c6_614f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_617c
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     or a
     jr nz, jr_0c6_6179
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr nz, jr_0c6_6179
 
@@ -7693,7 +7694,7 @@ jr_0c6_614f:
     jr nz, jr_0c6_6179
 
     ld a, $09
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
     ld [$c485], a
 
@@ -7707,7 +7708,7 @@ jr_0c6_617c:
     ret
 
 
-Jump_0c6_617e:
+Room05Handler_0c6_617e:
     ld c, $04
     ld a, d
     cp $ff
@@ -7749,40 +7750,41 @@ jr_0c6_61a9:
     jr jr_0c6_61ad
 
 jr_0c6_61ad:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jr z, jr_0c6_61f1
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $04
     jr nz, jr_0c6_61ee
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
-    jr z, jr_0c6_61d4
+    jr z, CheckChrisSeesFirstZombie
 
-    ld a, [$c480]
+    ; Jill sees first zombie
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
     jr nz, jr_0c6_61ee
 
     ld a, $88
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c480], a
+    ld [FLAG_SEEN_FIRST_ZOMBIE], a
     jr jr_0c6_61ee
 
-jr_0c6_61d4:
-    ld a, [$c480]
+CheckChrisSeesFirstZombie:
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
     jr nz, jr_0c6_61ee
 
     ld a, $88
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c480], a
+    ld [FLAG_SEEN_FIRST_ZOMBIE], a
     ld a, $ff
-    ld [$c400], a
+    ld [FLAG_PLAYER_CAN_RETURN_ENTRANCE], a
     ld a, $ff
     ld [$c501], a
 
@@ -7871,12 +7873,12 @@ jr_0c6_6240:
     jr jr_0c6_6244
 
 jr_0c6_6244:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jp z, Jump_0c6_6252
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -8009,12 +8011,12 @@ jr_0c6_62d7:
     ld c, $06
 
 jr_0c6_62d9:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jp z, Jump_0c6_62e7
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $ff
     ret
 
@@ -8024,7 +8026,7 @@ Jump_0c6_62e7:
     ret
 
 
-Jump_0c6_62e9:
+Room01Handler_0c6_62e9:
     ld c, $00
     ld a, h
     cp $ff
@@ -8142,71 +8144,81 @@ jr_0c6_6361:
     ld c, $03
 
 jr_0c6_6363:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jp z, Jump_0c6_63d3
 
     ld a, c
-    ld [$c11f], a
-    ld a, [$c30b]
+    ld [CAMERA_NUMBER], a
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $93
-    jr z, jr_0c6_6378
+    jr z, CheckJillRoom01
 
     jp Jump_0c6_63d0
 
 
-jr_0c6_6378:
-    ld a, [$c11f]
+CheckJillRoom01:
+    ld a, [CAMERA_NUMBER]
+    ; camera == 0
     or a
-    jr z, jr_0c6_6384
+    jr z, CheckJillReturnsEntranceBeforeFirstZombie
 
+    ; camera == 2
     cp $02
-    jr z, jr_0c6_639a
+    jr z, CheckJillFindsBarryFireplace
 
     jr jr_0c6_63d0
 
-jr_0c6_6384:
-    ld a, [$c481]
+CheckJillReturnsEntranceBeforeFirstZombie:
+    ld a, [FLAG_PLAYER_CUTSCENE_c481]
     or a
     jr nz, jr_0c6_63d0
 
+    ; cutscene 2
+    ; jill is in dining room and barry moves forward
     ld a, $02
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c481], a
+    ld [FLAG_PLAYER_CUTSCENE_c481], a
+    ; door to entrance is locked
     xor a
-    ld [$c400], a
+    ld [FLAG_PLAYER_CAN_RETURN_ENTRANCE], a
     jr jr_0c6_63d0
 
-jr_0c6_639a:
-    ld a, [$c482]
+CheckJillFindsBarryFireplace:
+    ld a, [FLAG_PLAYER_CUTSCENE_c482]
     or a
     jr nz, jr_0c6_63ac
 
+    ; cutscene 3
+    ; jill finds barry at the fireplace
     ld a, $03
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c482], a
+    ld [FLAG_PLAYER_CUTSCENE_c482], a
     jr jr_0c6_63d0
 
 jr_0c6_63ac:
-    ld a, [$c480]
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
     jr z, jr_0c6_63d0
 
-    ld a, [$c483]
+    ; check if cutscene was played
+    ld a, [FLAG_PLAYER_CUTSCENE_c483]
     or a
     jr nz, jr_0c6_63d0
 
+    ; jill seen first zombie and runs back to barry
+    ; barry will kill zombie in dining hall
     ld a, $04
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c483], a
+    ld [FLAG_PLAYER_CUTSCENE_c483], a
     xor a
     ld [$c404], a
     ld [$c604], a
     ld a, $ff
-    ld [$c400], a
+    ld [FLAG_PLAYER_CAN_RETURN_ENTRANCE], a
     jr jr_0c6_63d0
 
 Jump_0c6_63d0:
@@ -8220,7 +8232,7 @@ Jump_0c6_63d3:
     ret
 
 
-Jump_0c6_63d5:
+Room00Handler_0c6_63d5:
     ld a, h
     cp $80
     jr c, jr_0c6_63de
@@ -8337,7 +8349,7 @@ jr_0c6_6447:
     cp $e0
     jr c, jr_0c6_645e
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jp z, Jump_0c6_64df
 
@@ -8354,17 +8366,17 @@ jr_0c6_645e:
     cp $20
     jr nc, jr_0c6_6474
 
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0c6_64df
 
 jr_0c6_6474:
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
     jr nz, jr_0c6_6487
 
     xor a
-    ld a, [$c484]
+    ld a, [FLAG_PLAYER_CUTSCENE_c484]
     or a
     jr z, jr_0c6_6487
 
@@ -8372,55 +8384,59 @@ jr_0c6_6474:
     ld [$c486], a
 
 jr_0c6_6487:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp c
     jp z, Jump_0c6_64df
 
     ld a, c
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     cp $05
     jr nz, jr_0c6_64dc
 
-    ld a, [$c30b]
+    ld a, [PLAYER_CHARACTER_MODEL]
     cp $92
-    jr z, jr_0c6_64bb
+    jr z, CheckChrisReturnsEntrance
 
-    ld a, [$c480]
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
     jr z, jr_0c6_64dc
 
-    ld a, [$c484]
+    ld a, [FLAG_PLAYER_CUTSCENE_c484]
     or a
     jr nz, jr_0c6_64dc
 
+    ; cutscene 5 for jill
+    ; jill and barry return to entrance and find wesker missing
     ld a, $05
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c484], a
-    ld [$c400], a
+    ld [FLAG_PLAYER_CUTSCENE_c484], a
+    ld [FLAG_PLAYER_CAN_RETURN_ENTRANCE], a
     ld [$c404], a
     jr jr_0c6_64dc
 
-jr_0c6_64bb:
-    ld a, [$c480]
+CheckChrisReturnsEntrance:
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
-    jr nz, jr_0c6_64cc
+    jr nz, CheckChrisReturnsEntranceAfterFirstZombie
 
+    ; chris returns to main entrance before first zombie and has to go back to dining hall
+    ; door to entrance will be locked
     ld a, $02
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     xor a
-    ld [$c400], a
+    ld [FLAG_PLAYER_CAN_RETURN_ENTRANCE], a
     jr jr_0c6_64dc
 
-jr_0c6_64cc:
-    ld a, [$c481]
+CheckChrisReturnsEntranceAfterFirstZombie:
+    ld a, [FLAG_PLAYER_CUTSCENE_c481]
     or a
     jr nz, jr_0c6_64dc
 
     ld a, $03
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld a, $ff
-    ld [$c481], a
+    ld [FLAG_PLAYER_CUTSCENE_c481], a
 
 jr_0c6_64dc:
     ld a, $ff

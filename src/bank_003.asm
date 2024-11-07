@@ -2352,7 +2352,7 @@ Jump_003_7a85:
     inc hl
     ld d, [hl]
     inc hl
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $22
     jp z, Jump_003_7aa7
 

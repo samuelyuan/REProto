@@ -709,10 +709,10 @@ jr_005_5e7e:
     ret
 
 
-    ld a, [$c185]
+    ld a, [ITEM_BOX_CURSOR_OPTION]
     ld e, a
     ld d, $00
-    ld hl, $c280
+    ld hl, ITEM_BOX_BASE
     add hl, de
     ld a, [hl]
     push af
@@ -1116,7 +1116,7 @@ Call_005_6071:
     ld c, a
     ld a, [$c1d0]
     ld b, a
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp c
     jr nz, jr_005_60ac
 

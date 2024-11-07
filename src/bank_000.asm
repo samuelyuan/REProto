@@ -1136,19 +1136,19 @@ Call_000_039d:
     ld a, $01
     ld [$c200], a
     ld a, $ff
-    ld [$c11f], a
+    ld [CAMERA_NUMBER], a
     ld a, $00
-    ld [$c17c], a
+    ld [ROOM_NUMBER], a
     xor a
-    ld [$c17d], a
+    ld [ROOM_NUMBER + 1], a
     call Call_000_0890
     ld a, $c5
     call SwitchBank
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
 
 Jump_000_03bc:
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
 
 Call_000_03bf:
 Jump_000_03bf:
@@ -1174,17 +1174,17 @@ Jump_000_03cb:
     ld a, [hl+]
 
 Call_000_03cd:
-    ld [$c311], a
+    ld [PLAYER_POS_Y_VAR], a
     ld a, [hl+]
-    ld [$c312], a
+    ld [PLAYER_POS_Y_VAR + 1], a
     ld a, [hl+]
-    ld [$c313], a
+    ld [PLAYER_POS_X_VAR], a
     ld a, [hl+]
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
 
 Jump_000_03dc:
     ld a, [hl+]
-    ld [$c309], a
+    ld [PLAYER_POS_ROTATE], a
 
 Call_000_03e0:
     ld a, $01
@@ -1197,8 +1197,9 @@ Call_000_03eb:
     ld [$c105], a
     ld a, $05
     ld [$c1fe], a
+    ; intro cutscene
     ld a, $01
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     ld hl, $04e2
 
 Jump_000_03fd:
@@ -1221,7 +1222,7 @@ Jump_000_0408:
     xor a
     ld [$c1c0], a
     call Call_000_0741
-    ld a, [$c1bf]
+    ld a, [CUTSCENE_NUMBER]
     or a
     jr z, jr_000_0444
 
@@ -1234,7 +1235,7 @@ Call_000_041f:
     xor a
 
 Call_000_0420:
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
 
 Call_000_0423:
     call $4515
@@ -1261,7 +1262,7 @@ jr_000_043e:
 
 Call_000_043f:
 Jump_000_043f:
-    ld [$c30b], a
+    ld [PLAYER_CHARACTER_MODEL], a
     jr jr_000_0405
 
 Call_000_0444:
@@ -1281,29 +1282,29 @@ Jump_000_044c:
     ld hl, $9a00
 
 Call_000_0456:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     ld e, a
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld d, a
     call $4408
     ld hl, $9a05
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
 
 Call_000_046b:
     ld d, a
     call $7135
     call $4408
     ld hl, $9a0a
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call $7135
     call $4408
     ld hl, $9a0f
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     ld e, a
     ld d, $00
     call $4408
@@ -1400,9 +1401,9 @@ Call_000_050f:
     cp $04
     jp z, Jump_000_059d
 
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld e, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld d, a
     ld hl, $c200
     add hl, de
@@ -1436,7 +1437,7 @@ jr_000_054b:
     and $08
     jp nz, $45a9
 
-    ld a, [$c1bf]
+    ld a, [CUTSCENE_NUMBER]
     or a
     jp nz, Jump_000_073b
 
@@ -1804,9 +1805,9 @@ Jump_000_073e:
 Call_000_0741:
     ld a, $07
     call SwitchBank
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     ld de, $4000
@@ -1815,7 +1816,7 @@ Call_000_0741:
     inc hl
     ld d, [hl]
     inc de
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     ld l, a
     ld h, $00
     add hl, hl
@@ -1876,11 +1877,11 @@ Call_000_0781:
     call SwitchBank
     call Call_000_1138
     call Call_000_091b
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
 
 Jump_000_07c3:
     ld l, a
-    ld a, [$c17d]
+    ld a, [ROOM_NUMBER + 1]
     ld h, a
     add hl, hl
     add hl, hl
@@ -11796,7 +11797,7 @@ Jump_000_3080:
     ld a, $01
     call SwitchBank
     push hl
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
 
 jr_000_308d:
     ld l, a
@@ -14633,13 +14634,13 @@ Call_000_3f43:
 
 jr_000_3f45:
     push bc
-    ld a, [$c185]
+    ld a, [ITEM_BOX_CURSOR_OPTION]
     add b
     sub $02
     and $1f
     ld e, a
     ld d, $00
-    ld hl, $c280
+    ld hl, ITEM_BOX_BASE
     add hl, de
     ld a, [hl]
     ld l, a

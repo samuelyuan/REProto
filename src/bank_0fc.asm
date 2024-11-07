@@ -1,35 +1,22 @@
 SECTION "ROM Bank $0fc", ROMX[$4000], BANK[$fc]
 
-    sbc h
-    ld b, b
-    and h
-    ld b, b
-    xor h
-    ld b, b
-    or h
-    ld b, b
-    cp h
-    ld b, b
-    call nz, $cc40
-    ld b, b
-    call nc, $dc40
-    ld b, b
-    db $e4
-    ld b, b
-    db $ec
-    ld b, b
-    db $f4
-    ld b, b
-    db $fc
-    ld b, b
-    inc b
-    ld b, c
-    inc c
-    ld b, c
-    inc d
-    ld b, c
-    inc e
-    ld b, c
+    dw $409c
+    dw $40a4
+    dw $40ac
+    dw $40b4
+    dw $40bc
+    dw $40c4
+    dw $40cc
+    dw $40d4
+    dw $40dc
+    dw $40e4
+    dw $40ec
+    dw $40f4
+    dw $40fc
+    dw $4104
+    dw $410c
+    dw $4114
+    dw $411c
     nop
     nop
     nop
@@ -76,50 +63,30 @@ SECTION "ROM Bank $0fc", ROMX[$4000], BANK[$fc]
     nop
     nop
     nop
-    inc h
-    ld b, c
-    inc l
-    ld b, c
-    inc [hl]
-    ld b, c
-    inc a
-    ld b, c
-    ld b, h
-    ld b, c
-    ld c, h
-    ld b, c
-    ld d, h
-    ld b, c
-    ld e, h
-    ld b, c
-    ld h, h
-    ld b, c
-    ld l, h
-    ld b, c
-    ld [hl], h
-    ld b, c
-    ld a, h
-    ld b, c
-    add h
-    ld b, c
-    adc h
-    ld b, c
-    sub h
-    ld b, c
-    sbc h
-    ld b, c
-    and h
-    ld b, c
-    xor h
-    ld b, c
-    or h
-    ld b, c
-    cp h
-    ld b, c
-    call nz, $cc41
-    ld b, c
-    call nc, $dc41
-    ld b, c
+    dw $4124
+    dw $412c
+    dw $4134
+    dw $413c
+    dw $4144
+    dw $414c
+    dw $4154
+    dw $415c
+    dw $4164
+    dw $416c
+    dw $4174
+    dw $417c
+    dw $4184
+    dw $418c
+    dw $4194
+    dw $419c
+    dw $41a4
+    dw $41ac
+    dw $41b4
+    dw $41bc
+    dw $41c4
+    dw $41cc
+    dw $41d4
+    dw $41dc
     nop
     nop
     nop
@@ -148,286 +115,91 @@ SECTION "ROM Bank $0fc", ROMX[$4000], BANK[$fc]
     nop
     nop
     nop
-    ld b, b
-    nop
-    ld [hl], b
-    inc bc
-    ld hl, sp-$04
-    ld c, b
-    db $fd
-    sub b
-    db $fc
-    ld b, b
-    db $fd
-    ld b, b
-    db $fc
-    ld c, b
-    db $fd
-    xor b
-    db $fd
-    ld l, b
-    cp $38
-    nop
-    adc b
-    nop
-    xor b
-    ld bc, $02d0
-    cp b
-    inc bc
-    adc b
-    inc b
-    adc b
-    inc bc
-    ld d, b
-    inc b
-    ret nc
 
-    rst $38
-    ld e, b
-    ld bc, $0050
-    ret nz
+bank0fc_409c: ; 0x409c
+    db $40, $00, $70, $03, $f8, $fc, $48, $fd
+bank0fc_40a4: ; 0x40a4
+    db $90, $fc, $40, $fd, $40, $fc, $48, $fd
+bank0fc_40ac: ; 0x40ac
+    db $a8, $fd, $68, $fe, $38, $00, $88, $00
+bank0fc_40b4: ; 0x40b4
+    db $a8, $01, $d0, $02, $b8, $03, $88, $04
+bank0fc_40bc: ; 0x40bc
+    db $88, $03, $50, $04, $d0, $ff, $58, $01
+bank0fc_40c4: ; 0x40c4
+    db $50, $00, $c0, $01, $30, $fd, $08, $fe
+bank0fc_40cc: ; 0x40cc
+    db $c0, $fe, $c8, $ff, $b8, $fe, $c8, $ff
+bank0fc_40d4: ; 0x40d4
+    db $48, $01, $48, $02, $f8, $01, $58, $03
+bank0fc_40dc: ; 0x40dc
+    db $f0, $fd, $70, $ff, $b0, $ff, $58, $00
+bank0fc_40e4: ; 0x40e4
+    db $70, $00, $c0, $00, $b0, $ff, $58, $00
+bank0fc_40ec: ; 0x40ec
+    db $08, $00, $c8, $00, $c0, $ff, $50, $01
+bank0fc_40f4: ; 0x40f4
+    db $b0, $00, $d0, $01, $d8, $ff, $d0, $00
+bank0fc_40fc: ; 0x40fc
+    db $48, $fe, $30, $fe, $30, $fd, $00, $00
+bank0fc_4104: ; 0x4104
+    db $b0, $fe, $88, $ff, $30, $fe, $80, $00
+bank0fc_410c: ; 0x410c
+    db $88, $03, $50, $04, $d0, $ff, $58, $01
+bank0fc_4114: ; 0x4114
+    db $00, $00, $98, $00, $78, $01, $50, $02
+bank0fc_411c: ; 0x411c
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_4124: ; 0x4124
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_412c: ; 0x412c
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_4134: ; 0x4134
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_413c: ; 0x413c
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_4144: ; 0x4144
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_414c: ; 0x414c
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_4154: ; 0x4154
+    db $30, $fd, $10, $ff, $98, $ff, $e8, $ff
+bank0fc_415c: ; 0x415c
+    db $b8, $01, $10, $02, $f0, $fa, $d0, $fc
+bank0fc_4164: ; 0x4164
+    db $c8, $01, $10, $02, $60, $ff, $00, $00
+bank0fc_416c: ; 0x416c
+    db $50, $ff, $90, $00, $f8, $02, $50, $03
+bank0fc_4174: ; 0x4174
+    db $38, $fe, $88, $fe, $18, $ff, $78, $00
+bank0fc_417c: ; 0x417c
+    db $48, $ff, $90, $00, $30, $fc, $88, $fc
+bank0fc_4184: ; 0x4184
+    db $78, $ff, $c8, $ff, $90, $ff, $f0, $00
+bank0fc_418c: ; 0x418c
+    db $78, $00, $10, $02, $48, $02, $d0, $03
+bank0fc_4194: ; 0x4194
+    db $28, $00, $20, $02, $38, $02, $d0, $02
+bank0fc_419c: ; 0x419c
+    db $30, $fd, $b0, $01, $c8, $fd, $30, $fd
+bank0fc_41a4: ; 0x41a4
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_41ac: ; 0x41ac
+    db $28, $ff, $10, $01, $10, $01, $10, $01
+bank0fc_41b4: ; 0x41b4
+    db $58, $02, $f0, $02, $a8, $fd, $08, $fe
+bank0fc_41bc: ; 0x41bc
+    db $30, $ff, $c8, $00, $b8, $fe, $f8, $00
+bank0fc_41c4: ; 0x41c4
+    db $78, $ff, $c8, $ff, $e8, $ff, $38, $01
+bank0fc_41cc: ; 0x41cc
+    db $78, $02, $10, $03, $b8, $fd, $88, $ff
+bank0fc_41d4: ; 0x41d4
+    db $78, $ff, $c8, $ff, $30, $fd, $40, $fd
+bank0fc_41dc: ; 0x41dc
+    db $30, $fc, $d0, $03, $30, $fc, $c0, $02
 
-    ld bc, $fd30
-    ld [$c0fe], sp
-    cp $c8
-    rst $38
-    cp b
-    cp $c8
-    rst $38
-    ld c, b
-    ld bc, $0248
-    ld hl, sp+$01
-    ld e, b
-    inc bc
-    ldh a, [$fd]
-    ld [hl], b
-    rst $38
-    or b
-    rst $38
-    ld e, b
-    nop
-    ld [hl], b
-    nop
-    ret nz
-
-    nop
-    or b
-    rst $38
-    ld e, b
-    nop
-    ld [$c800], sp
-    nop
-    ret nz
-
-    rst $38
-    ld d, b
-    ld bc, $00b0
-    ret nc
-
-    ld bc, $ffd8
-    ret nc
-
-    nop
-    ld c, b
-    cp $30
-    cp $30
-    db $fd
-    nop
-    nop
-    or b
-    cp $88
-    rst $38
-
-jr_0fc_4108:
-    jr nc, jr_0fc_4108
-
-    add b
-    nop
-    adc b
-    inc bc
-    ld d, b
-    inc b
-    ret nc
-
-    rst $38
-    ld e, b
-    ld bc, $0000
-    sbc b
-    nop
-    ld a, b
-    ld bc, $0250
-    jr z, @+$01
-
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $fd30
-    db $10
-    rst $38
-    sbc b
-    rst $38
-    add sp, -$01
-    cp b
-    ld bc, $0210
-    ldh a, [$fa]
-    ret nc
-
-    db $fc
-    ret z
-
-    ld bc, $0210
-    ld h, b
-    rst $38
-    nop
-    nop
-    ld d, b
-    rst $38
-    sub b
-    nop
-    ld hl, sp+$02
-    ld d, b
-    inc bc
-
-jr_0fc_4174:
-    jr c, jr_0fc_4174
-
-    adc b
-    cp $18
-    rst $38
-    ld a, b
-    nop
-    ld c, b
-    rst $38
-
-jr_0fc_417e:
-    sub b
-    nop
-    jr nc, jr_0fc_417e
-
-    adc b
-    db $fc
-    ld a, b
-    rst $38
-    ret z
-
-    rst $38
-    sub b
-    rst $38
-    ldh a, [rP1]
-    ld a, b
-    nop
-    db $10
-    ld [bc], a
-    ld c, b
-    ld [bc], a
-    ret nc
-
-    inc bc
-    jr z, jr_0fc_4196
-
-jr_0fc_4196:
-    jr nz, jr_0fc_419a
-
-    jr c, jr_0fc_419c
-
-jr_0fc_419a:
-    ret nc
-
-jr_0fc_419b:
-    ld [bc], a
-
-jr_0fc_419c:
-    jr nc, jr_0fc_419b
-
-    or b
-    ld bc, $fdc8
-    jr nc, @-$01
-
-    jr z, @+$01
-
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $ff28
-    db $10
-    ld bc, $0110
-    db $10
-    ld bc, $0258
-    ldh a, [rSC]
-    xor b
-    db $fd
-    ld [$30fe], sp
-    rst $38
-    ret z
-
-    nop
-    cp b
-    cp $f8
-    nop
-    ld a, b
-    rst $38
-    ret z
-
-    rst $38
-    add sp, -$01
-    jr c, jr_0fc_41cd
-
-    ld a, b
-
-jr_0fc_41cd:
-    ld [bc], a
-    db $10
-    inc bc
-    cp b
-    db $fd
-    adc b
-    rst $38
-    ld a, b
-    rst $38
-    ret z
-
-jr_0fc_41d7:
-    rst $38
-    jr nc, jr_0fc_41d7
-
-jr_0fc_41da:
-    ld b, b
-    db $fd
-    jr nc, jr_0fc_41da
-
-jr_0fc_41de:
-    ret nc
-
-    inc bc
-    jr nc, jr_0fc_41de
-
-    ret nz
-
-    ld [bc], a
+bank0fc_41e4:
     ld de, $c320
     ld b, $07
 
@@ -692,7 +464,7 @@ jr_0fc_42ea:
 
 
 jr_0fc_4325:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jp z, Jump_0fc_42c8
 
@@ -718,7 +490,7 @@ jr_0fc_4338:
 
 
 jr_0fc_434b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jp z, Jump_0fc_42c8
 
@@ -731,7 +503,7 @@ jr_0fc_434b:
 
 
 jr_0fc_435d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0fc_42c8
 
@@ -932,7 +704,7 @@ Jump_0fc_444f:
     inc bc
     jp Jump_0fc_42c8
 
-
+bank0fc_4489:
     nop
     nop
     inc b
@@ -993,7 +765,7 @@ Call_0fc_44c9:
 
 
 jr_0fc_44d0:
-    ld a, [$c480]
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
     jr z, jr_0fc_44d9
 
@@ -1008,24 +780,24 @@ jr_0fc_44d9:
 
     xor a
     ld [$c17e], a
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_0fc_4982
     ld a, e
-    ld [$c315], a
+    ld [PLAYER_POS_RENDER_Y], a
     ld a, d
-    ld [$c316], a
-    ld a, [$c313]
+    ld [PLAYER_POS_RENDER_Y + 1], a
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_0fc_4982
     ld a, e
-    ld [$c317], a
+    ld [PLAYER_POS_RENDER_X], a
     ld a, d
-    ld [$c318], a
+    ld [PLAYER_POS_RENDER_X + 1], a
     ld a, [$c31b]
     or a
     jr z, jr_0fc_4512
@@ -1572,10 +1344,10 @@ jr_0fc_481f:
     ld [hl], $0a
 
 jr_0fc_4821:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     add $04
     and $1f
-    ld [$c309], a
+    ld [PLAYER_POS_ROTATE], a
     ld a, [$c306]
     cp $01
     jr z, jr_0fc_483d
@@ -1619,10 +1391,10 @@ jr_0fc_4855:
     ld [hl], $0a
 
 jr_0fc_4857:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     sub $04
     and $1f
-    ld [$c309], a
+    ld [PLAYER_POS_ROTATE], a
     ld a, [$c306]
     cp $01
     jr z, jr_0fc_4873
@@ -1652,7 +1424,7 @@ Jump_0fc_4874:
     ld [$c307], a
     ld bc, $0000
     ld de, $000e
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $04
     jr c, jr_0fc_48cd
 
@@ -1691,18 +1463,18 @@ Jump_0fc_4874:
 
 jr_0fc_48cd:
     call Call_0fc_4971
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     add c
-    ld [$c311], a
-    ld a, [$c312]
+    ld [PLAYER_POS_Y_VAR], a
+    ld a, [PLAYER_POS_Y_VAR + 1]
     adc b
-    ld [$c312], a
-    ld a, [$c313]
+    ld [PLAYER_POS_Y_VAR + 1], a
+    ld a, [PLAYER_POS_X_VAR]
     add e
-    ld [$c313], a
-    ld a, [$c314]
+    ld [PLAYER_POS_X_VAR], a
+    ld a, [PLAYER_POS_X_VAR + 1]
     adc d
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
     ld a, [$c307]
     and $1f
     cp $03
@@ -1724,7 +1496,7 @@ Jump_0fc_48fb:
     ld [$c307], a
     ld bc, $0000
     ld de, $fff9
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $04
     jr c, jr_0fc_4954
 
@@ -1762,18 +1534,18 @@ Jump_0fc_48fb:
     ld de, $fffa
 
 jr_0fc_4954:
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     add c
-    ld [$c311], a
-    ld a, [$c312]
+    ld [PLAYER_POS_Y_VAR], a
+    ld a, [PLAYER_POS_Y_VAR + 1]
     adc b
-    ld [$c312], a
-    ld a, [$c313]
+    ld [PLAYER_POS_Y_VAR + 1], a
+    ld a, [PLAYER_POS_X_VAR]
     add e
-    ld [$c313], a
-    ld a, [$c314]
+    ld [PLAYER_POS_X_VAR], a
+    ld a, [PLAYER_POS_X_VAR + 1]
     adc d
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
     ret
 
 
@@ -1877,7 +1649,7 @@ jr_0fc_49d6:
 
 
 Call_0fc_49e4:
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     cp $0c
     jp z, Jump_0fc_4ab2
 
@@ -1912,10 +1684,10 @@ Jump_0fc_4a10:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     cp $02
@@ -1927,10 +1699,10 @@ Jump_0fc_4a10:
     inc hl
     ld h, [hl]
     ld l, a
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub l
     ld l, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc h
     ld h, a
     cp $02
@@ -1969,10 +1741,10 @@ Jump_0fc_4a5d:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     cp $02
@@ -1984,10 +1756,10 @@ Jump_0fc_4a5d:
     inc hl
     ld h, [hl]
     ld l, a
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub l
     ld l, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc h
     ld h, a
     cp $fe
@@ -2032,10 +1804,10 @@ Jump_0fc_4ab2:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     cp $fe
@@ -2053,10 +1825,10 @@ Jump_0fc_4ab2:
     inc hl
     ld h, [hl]
     ld l, a
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub l
     ld l, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc h
     ld h, a
     cp $02
@@ -2095,10 +1867,10 @@ Jump_0fc_4b07:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     cp $fe
@@ -2116,10 +1888,10 @@ Jump_0fc_4b07:
     inc hl
     ld h, [hl]
     ld l, a
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub l
     ld l, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc h
     ld h, a
     cp $fe
@@ -2164,10 +1936,10 @@ Jump_0fc_4b64:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     or a
@@ -2193,10 +1965,10 @@ jr_0fc_4b8b:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub c
     ld c, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc b
     ld b, a
     cp $02
@@ -2211,10 +1983,10 @@ Jump_0fc_4ba4:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub c
     ld c, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc b
     ld b, a
     or a
@@ -2240,10 +2012,10 @@ jr_0fc_4bcb:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     cp $02
@@ -2257,10 +2029,10 @@ Jump_0fc_4be3:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     or a
@@ -2286,10 +2058,10 @@ jr_0fc_4c0a:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub c
     ld c, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc b
     ld b, a
     cp $fe
@@ -2303,10 +2075,10 @@ Jump_0fc_4c22:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub c
     ld c, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc b
     ld b, a
     or a
@@ -2332,10 +2104,10 @@ jr_0fc_4c49:
     ld c, [hl]
     inc hl
     ld b, [hl]
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub c
     ld c, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc b
     ld b, a
     cp $fe

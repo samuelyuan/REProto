@@ -93,9 +93,9 @@ bank00f_5bb0:
 
 
 Jump_00f_5be3:
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld a, d
@@ -106,9 +106,9 @@ Jump_00f_5be3:
     cp $50
     ret c
 
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld a, d
@@ -136,13 +136,13 @@ jr_00f_5c0e:
 
 
 Jump_00f_5c1a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     ret nz
 
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld hl, $0014
@@ -172,13 +172,13 @@ jr_00f_5c3f:
 
 
 Jump_00f_5c4b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     ret nz
 
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld hl, $0050
@@ -209,13 +209,13 @@ jr_00f_5c6f:
 
 
 Jump_00f_5c7e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     ret nz
 
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld a, d
@@ -226,9 +226,9 @@ Jump_00f_5c7e:
     cp $40
     ret c
 
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld a, d
@@ -288,13 +288,13 @@ jr_00f_5cd5:
 
 
 Jump_00f_5ce4:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr nc, jr_00f_5d0d
 
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld a, d
@@ -323,9 +323,9 @@ Jump_00f_5d0e:
     or a
     ret z
 
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld bc, $0014
@@ -358,9 +358,9 @@ Jump_00f_5d3a:
     or a
     ret z
 
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld bc, $0008
@@ -402,9 +402,9 @@ Jump_00f_5d71:
     or a
     ret z
 
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_00f_5d9d
     ld bc, $001c

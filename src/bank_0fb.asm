@@ -1,11 +1,12 @@
 SECTION "ROM Bank $0fb", ROMX[$4000], BANK[$fb]
 
-    ld a, [$c17c]
+RoomCameraHandler_fb_4000:
+    ld a, [ROOM_NUMBER]
     or a
-    jp z, Jump_0fb_40df
+    jp z, Room00Handler_0fb_40df
 
     cp $01
-    jp z, Jump_0fb_4153
+    jp z, Room01Handler_0fb_4153
 
     cp $02
     jp z, Jump_0fb_41c0
@@ -136,8 +137,8 @@ SECTION "ROM Bank $0fb", ROMX[$4000], BANK[$fb]
     ret
 
 
-Jump_0fb_40df:
-    ld a, [$c11f]
+Room00Handler_0fb_40df:
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_40f3
 
@@ -201,8 +202,8 @@ jr_0fb_4146:
     ret
 
 
-Jump_0fb_4153:
-    ld a, [$c11f]
+Room01Handler_0fb_4153:
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_416b
 
@@ -223,7 +224,7 @@ Jump_0fb_4153:
 
 jr_0fb_416b:
     ld de, $47ee
-    ld a, [$c502]
+    ld a, [PICKED_WOOD_EMBLEM]
     ld c, a
     ld a, [$c52f]
     add c
@@ -238,7 +239,7 @@ jr_0fb_416b:
 
 jr_0fb_4185:
     ld de, $47f8
-    ld a, [$c502]
+    ld a, [PICKED_WOOD_EMBLEM]
     ld c, a
     ld a, [$c52f]
     add c
@@ -268,7 +269,7 @@ jr_0fb_41a0:
 
 jr_0fb_41b0:
     ld de, $4802
-    ld a, [$c502]
+    ld a, [PICKED_WOOD_EMBLEM]
     ld c, a
     ld a, [$c52f]
     add c
@@ -278,7 +279,7 @@ jr_0fb_41b0:
 
 
 Jump_0fb_41c0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_41d3
 
@@ -319,7 +320,7 @@ jr_0fb_41ea:
 
 
 Jump_0fb_41eb:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_41f7
 
@@ -346,23 +347,23 @@ jr_0fb_4202:
 
 
 Jump_0fb_420d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
-    jr z, jr_0fb_4219
+    jr z, Room05Camera03Handler_0fb_4219
 
     cp $04
-    jr z, jr_0fb_4220
+    jr z, Room05Camera04Handler_0fb_4220
 
     ret
 
 
-jr_0fb_4219:
+Room05Camera03Handler_0fb_4219:
     ld de, $4866
     call Call_000_1309
     ret
 
 
-jr_0fb_4220:
+Room05Camera04Handler_0fb_4220:
     ld a, [$c509]
     or a
     jr nz, jr_0fb_422b
@@ -376,7 +377,7 @@ jr_0fb_422b:
 
 
 Jump_0fb_422c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_423c
 
@@ -412,7 +413,7 @@ jr_0fb_4250:
 
 
 Jump_0fb_425b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_0fb_4263
 
@@ -435,7 +436,7 @@ Jump_0fb_4273:
 
 
 Jump_0fb_4274:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_4280
 
@@ -466,7 +467,7 @@ jr_0fb_4295:
 
 
 Jump_0fb_42a0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_42a8
 
@@ -482,7 +483,7 @@ jr_0fb_42a8:
 
 
 Jump_0fb_42b3:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_42bb
 
@@ -498,7 +499,7 @@ jr_0fb_42bb:
 
 
 Jump_0fb_42c6:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_42d2
 
@@ -525,7 +526,7 @@ jr_0fb_42dd:
 
 
 Jump_0fb_42e8:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_42fb
 
@@ -582,7 +583,7 @@ jr_0fb_4326:
 
 
 Jump_0fb_433b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr z, jr_0fb_4343
 
@@ -598,7 +599,7 @@ jr_0fb_4343:
 
 
 Jump_0fb_434e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr z, jr_0fb_4356
 
@@ -614,7 +615,7 @@ jr_0fb_4356:
 
 
 Jump_0fb_4361:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_436d
 
@@ -641,7 +642,7 @@ jr_0fb_437a:
 
 
 Jump_0fb_4387:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_0fb_438f
 
@@ -661,7 +662,7 @@ jr_0fb_438f:
 
 
 Jump_0fb_43a4:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_43af
 
@@ -688,7 +689,7 @@ jr_0fb_43ba:
 
 
 Jump_0fb_43c5:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_43d0
 
@@ -722,7 +723,7 @@ jr_0fb_43e2:
 
 
 Jump_0fb_43ed:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_43f5
 
@@ -745,7 +746,7 @@ jr_0fb_4403:
 
 
 Jump_0fb_4407:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr z, jr_0fb_440f
 
@@ -759,7 +760,7 @@ jr_0fb_440f:
 
 
 Jump_0fb_4416:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_441e
 
@@ -773,7 +774,7 @@ jr_0fb_441e:
 
 
 Jump_0fb_4425:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_4431
 
@@ -842,7 +843,7 @@ jr_0fb_446d:
 
 
 Jump_0fb_449f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $20
     jr z, jr_0fb_44a7
 
@@ -856,7 +857,7 @@ jr_0fb_44a7:
 
 
 Jump_0fb_44ae:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_44b5
 
@@ -872,7 +873,7 @@ jr_0fb_44b5:
 
 
 Jump_0fb_44c0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_44cb
 
@@ -909,7 +910,7 @@ jr_0fb_44e7:
 
 
 Jump_0fb_44eb:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_44fa
 
@@ -968,7 +969,7 @@ jr_0fb_452a:
 
 
 Jump_0fb_4542:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_4549
 
@@ -992,7 +993,7 @@ jr_0fb_4549:
 
 
 Jump_0fb_4568:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_4574
 
@@ -1023,7 +1024,7 @@ jr_0fb_457f:
 
 
 Jump_0fb_4594:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr z, jr_0fb_459c
 
@@ -1037,7 +1038,7 @@ jr_0fb_459c:
 
 
 Jump_0fb_45a3:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_0fb_45af
 
@@ -1064,7 +1065,7 @@ jr_0fb_45ba:
 
 
 Jump_0fb_45c5:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_45cd
 
@@ -1080,7 +1081,7 @@ jr_0fb_45cd:
 
 
 Jump_0fb_45d8:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_45e4
 
@@ -1107,7 +1108,7 @@ jr_0fb_45ef:
 
 
 Jump_0fb_45fa:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_0fb_4602
 
@@ -1123,7 +1124,7 @@ jr_0fb_4602:
 
 
 Jump_0fb_460d:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_4615
 
@@ -1147,7 +1148,7 @@ jr_0fb_4615:
 
 
 Jump_0fb_4634:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_0fb_463c
 
@@ -1163,7 +1164,7 @@ jr_0fb_463c:
 
 
 Jump_0fb_4647:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_464f
 
@@ -1179,7 +1180,7 @@ jr_0fb_464f:
 
 
 Jump_0fb_465a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jr z, jr_0fb_4666
 
@@ -1206,7 +1207,7 @@ jr_0fb_4671:
 
 
 Jump_0fb_467c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jr z, jr_0fb_4688
 
@@ -1233,7 +1234,7 @@ jr_0fb_4693:
 
 
 Jump_0fb_469e:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jr z, jr_0fb_46a9
 
@@ -1274,7 +1275,7 @@ jr_0fb_46bb:
 
 
 Jump_0fb_46d7:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr z, jr_0fb_46df
 
@@ -1290,7 +1291,7 @@ jr_0fb_46df:
 
 
 Jump_0fb_46ea:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jr z, jr_0fb_46f2
 
@@ -1313,7 +1314,7 @@ jr_0fb_46f2:
 
 
 Jump_0fb_470a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jr z, jr_0fb_4716
 
@@ -1340,7 +1341,7 @@ jr_0fb_4721:
 
 
 Jump_0fb_472c:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jr z, jr_0fb_4757
 
@@ -2539,15 +2540,15 @@ jr_0fb_4ccf:
     ld [$c176], a
     ld a, h
     ld [$c177], a
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_0fb_5481
     push de
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_0fb_5481
     ld l, e
@@ -2607,7 +2608,7 @@ jr_0fb_4ccf:
 jr_0fb_4d96:
     ld hl, $0009
     add hl, de
-    ld a, [$c309]
+    ld a, [PLAYER_POS_ROTATE]
     add $10
     and $1f
     cp [hl]
@@ -2716,7 +2717,7 @@ jr_0fb_4e24:
     jp c, Jump_0fb_4fab
 
     ld a, $8b
-    ld [$c1bf], a
+    ld [CUTSCENE_NUMBER], a
     jp Jump_0fb_4fab
 
 
@@ -2947,15 +2948,15 @@ Jump_0fb_4f48:
     ld [$c176], a
     ld a, h
     ld [$c177], a
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_0fb_5481
     push de
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_0fb_5481
     ld l, e
@@ -3094,10 +3095,10 @@ Call_0fb_4ffa:
     call Call_0fb_54a6
     ld a, e
     sub $01
-    ld [$c313], a
+    ld [PLAYER_POS_X_VAR], a
     ld a, d
     sbc $00
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3119,10 +3120,10 @@ jr_0fb_5069:
     call Call_0fb_54a6
     ld a, e
     add $08
-    ld [$c313], a
+    ld [PLAYER_POS_X_VAR], a
     ld a, d
     adc $00
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3144,10 +3145,10 @@ jr_0fb_5091:
     call Call_0fb_54a6
     ld a, e
     sub $01
-    ld [$c311], a
+    ld [PLAYER_POS_Y_VAR], a
     ld a, d
     sbc $00
-    ld [$c312], a
+    ld [PLAYER_POS_Y_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3162,10 +3163,10 @@ jr_0fb_50b8:
     call Call_0fb_54a6
     ld a, e
     add $08
-    ld [$c311], a
+    ld [PLAYER_POS_Y_VAR], a
     ld a, d
     adc $00
-    ld [$c312], a
+    ld [PLAYER_POS_Y_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3238,10 +3239,10 @@ Call_0fb_50d6:
     call Call_0fb_54a6
     ld a, e
     sub $01
-    ld [$c313], a
+    ld [PLAYER_POS_X_VAR], a
     ld a, d
     sbc $00
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3280,10 +3281,10 @@ jr_0fb_516f:
     call Call_0fb_54a6
     ld a, e
     add $08
-    ld [$c313], a
+    ld [PLAYER_POS_X_VAR], a
     ld a, d
     adc $00
-    ld [$c314], a
+    ld [PLAYER_POS_X_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3318,10 +3319,10 @@ jr_0fb_51a7:
     call Call_0fb_54a6
     ld a, e
     sub $01
-    ld [$c311], a
+    ld [PLAYER_POS_Y_VAR], a
     ld a, d
     sbc $00
-    ld [$c312], a
+    ld [PLAYER_POS_Y_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3353,10 +3354,10 @@ jr_0fb_51da:
     call Call_0fb_54a6
     ld a, e
     add $08
-    ld [$c311], a
+    ld [PLAYER_POS_Y_VAR], a
     ld a, d
     adc $00
-    ld [$c312], a
+    ld [PLAYER_POS_Y_VAR + 1], a
     pop hl
     pop de
     ld a, $ff
@@ -3466,15 +3467,15 @@ Jump_0fb_5225:
     ld [$c176], a
     ld a, h
     ld [$c177], a
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_0fb_5481
     push de
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_0fb_5481
     ld l, e
@@ -3670,15 +3671,15 @@ Jump_0fb_5364:
     ld [$c176], a
     ld a, h
     ld [$c177], a
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     ld e, a
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     ld d, a
     call Call_0fb_5481
     push de
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     ld e, a
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     ld d, a
     call Call_0fb_5481
     ld l, e
@@ -3693,11 +3694,11 @@ Jump_0fb_5364:
     ld b, $80
     ld hl, $0011
     add hl, de
-    ld a, [$c311]
+    ld a, [PLAYER_POS_Y_VAR]
     sub [hl]
     ld c, a
     inc hl
-    ld a, [$c312]
+    ld a, [PLAYER_POS_Y_VAR + 1]
     sbc [hl]
     or a
     jr z, jr_0fb_5413
@@ -3730,11 +3731,11 @@ jr_0fb_5418:
 jr_0fb_541a:
     ld hl, $0013
     add hl, de
-    ld a, [$c313]
+    ld a, [PLAYER_POS_X_VAR]
     sub [hl]
     ld c, a
     inc hl
-    ld a, [$c314]
+    ld a, [PLAYER_POS_X_VAR + 1]
     sbc [hl]
     or a
     jr z, jr_0fb_544f

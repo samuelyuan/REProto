@@ -114,27 +114,78 @@ FallingStatuePaletteBGP:: ; 0x6240
     db $d2, $66, $b1, $25, $eb, $10, $00, $00
     db $d2, $66, $e5, $3c, $00, $00, $b1, $25
 
-FallingStatuePaletteOBP:: ; 0x6280
-    db $21, $0f, $00, $19, $7e, $b7, $ca, $ff
-    db $62, $fe, $01, $ca, $0f, $63, $fe, $02
-    db $ca, $1f, $63, $fe, $03, $ca, $2a, $63
-    db $fe, $04, $ca, $35, $63, $fe, $05, $ca
-    db $3f, $63, $fe, $06, $ca, $4a, $63, $fe
-    db $07, $ca, $55, $63, $fe, $08, $ca, $60
-    db $63, $fe, $09, $ca, $6b, $63, $fe, $2e
-    db $ca, $7b, $63, $fe, $2f, $ca, $86, $63
+bank0c4_6280:
+    ld hl, $000f
+    add hl, de
+    ld a, [hl]
+    or a
+    jp z, Jump_0c4_62ff
 
-    db $fe, $30, $ca, $96, $63
-    db $fe, $31, $ca, $a0, $63
-    db $fe, $32, $ca, $b0, $63
-    db $fe, $33, $ca, $c0, $63
-    db $fe, $34, $ca, $cb, $63
-    db $fe, $35, $ca, $d6, $63
-    db $fe, $36, $ca, $e0, $63
-    db $fe, $37, $ca, $eb, $63
-    db $fe, $3c, $ca, $fb, $63
-    db $fe, $3d, $ca, $06, $64
-    db $fe, $3e, $ca, $16, $64
+    cp $01
+    jp z, Jump_0c4_630f
+
+    cp $02
+    jp z, Jump_0c4_631f
+
+    cp $03
+    jp z, Jump_0c4_632a
+
+    cp $04
+    jp z, Jump_0c4_6335
+
+    cp $05
+    jp z, Jump_0c4_633f
+
+    cp $06
+    jp z, Jump_0c4_634a
+
+    cp $07
+    jp z, Jump_0c4_6355
+
+    cp $08
+    jp z, Jump_0c4_6360
+
+    cp $09
+    jp z, Jump_0c4_636b
+
+    cp $2e
+    jp z, Jump_0c4_637b
+
+    cp $2f
+    jp z, Jump_0c4_6386
+
+    cp $30
+    jp z, Jump_0c4_6396
+
+    cp $31
+    jp z, Jump_0c4_63a0
+
+    cp $32
+    jp z, Jump_0c4_63b0
+
+    cp $33
+    jp z, Jump_0c4_63c0
+
+    cp $34
+    jp z, Jump_0c4_63cb
+
+    cp $35
+    jp z, Jump_0c4_63d6
+
+    cp $36
+    jp z, Jump_0c4_63e0
+
+    cp $37
+    jp z, Jump_0c4_63eb
+
+    cp $3c
+    jp z, Jump_0c4_63fb
+
+    cp $3d
+    jp z, Jump_0c4_6406
+
+    cp $3e
+    jp z, Jump_0c4_6416
 
     ld a, $ff
     ret
@@ -151,7 +202,7 @@ Jump_0c4_62fd:
 
 
 Jump_0c4_62ff:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jp z, Jump_0c4_62fa
 
@@ -162,7 +213,7 @@ Jump_0c4_62ff:
 
 
 Jump_0c4_630f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0c4_62fa
 
@@ -173,7 +224,7 @@ Jump_0c4_630f:
 
 
 Jump_0c4_631f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jp z, Jump_0c4_62fa
 
@@ -181,7 +232,7 @@ Jump_0c4_631f:
 
 
 Jump_0c4_632a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jp nz, Jump_0c4_62fd
 
@@ -189,7 +240,7 @@ Jump_0c4_632a:
 
 
 Jump_0c4_6335:
-    ld a, [$c480]
+    ld a, [FLAG_SEEN_FIRST_ZOMBIE]
     or a
     jp z, Jump_0c4_62fd
 
@@ -197,7 +248,7 @@ Jump_0c4_6335:
 
 
 Jump_0c4_633f:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp nz, Jump_0c4_62fd
 
@@ -205,7 +256,7 @@ Jump_0c4_633f:
 
 
 Jump_0c4_634a:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jp nz, Jump_0c4_62fd
 
@@ -213,7 +264,7 @@ Jump_0c4_634a:
 
 
 Jump_0c4_6355:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jp nz, Jump_0c4_62fd
 
@@ -221,7 +272,7 @@ Jump_0c4_6355:
 
 
 Jump_0c4_6360:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $00
     jp nz, Jump_0c4_62fd
 
@@ -229,7 +280,7 @@ Jump_0c4_6360:
 
 
 Jump_0c4_636b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0c4_62fa
 
@@ -240,7 +291,7 @@ Jump_0c4_636b:
 
 
 Jump_0c4_637b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $06
     jp nz, Jump_0c4_62fd
 
@@ -248,7 +299,7 @@ Jump_0c4_637b:
 
 
 Jump_0c4_6386:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0c4_62fa
 
@@ -259,7 +310,7 @@ Jump_0c4_6386:
 
 
 Jump_0c4_6396:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jp nz, Jump_0c4_62fd
 
@@ -267,7 +318,7 @@ Jump_0c4_6396:
 
 
 Jump_0c4_63a0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $04
     jp z, Jump_0c4_62fa
 
@@ -278,7 +329,7 @@ Jump_0c4_63a0:
 
 
 Jump_0c4_63b0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0c4_62fa
 
@@ -289,7 +340,7 @@ Jump_0c4_63b0:
 
 
 Jump_0c4_63c0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jp nz, Jump_0c4_62fd
 
@@ -297,7 +348,7 @@ Jump_0c4_63c0:
 
 
 Jump_0c4_63cb:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jp nz, Jump_0c4_62fd
 
@@ -305,7 +356,7 @@ Jump_0c4_63cb:
 
 
 Jump_0c4_63d6:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     or a
     jp nz, Jump_0c4_62fd
 
@@ -313,7 +364,7 @@ Jump_0c4_63d6:
 
 
 Jump_0c4_63e0:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp nz, Jump_0c4_62fd
 
@@ -321,7 +372,7 @@ Jump_0c4_63e0:
 
 
 Jump_0c4_63eb:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jp z, Jump_0c4_62fa
 
@@ -332,7 +383,7 @@ Jump_0c4_63eb:
 
 
 Jump_0c4_63fb:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jp nz, Jump_0c4_62fd
 
@@ -340,7 +391,7 @@ Jump_0c4_63fb:
 
 
 Jump_0c4_6406:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $01
     jp z, Jump_0c4_62fa
 
@@ -351,13 +402,13 @@ Jump_0c4_6406:
 
 
 Jump_0c4_6416:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jp nz, Jump_0c4_62fd
 
     jp Jump_0c4_62fa
 
-
+bank0c4_6421:
     ld a, [$c1c2]
     cp $e0
     jp z, Jump_0c4_6445
@@ -389,7 +440,7 @@ Jump_0c4_6443:
 
 
 Jump_0c4_6445:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jp z, Jump_0c4_6440
 
@@ -397,7 +448,7 @@ Jump_0c4_6445:
 
 
 Jump_0c4_6450:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jp z, Jump_0c4_6440
 
@@ -405,7 +456,7 @@ Jump_0c4_6450:
 
 
 Jump_0c4_645b:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $03
     jp z, Jump_0c4_6440
 
@@ -413,7 +464,7 @@ Jump_0c4_645b:
 
 
 Jump_0c4_6466:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $02
     jp z, Jump_0c4_6440
 
@@ -430,7 +481,7 @@ Jump_0c4_6466:
 
 
 Jump_0c4_6480:
-    ld a, [$c11f]
+    ld a, [CAMERA_NUMBER]
     cp $05
     jp z, Jump_0c4_6440
 
