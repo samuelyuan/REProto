@@ -31,9 +31,13 @@ IntroSceneChris:: ; 0x4054
     db "Chris!", $01
     db "Take care!", $01
 
+ChrisReturnsToEntranceBeforeFirstZombie:: ; 0x4128
     db $00, "Investigate if you", $00, "hear any gunfire.", $01
+
+ChrisReturnsToEntranceAfterFirstZombie:: ; 0x414e
     db $00, "Wesker, Jill..?", $01
     db "What", $00, "happened to Jill", $00, "and Wesker?", $01
+
     db "Whaao!", $00, "What is it?", $01
     db "What?", $00, "Oh! Oh, no! Sorry!", $00, "I didn't mean to", $00, "do that!..", $01
     db "You must", $00, "be from the Bravo", $00, "Team..", $01

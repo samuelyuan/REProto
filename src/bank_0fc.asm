@@ -206,6 +206,7 @@ bank0fc_41e4:
 Jump_0fc_41e9:
     push bc
     push de
+    ; checks offset 0x0b which is character id
     ld hl, $000b
     add hl, de
     ld a, [hl]
@@ -647,7 +648,7 @@ Jump_0fc_442c:
     cp $08
     jp nc, Jump_0fc_42c8
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $03
     jp z, Jump_0fc_42c8
 
@@ -777,7 +778,7 @@ jr_0fc_44d9:
     xor a
     ret
 
-
+bank0fc_44db:
     xor a
     ld [$c17e], a
     ld a, [PLAYER_POS_Y_VAR]
@@ -850,7 +851,7 @@ jr_0fc_4542:
 
 jr_0fc_4544:
     ld [$c30d], a
-    ld a, [$c306]
+    ld a, [PLAYER_STATE]
     cp $00
     jp z, Jump_0fc_459d
 
@@ -873,24 +874,24 @@ jr_0fc_4544:
     jp z, Jump_0fc_4577
 
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 Jump_0fc_4577:
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     inc a
     cp $10
     jr nc, jr_0fc_4583
 
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 jr_0fc_4583:
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     cp $10
     jr nz, jr_0fc_4590
 
@@ -904,45 +905,45 @@ jr_0fc_4590:
     ret c
 
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 Jump_0fc_459d:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jr nz, jr_0fc_45fa
 
     xor a
     ld [$c1fb], a
 
-Jump_0fc_45a8:
-    ld a, [$c100]
+CheckButtonPressMovePlayer:
+    ld a, [PRESSED_BUTTON]
     and $20
     call nz, Call_0fc_45df
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $10
     call nz, Call_0fc_45e0
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     call nz, Call_0fc_45e1
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     call nz, Call_0fc_45ed
     call Call_0fc_4808
     call Call_0fc_483e
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $f2
     ret nz
 
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     cp $1f
     ret z
 
     inc a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
@@ -956,24 +957,24 @@ Call_0fc_45e0:
 
 Call_0fc_45e1:
     ld a, $01
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     jp Jump_0fc_4874
 
 
 Call_0fc_45ed:
     ld a, $01
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     ld a, $3f
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     jp Jump_0fc_48fb
 
 
 jr_0fc_45fa:
     ld a, [$c1fb]
     or a
-    jp nz, Jump_0fc_45a8
+    jp nz, CheckButtonPressMovePlayer
 
     ld a, [INVENTORY_EQUIPPED_ITEM]
     cp $1f
@@ -990,14 +991,14 @@ jr_0fc_45fa:
 
 jr_0fc_4611:
     ld a, $04
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     ld c, $00
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_0fc_462a
 
     ld c, $10
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr nz, jr_0fc_462a
 
@@ -1005,20 +1006,20 @@ jr_0fc_4611:
 
 jr_0fc_462a:
     ld a, c
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 jr_0fc_462f:
     ld a, $03
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     ld c, $00
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_0fc_4648
 
     ld c, $10
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr nz, jr_0fc_4648
 
@@ -1026,30 +1027,30 @@ jr_0fc_462f:
 
 jr_0fc_4648:
     ld a, c
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 jr_0fc_464d:
     ld a, $05
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 Jump_0fc_4657:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_0fc_469f
 
     ld c, $00
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_0fc_4672
 
     ld c, $10
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr nz, jr_0fc_4672
 
@@ -1057,10 +1058,10 @@ Jump_0fc_4657:
 
 jr_0fc_4672:
     ld a, c
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     call Call_0fc_4808
     call Call_0fc_483e
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $01
     ret z
 
@@ -1074,7 +1075,7 @@ jr_0fc_4672:
     ld [$c30c], a
     ld a, $10
     call Call_000_026b
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     or a
     ret z
 
@@ -1084,24 +1085,24 @@ jr_0fc_4672:
 
 jr_0fc_469f:
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 Jump_0fc_46a9:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_0fc_46f1
 
     ld c, $00
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_0fc_46c4
 
     ld c, $10
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr nz, jr_0fc_46c4
 
@@ -1109,10 +1110,10 @@ Jump_0fc_46a9:
 
 jr_0fc_46c4:
     ld a, c
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     call Call_0fc_4808
     call Call_0fc_483e
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $01
     ret z
 
@@ -1126,7 +1127,7 @@ jr_0fc_46c4:
     ld [$c30c], a
     ld a, $0f
     call Call_000_026b
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     or a
     ret z
 
@@ -1136,18 +1137,18 @@ jr_0fc_46c4:
 
 jr_0fc_46f1:
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 Jump_0fc_46fb:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jp z, Jump_0fc_4785
 
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     cp $10
     jr c, jr_0fc_4716
 
@@ -1163,47 +1164,47 @@ Jump_0fc_46fb:
 jr_0fc_4716:
     inc a
     and $0f
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     jr jr_0fc_4748
 
 jr_0fc_471e:
     inc a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     cp $18
     jr c, jr_0fc_4748
 
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     jr jr_0fc_4748
 
 jr_0fc_472c:
     inc a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     cp $20
     jr c, jr_0fc_4748
 
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     jr jr_0fc_4748
 
 jr_0fc_473a:
     inc a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     cp $28
     jr c, jr_0fc_4748
 
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     jr jr_0fc_4748
 
 jr_0fc_4748:
     call Call_0fc_4808
     call Call_0fc_483e
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     cp $10
     ret nc
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $01
     jr z, jr_0fc_478f
 
@@ -1213,36 +1214,36 @@ jr_0fc_4748:
 
     ld a, $ff
     ld [$c1af], a
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_0fc_4779
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr nz, jr_0fc_477f
 
     ld a, $20
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 jr_0fc_4779:
     ld a, $10
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 jr_0fc_477f:
     ld a, $18
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 Jump_0fc_4785:
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
@@ -1253,34 +1254,34 @@ jr_0fc_478f:
 
 
 Jump_0fc_4794:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jr nz, jr_0fc_47ac
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $f0
     jr nz, jr_0fc_47b8
 
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
 jr_0fc_47ac:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr nz, jr_0fc_47b8
 
     ld a, $02
-    ld [$c306], a
+    ld [PLAYER_STATE], a
 
 jr_0fc_47b8:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     call nz, Call_0fc_4874
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     call nz, Call_0fc_48fb
     call Call_0fc_4808
@@ -1289,18 +1290,18 @@ jr_0fc_47b8:
 
 
 Jump_0fc_47cf:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_0fc_47ec
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $f0
     jr nz, jr_0fc_47f1
 
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld a, $ff
     ld [$c1fb], a
     ret
@@ -1308,13 +1309,13 @@ Jump_0fc_47cf:
 
 jr_0fc_47ec:
     ld a, $01
-    ld [$c306], a
+    ld [PLAYER_STATE], a
 
 jr_0fc_47f1:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     call nz, Call_0fc_4874
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     call nz, Call_0fc_48fb
     call Call_0fc_4808
@@ -1324,7 +1325,7 @@ jr_0fc_47f1:
 
 Call_0fc_4808:
     ld hl, $c16b
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $20
     jp z, Jump_0fc_483a
 
@@ -1338,17 +1339,17 @@ Call_0fc_4808:
     ret nz
 
     ld [hl], $06
-    jr jr_0fc_4821
+    jr RotatePlayerLeft
 
 jr_0fc_481f:
     ld [hl], $0a
 
-jr_0fc_4821:
+RotatePlayerLeft:
     ld a, [PLAYER_POS_ROTATE]
     add $04
     and $1f
     ld [PLAYER_POS_ROTATE], a
-    ld a, [$c306]
+    ld a, [PLAYER_STATE]
     cp $01
     jr z, jr_0fc_483d
 
@@ -1356,7 +1357,7 @@ jr_0fc_4821:
     ret nz
 
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
@@ -1371,7 +1372,7 @@ jr_0fc_483d:
 
 Call_0fc_483e:
     ld hl, $c16c
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $10
     jp z, Jump_0fc_4870
 
@@ -1385,17 +1386,17 @@ Call_0fc_483e:
     ret nz
 
     ld [hl], $06
-    jr jr_0fc_4857
+    jr RotatePlayerRight
 
 jr_0fc_4855:
     ld [hl], $0a
 
-jr_0fc_4857:
+RotatePlayerRight:
     ld a, [PLAYER_POS_ROTATE]
     sub $04
     and $1f
     ld [PLAYER_POS_ROTATE], a
-    ld a, [$c306]
+    ld a, [PLAYER_STATE]
     cp $01
     jr z, jr_0fc_4873
 
@@ -1403,7 +1404,7 @@ jr_0fc_4857:
     ret nz
 
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ret
 
 
@@ -1418,10 +1419,10 @@ jr_0fc_4873:
 
 Call_0fc_4874:
 Jump_0fc_4874:
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     add $04
     and $3f
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld bc, $0000
     ld de, $000e
     ld a, [PLAYER_POS_ROTATE]
@@ -1475,7 +1476,7 @@ jr_0fc_48cd:
     ld a, [PLAYER_POS_X_VAR + 1]
     adc d
     ld [PLAYER_POS_X_VAR + 1], a
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     and $1f
     cp $03
     jr c, jr_0fc_48f6
@@ -1490,10 +1491,10 @@ jr_0fc_48f6:
 
 Call_0fc_48fb:
 Jump_0fc_48fb:
-    ld a, [$c307]
+    ld a, [PLAYER_ANIM_FRAME]
     sub $03
     and $3f
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld bc, $0000
     ld de, $fff9
     ld a, [PLAYER_POS_ROTATE]
@@ -1550,7 +1551,7 @@ jr_0fc_4954:
 
 
 Call_0fc_4971:
-    ld a, [$c306]
+    ld a, [PLAYER_STATE]
     cp $02
     ret nz
 
@@ -2396,7 +2397,7 @@ jr_0fc_4cec:
 
     ld e, $04
     ld hl, $4d8c
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_0fc_4dce
 
@@ -2404,7 +2405,7 @@ jr_0fc_4cec:
 
 jr_0fc_4dce:
     ld bc, $0c0c
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr nz, jr_0fc_4dda
 
@@ -2415,7 +2416,7 @@ jr_0fc_4dda:
 
 jr_0fc_4ddc:
     ld hl, $4d68
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_0fc_4de8
 
@@ -2423,7 +2424,7 @@ jr_0fc_4ddc:
 
 jr_0fc_4de8:
     ld bc, $0c08
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr nz, jr_0fc_4df4
 

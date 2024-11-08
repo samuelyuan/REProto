@@ -228,7 +228,7 @@ jr_005_5c25:
     cp $03
     jr c, jr_005_5c50
 
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_005_5c53
 
@@ -303,7 +303,7 @@ Call_005_5c91:
     add $40
     pop de
     ld [hl], a
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr nz, jr_005_5ca5
 
@@ -341,7 +341,7 @@ jr_005_5ca5:
     add $40
     pop de
     ld [hl], a
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr nz, jr_005_5ccf
 
@@ -372,7 +372,7 @@ jr_005_5ccf:
     inc l
     ret
 
-
+bank005_5ce6:
     ld a, $01
     ldh [rVBK], a
     ld hl, $9000
@@ -649,6 +649,8 @@ Call_005_5dfb:
     ld [hl], $36
     ld h, e
     inc c
+
+bank005_5e40:
     ld a, [INVENTORY_EQUIPPED_ITEM]
     ld hl, $5bc0
     add l
@@ -708,7 +710,7 @@ jr_005_5e7e:
 
     ret
 
-
+bank005_5e90:
     ld a, [ITEM_BOX_CURSOR_OPTION]
     ld e, a
     ld d, $00
@@ -1183,7 +1185,7 @@ jr_005_60ce:
 
     ret
 
-
+bank005_60f4:
     ld a, $01
     ldh [rVBK], a
     ld hl, $99e0

@@ -707,7 +707,7 @@ Jump_000_01af:
     ei
 
 Jump_000_01b7:
-    call Call_000_3ed2
+    call GameboyHalt
     ld a, $87
     ldh [rLCDC], a
 
@@ -718,7 +718,7 @@ Jump_000_01c1:
     xor a
 
 Jump_000_01c2:
-    ld [$c1c0], a
+    ld [CUTSCENE_MODE], a
     call $58c2
     call $4389
     ld a, [$a0b9]
@@ -735,7 +735,7 @@ Call_000_01dc:
     cp $41
     jr nz, jr_000_0208
 
-    ld hl, $c100
+    ld hl, GAME_VARIABLE_BASE
 
 Jump_000_01e3:
     ld de, $a000
@@ -856,7 +856,7 @@ Jump_000_0279:
     jp Jump_000_02ee
 
 
-Jump_000_0280:
+SwitchBank_000_0280:
     call SwitchBank
     ld de, $0288
     push de
@@ -905,7 +905,7 @@ Call_000_02b2:
 Jump_000_02b2:
 jr_000_02b2:
     push bc
-    call Call_000_3ed2
+    call GameboyHalt
     pop bc
     dec b
     jr nz, jr_000_02b2
@@ -961,7 +961,7 @@ Jump_000_02e1:
     or d
     ld [$c101], a
     ld a, d
-    ld [$c100], a
+    ld [PRESSED_BUTTON], a
 
 Jump_000_02e9:
     ld a, $30
@@ -1076,7 +1076,7 @@ jr_000_0347:
     pop af
     and $01
     ldh [rVBK], a
-    ld a, [$c1c0]
+    ld a, [CUTSCENE_MODE]
     ldh [rSCY], a
     ld a, [CURRENT_BANK_NUMBER]
     push af
@@ -1094,7 +1094,7 @@ jr_000_0347:
     inc [hl]
     ld hl, $c1b0
     inc [hl]
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $0f
     cp $0f
 
@@ -1104,7 +1104,7 @@ Jump_000_037c:
 
 Call_000_037f:
 Jump_000_037f:
-    ld a, [$c1c0]
+    ld a, [CUTSCENE_MODE]
     ld c, a
 
 Jump_000_0383:
@@ -1194,7 +1194,7 @@ Call_000_03e0:
 
 Call_000_03eb:
     ld a, $20
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, $05
     ld [$c1fe], a
     ; intro cutscene
@@ -1207,20 +1207,20 @@ Jump_000_03fd:
 
 Call_000_03fe:
 Jump_000_03fe:
-    ld [$c1c4], a
+    ld [PREVIEW_SCENE_TIMER], a
     ld a, h
 
 Call_000_0402:
-    ld [$c1c5], a
+    ld [PREVIEW_SCENE_INDEX], a
 
 Jump_000_0405:
 jr_000_0405:
     call $4488
 
 Jump_000_0408:
-    call Call_000_3ed2
+    call GameboyHalt
     xor a
-    ld [$c1c0], a
+    ld [CUTSCENE_MODE], a
     call Call_000_0741
     ld a, [CUTSCENE_NUMBER]
     or a
@@ -1245,8 +1245,8 @@ Call_000_0423:
     jp nz, Jump_000_0605
 
     ld a, $1f
-    ld [$c105], a
-    ld c, $92
+    ld [FADE_TIMER], a
+    ld c, CHARACTER_ID_CHRIS
     ld a, [SELECTED_CHARACTER_INDEX]
 
 Call_000_0439:
@@ -1255,7 +1255,7 @@ Jump_000_0439:
     jr z, jr_000_043e
 
 Jump_000_043c:
-    ld c, $93
+    ld c, CHARACTER_ID_JILL
 
 jr_000_043e:
     ld a, c
@@ -1272,7 +1272,7 @@ jr_000_0444:
 
 Jump_000_0449:
 jr_000_0449:
-    call Call_000_3ed2
+    call GameboyHalt
 
 Jump_000_044c:
     ld a, [$c112]
@@ -1309,7 +1309,7 @@ Call_000_046b:
     ld d, $00
     call $4408
     ld hl, $9a20
-    ld a, [$c301]
+    ld a, [PLAYER_POS_ZOOM]
     ld e, a
     ld a, [$c2e1]
     ld d, a
@@ -1409,13 +1409,13 @@ Call_000_050f:
     add hl, de
     ld [hl], $01
     call Call_000_0898
-    ld a, [$c1c4]
+    ld a, [PREVIEW_SCENE_TIMER]
 
 Jump_000_052d:
     dec a
-    ld [$c1c4], a
+    ld [PREVIEW_SCENE_TIMER], a
     call $4afe
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $5e
     jp z, Jump_000_058d
 
@@ -1425,15 +1425,15 @@ Jump_000_053d:
     jr nz, jr_000_054b
 
 Jump_000_053f:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $04
     jr z, jr_000_054b
 
     ld a, $5c
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 jr_000_054b:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $08
     jp nz, $45a9
 
@@ -1441,11 +1441,11 @@ jr_000_054b:
     or a
     jp nz, Jump_000_073b
 
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     push af
     call $44cd
     pop bc
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     jr nz, jr_000_057b
 
@@ -1470,11 +1470,11 @@ jr_000_057b:
 
 Call_000_057e:
 Jump_000_057e:
-    call Call_000_3ed2
+    call GameboyHalt
     call $4488
     call $4515
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ret
 
 
@@ -1485,7 +1485,7 @@ Jump_000_058d:
 
     call $40a5
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     jp Jump_000_0405
 
 
@@ -1494,7 +1494,7 @@ Jump_000_059d:
     call $4488
     call $40f6
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     jp Jump_000_0405
 
 
@@ -1526,7 +1526,7 @@ jr_000_05d0:
 
 jr_000_05d3:
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     call Call_000_0914
     call Call_000_0906
     jp Jump_000_0405
@@ -1539,13 +1539,13 @@ Jump_000_05e1:
     ld a, $00
 
 Jump_000_05eb:
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld a, $01
     call LoadSaveScreen
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     jp Jump_000_0405
 
 
@@ -1559,7 +1559,7 @@ Jump_000_0602:
 Jump_000_0605:
     call Call_000_366f
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     jp Jump_000_0405
 
 
@@ -1625,8 +1625,8 @@ Jump_000_0644:
     call $4488
     call Call_000_0741
     ld a, $01
-    ld [$c105], a
-    call Call_000_3ed2
+    ld [FADE_TIMER], a
+    call GameboyHalt
     call $44cd
     pop hl
     pop af
@@ -1651,12 +1651,12 @@ Call_000_067a:
     ld a, $01
     call SwitchBank
     ld a, c
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld b, $20
 
 jr_000_0689:
     push bc
-    call Call_000_3ed2
+    call GameboyHalt
     ld a, [$c1c6]
     or a
     jr z, jr_000_06aa
@@ -1761,7 +1761,7 @@ Jump_000_0707:
 Call_000_070b:
     ld a, $0e
     ld hl, $409a
-    jp Jump_000_0280
+    jp SwitchBank_000_0280
 
 
 Call_000_0713:
@@ -1905,7 +1905,7 @@ Jump_000_07da:
     call SwitchBank
 
 Call_000_07dd:
-    ld de, $4cb0
+    ld de, FontImageTileset
     ld hl, $8800
     ld bc, $0800
     call LoadTilesetIntoVRAM
@@ -1958,7 +1958,7 @@ Call_000_0818:
 
 Jump_000_0824:
     ld a, $fd
-    jp Jump_000_0280
+    jp SwitchBank_000_0280
 
 
 Call_000_0829:
@@ -1999,25 +1999,25 @@ Jump_000_0849:
 Call_000_0856:
     ld hl, $42aa
     ld a, $fc
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_085e:
     ld hl, $4ad4
     ld a, $04
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_0866:
     ld hl, $4a8e
     ld a, $04
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_086e:
     ld hl, $4a00
     ld a, $04
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_0876:
@@ -2037,146 +2037,144 @@ Call_000_0883:
 
 
 Call_000_0890:
-    ld hl, $4c5c
+    ld hl, InitPlayerVariables
     ld a, $04
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_0898:
-    ld hl, $4c34
+    ld hl, bank004_4c34
     ld a, $04
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_08a0:
-    ld hl, $41e4
+    ld hl, bank0fc_41e4
     ld a, $fc
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_08a8:
     call Call_000_091b
-    ld hl, $44db
+    ld hl, bank0fc_44db
     ld a, $fc
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08b2:
     ld a, $c5
-    ld hl, $6273
+    ld hl, bank0c5_6273
 
 Jump_000_08b7:
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08b9:
     ld a, $05
 
 Call_000_08bb:
     ld hl, $5c1c
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08c0:
     ld a, $05
-    ld hl, $5e40
-    jr jr_000_0922
+    ld hl, bank005_5e40
+    jr SwitchBank_000_0922
 
 Call_000_08c7:
     ld a, $05
-    ld hl, $5e90
-    jr jr_000_0922
+    ld hl, bank005_5e90
+    jr SwitchBank_000_0922
 
 Call_000_08ce:
     ld a, $05
-    ld hl, $5ce6
+    ld hl, bank005_5ce6
 
 Jump_000_08d3:
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08d5:
     ld a, $05
-    ld hl, $60f4
+    ld hl, bank005_60f4
 
 Jump_000_08da:
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08dc:
     ld hl, $4caa
     ld a, $fc
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08e3:
     ld hl, $4000
     ld a, $fb
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08ea:
     ld hl, $4c94
     ld a, $fb
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08f1:
     ld hl, $511c
     ld a, $fd
 
 Call_000_08f6:
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08f8:
 Jump_000_08f8:
-    ld hl, $64fb
+    ld hl, bank0c4_64fb
 
 Call_000_08fb:
     ld a, $c4
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_08ff:
 Jump_000_08ff:
     ld a, $c5
 
 Jump_000_0901:
-    ld hl, $62c5
-    jr jr_000_0922
+    ld hl, bank0c5_62c5
+    jr SwitchBank_000_0922
 
 Call_000_0906:
     ld a, $c5
 
 Call_000_0908:
-    ld hl, $6adc
-    jr jr_000_0922
+    ld hl, bank0c5_6adc
+    jr SwitchBank_000_0922
 
 Call_000_090d:
-    ld hl, $43a0
+    ld hl, bank0fd_43a0
 
 Jump_000_0910:
     ld a, $fd
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_0914:
     ld hl, $4000
     ld a, $c6
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_091b:
     ld hl, $5bb0
     ld a, $0f
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
-Jump_000_0922:
-jr_000_0922:
-    jp Jump_000_0280
-
+SwitchBank_000_0922:
+    jp SwitchBank_000_0280
 
 Call_000_0925:
 Jump_000_0925:
     ld hl, $5f7f
     ld a, $0f
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_092c:
     ld hl, $5dcb
 
 Call_000_092f:
     ld a, $0f
-    jr jr_000_0922
+    jr SwitchBank_000_0922
 
 Call_000_0933:
     ld hl, $6280
@@ -2197,7 +2195,7 @@ Call_000_0942:
 Jump_000_0942:
     ld hl, $4ce7
     ld a, $04
-    jp Jump_000_0922
+    jp SwitchBank_000_0922
 
 
 Call_000_094a:
@@ -2453,7 +2451,7 @@ jr_000_0a83:
     or a
     ret z
 
-    ld a, [$c1c2]
+    ld a, [CURRENT_RENDER_SPRITE_ID]
     cp $e6
     jr z, jr_000_0ac3
 
@@ -2654,7 +2652,7 @@ jr_000_0b91:
 
 
 jr_000_0b9f:
-    ld [$c1c2], a
+    ld [CURRENT_RENDER_SPRITE_ID], a
     push de
     call Call_000_094a
     pop de
@@ -2673,7 +2671,7 @@ jr_000_0b9f:
     jr jr_000_0b91
 
 jr_000_0bbd:
-    ld [$c1c2], a
+    ld [CURRENT_RENDER_SPRITE_ID], a
     call Call_000_0933
 
 Jump_000_0bc3:
@@ -2706,7 +2704,7 @@ Jump_000_0bdb:
     jr jr_000_0b91
 
 Jump_000_0be4:
-    ld [$c1c2], a
+    ld [CURRENT_RENDER_SPRITE_ID], a
     call Call_000_093a
     or a
     jr z, jr_000_0b91
@@ -2783,16 +2781,16 @@ Jump_000_0c2e:
 
 Call_000_0c2f:
 jr_000_0c2f:
-    ld hl, $c100
+    ld hl, GAME_VARIABLE_BASE
 
 Call_000_0c32:
-    call Call_000_3ed2
+    call GameboyHalt
     ld a, [hl]
     and $03
     jr nz, jr_000_0c2f
 
 jr_000_0c3a:
-    call Call_000_3ed2
+    call GameboyHalt
 
 Jump_000_0c3d:
     ld a, [hl]
@@ -2800,7 +2798,7 @@ Jump_000_0c3d:
     jr z, jr_000_0c3a
 
 jr_000_0c42:
-    call Call_000_3ed2
+    call GameboyHalt
     ld a, [hl]
     and $03
     jr nz, jr_000_0c42
@@ -2822,11 +2820,11 @@ jr_000_0c52:
 
 jr_000_0c54:
     push bc
-    call Call_000_3ed2
-    call Call_000_3ed2
-    ld a, [$c1c0]
+    call GameboyHalt
+    call GameboyHalt
+    ld a, [CUTSCENE_MODE]
     sub c
-    ld [$c1c0], a
+    ld [CUTSCENE_MODE], a
     call Call_000_0c6a
     pop bc
     dec b
@@ -2864,9 +2862,9 @@ Call_000_0c80:
     ld a, $00
 
 Call_000_0c85:
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld hl, $9800
     ld bc, $0400
 
@@ -2887,7 +2885,7 @@ jr_000_0c92:
     jr nz, jr_000_0c92
 
     ld a, $20
-    ld [$c105], a
+    ld [FADE_TIMER], a
     xor a
     ld [$c162], a
     ld a, [$c1b6]
@@ -2897,7 +2895,7 @@ Call_000_0cb7:
     jp c, Jump_000_0def
 
 Jump_000_0cba:
-    call Call_000_3ed2
+    call GameboyHalt
     call $4494
 
 Call_000_0cc0:
@@ -3067,7 +3065,7 @@ Call_000_0d86:
     call Call_000_2d62
     call Call_000_11ad
     call $4457
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     jr z, jr_000_0d99
 
@@ -3079,12 +3077,12 @@ jr_000_0d99:
     cp $1f
     jr c, jr_000_0dac
 
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $40
     jr nc, jr_000_0dac
 
     ld a, $40
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 jr_000_0dac:
     ld a, [$c162]
@@ -3110,20 +3108,20 @@ Call_000_0dbf:
     call Call_000_026b
 
 jr_000_0dca:
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $5e
     jp z, Jump_000_0dea
 
     or a
     jr nz, jr_000_0de1
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $04
     jr z, jr_000_0de1
 
 Call_000_0ddc:
     ld a, $40
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 jr_000_0de1:
     ld hl, $2eee
@@ -3137,11 +3135,11 @@ Jump_000_0dea:
 
 
 Jump_000_0def:
-    call Call_000_3ed2
+    call GameboyHalt
 
 Call_000_0df2:
 Jump_000_0df2:
-    call Call_000_3ed2
+    call GameboyHalt
     call $4494
     xor a
     ld [$c160], a
@@ -3223,7 +3221,7 @@ jr_000_0e3d:
     call Call_000_2d62
     call Call_000_11ad
     call $4457
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     jr z, jr_000_0e6f
 
@@ -3235,7 +3233,7 @@ jr_000_0e6f:
     cp $1f
     jr c, jr_000_0e82
 
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
 
 Jump_000_0e79:
     cp $40
@@ -3243,7 +3241,7 @@ Jump_000_0e79:
 
 Jump_000_0e7d:
     ld a, $40
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 jr_000_0e82:
     ld a, [$c162]
@@ -3267,19 +3265,19 @@ jr_000_0e8d:
     call Call_000_026b
 
 jr_000_0ea0:
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $5e
     jp z, Jump_000_0ec0
 
     or a
     jr nz, jr_000_0eb7
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $04
     jr z, jr_000_0eb7
 
     ld a, $40
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 jr_000_0eb7:
     ld hl, $2eee
@@ -3860,7 +3858,7 @@ Jump_000_11fd:
     ld hl, $12c9
 
 Jump_000_1207:
-    ld a, [$c306]
+    ld a, [PLAYER_STATE]
     cp $03
     jr z, jr_000_1211
 
@@ -3933,17 +3931,17 @@ Jump_000_123f:
     add hl, de
     ld l, [hl]
     ld h, $00
-    ld a, [$c306]
+    ld a, [PLAYER_STATE]
     cp $03
     jr z, jr_000_128e
 
     ld de, $000c
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_000_12a5
 
     ld de, $0013
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr z, jr_000_12a5
 
@@ -3952,12 +3950,12 @@ Jump_000_123f:
 
 jr_000_128e:
     ld de, $0000
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr nz, jr_000_12a5
 
     ld de, $000a
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr z, jr_000_12a5
 
@@ -4074,7 +4072,7 @@ Call_000_1316:
     ld c, a
 
 Call_000_1320:
-    ld a, [$c1c0]
+    ld a, [CUTSCENE_MODE]
     ld b, a
     ld a, c
     sub b
@@ -4155,7 +4153,7 @@ Call_000_136c:
     cp $08
     jr c, jr_000_1381
 
-    ld [$c1c2], a
+    ld [CURRENT_RENDER_SPRITE_ID], a
     ld hl, $2be9
 
 Jump_000_137f:
@@ -10724,7 +10722,7 @@ Jump_000_2a4c:
 
     inc a
     ld l, a
-    ld a, [$c301]
+    ld a, [PLAYER_POS_ZOOM]
     cp l
     jp c, Jump_000_2b4b
 
@@ -11003,24 +11001,24 @@ Call_000_2c2b:
 Call_000_2c30:
     add hl, hl
     ld de, $52eb
-    ld a, [$c1c2]
-    cp $92
+    ld a, [CURRENT_RENDER_SPRITE_ID]
+    cp CHARACTER_ID_CHRIS
     jr z, jr_000_2c65
 
 Call_000_2c3b:
     ld de, $598b
-    cp $93
+    cp CHARACTER_ID_JILL
     jr z, jr_000_2c65
 
     ld de, $62fb
-    cp $95
+    cp CHARACTER_ID_REBECCA
     jr z, jr_000_2c65
 
     ld de, $602b
-    cp $94
+    cp CHARACTER_ID_WESKER
     jr z, jr_000_2c65
 
-    cp $96
+    cp CHARACTER_ID_BARRY
     jr z, jr_000_2c65
 
     ld de, $64eb
@@ -11115,29 +11113,29 @@ Jump_000_2c98:
     add a
     ld [$c108], a
     ld c, $00
-    ld a, [$c1c2]
-    cp $92
+    ld a, [CURRENT_RENDER_SPRITE_ID]
+    cp CHARACTER_ID_CHRIS
     jr z, jr_000_2d13
 
     ld c, $01
-    cp $93
+    cp CHARACTER_ID_JILL
     jr z, jr_000_2d13
 
 Call_000_2cf3:
     ld c, $02
-    cp $95
+    cp CHARACTER_ID_REBECCA
     jr z, jr_000_2d13
 
     ld c, $00
-    cp $96
+    cp CHARACTER_ID_BARRY
     jr z, jr_000_2d13
 
     ld c, $02
-    cp $94
+    cp CHARACTER_ID_WESKER
     jr z, jr_000_2d13
 
     ld c, $07
-    cp $98
+    cp CHARACTER_ID_ZOMBIE
     jr z, jr_000_2d13
 
 Call_000_2d0b:
@@ -11280,7 +11278,7 @@ LoadSaveScreen:
     ld de, $6c7c
     ld hl, $cb00
     ld bc, $0020
-    call Call_000_321c
+    call memcpy_bank00
     ld a, $01
     call SwitchBank
 
@@ -11311,13 +11309,13 @@ jr_000_2e11:
     ld a, $20
 
 Jump_000_2e20:
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 Jump_000_2e23:
-    call Call_000_3ed2
+    call GameboyHalt
     call $56e7
     ld hl, MENU_CURSOR_OPTION
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr z, jr_000_2e4a
 
@@ -11344,7 +11342,7 @@ jr_000_2e4a:
 
 jr_000_2e4e:
     ld hl, MENU_CURSOR_OPTION
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr z, jr_000_2e70
 
@@ -11368,14 +11366,14 @@ jr_000_2e70:
     ld [$c111], a
 
 jr_000_2e74:
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $5e
     ret z
 
     or a
     jr nz, jr_000_2eda
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $0b
     jr z, jr_000_2eda
 
@@ -11412,7 +11410,7 @@ jr_000_2e97:
     push de
     call $439a
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     jp Jump_000_0405
 
 
@@ -11420,7 +11418,7 @@ jr_000_2ec2:
     ld a, $40
 
 Call_000_2ec4:
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, [$c10f]
     cp $00
     jr nz, jr_000_2eda
@@ -12068,7 +12066,7 @@ Call_000_320b:
     jp Jump_000_02ee
 
 
-Call_000_321c:
+memcpy_bank00:
 jr_000_321c:
     ld a, [de]
     ld [hl+], a
@@ -12216,7 +12214,7 @@ jr_000_329f:
     inc hl
     ld d, [hl]
     inc hl
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     and $1f
     call Call_000_32ef
     call func_rstat
@@ -12245,7 +12243,7 @@ jr_000_32c7:
     inc hl
     ld d, [hl]
     inc hl
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     and $1f
     call Call_000_32ef
     call func_rstat
@@ -12361,32 +12359,32 @@ Jump_000_3340:
     ld a, $20
 
 Call_000_334c:
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld hl, $0300
     ld a, l
-    ld [$c1c4], a
+    ld [PREVIEW_SCENE_TIMER], a
     ld a, h
-    ld [$c1c5], a
+    ld [PREVIEW_SCENE_INDEX], a
 
 Jump_000_335a:
 jr_000_335a:
-    call Call_000_3ed2
-    ld a, [$c105]
+    call GameboyHalt
+    ld a, [FADE_TIMER]
     or a
     call z, Call_000_08d5
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     jr nz, jr_000_3383
 
-    ld a, [$c1c4]
+    ld a, [PREVIEW_SCENE_TIMER]
     dec a
-    ld [$c1c4], a
+    ld [PREVIEW_SCENE_TIMER], a
     cp $ff
     jr nz, jr_000_3383
 
-    ld a, [$c1c5]
+    ld a, [PREVIEW_SCENE_INDEX]
     dec a
-    ld [$c1c5], a
+    ld [PREVIEW_SCENE_INDEX], a
     cp $ff
     jr nz, jr_000_3383
 
@@ -12394,7 +12392,7 @@ jr_000_335a:
 
 
 jr_000_3383:
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $5e
 
 Call_000_3388:
@@ -12403,23 +12401,23 @@ Call_000_3388:
     or a
     jr nz, jr_000_339d
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $08
     jr z, jr_000_339d
 
     ld a, $40
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, $0f
     call Call_000_026b
 
 jr_000_339d:
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     push af
     ld hl, $2efc
     call $44a7
     pop af
     ld c, a
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     jr nz, jr_000_335a
 
@@ -12463,15 +12461,15 @@ Call_000_33eb:
     ld de, $6afc
     ld hl, $cb00
     ld bc, $0180
-    call Call_000_321c
+    call memcpy_bank00
     ld de, $67fc
     ld hl, $cc80
     ld bc, $0300
-    call Call_000_321c
+    call memcpy_bank00
     ld de, $6c7c
     ld hl, $cf80
     ld bc, $0020
-    call Call_000_321c
+    call memcpy_bank00
     ld a, $01
     call SwitchBank
     call Call_000_11ad
@@ -12490,17 +12488,17 @@ Jump_000_342d:
     ld a, $20
 
 Call_000_3434:
-    ld [$c105], a
+    ld [FADE_TIMER], a
 
 jr_000_3437:
     call $48ea
     call $493a
     call $48bd
-    call Call_000_3ed2
+    call GameboyHalt
     call Call_000_3c37
     call $4457
     call $4494
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     jr nz, jr_000_3480
 
@@ -12519,7 +12517,7 @@ jr_000_3437:
     jr jr_000_3480
 
 jr_000_346c:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $30
     jr z, jr_000_3480
 
@@ -12534,19 +12532,19 @@ jr_000_3480:
     cp $28
     jr nz, jr_000_34a1
 
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     cp $5e
     ret z
 
     or a
     jr nz, jr_000_34a1
 
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $09
     jr z, jr_000_34a1
 
     ld a, $40
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, $17
     call Call_000_026b
 
@@ -12697,7 +12695,7 @@ jr_000_3543:
     inc hl
     ld d, [hl]
     inc hl
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     and $1f
     call Call_000_32ef
     call func_rstat
@@ -12942,7 +12940,7 @@ Call_000_366f:
     xor a
     call Call_000_3728
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, $ff
     ld [INVENTORY_CURSOR_OPTION], a
     ld hl, $2f26
@@ -12968,7 +12966,7 @@ Call_000_366f:
     call Call_000_3dda
 
 jr_000_36ab:
-    call Call_000_3ed2
+    call GameboyHalt
     call $4870
     call $4918
     ld c, $00
@@ -12978,7 +12976,7 @@ jr_000_36ab:
     call $4975
     call Call_000_11ad
     call $4457
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $09
 
 Call_000_36cd:
@@ -13166,7 +13164,7 @@ Call_000_37e3:
     call Call_000_3b79
     call Call_000_3ba2
     call Call_000_3a92
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_000_380f
 
@@ -13183,7 +13181,7 @@ Call_000_3803:
     ld a, $5c
 
 Call_000_380b:
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ret
 
 
@@ -13217,7 +13215,7 @@ jr_000_382a:
 
 Call_000_383c:
 Jump_000_383c:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
 
 Call_000_383f:
     and $40
@@ -13260,7 +13258,7 @@ jr_000_386d:
 
 
 Call_000_3872:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr z, jr_000_38a7
 
@@ -13304,7 +13302,7 @@ jr_000_38a7:
 
 
 Call_000_38ac:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $20
     ret z
 
@@ -13333,7 +13331,7 @@ Call_000_38c6:
 
 
 Call_000_38d1:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $10
     ret z
 
@@ -13360,7 +13358,7 @@ Call_000_38ef:
 
 
 Jump_000_38f7:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $02
 
 Call_000_38fc:
@@ -13443,7 +13441,7 @@ jr_000_395f:
 
 
 Call_000_3977:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $01
     ret z
 
@@ -13451,7 +13449,7 @@ Call_000_3977:
 
 
 Call_000_3980:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $01
     jp z, Jump_000_3a5b
 
@@ -13631,7 +13629,7 @@ Jump_000_3a75:
 Jump_000_3a7f:
     call Call_000_3728
     ld a, $01
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, $0c
     ld hl, $4dc4
     call Call_000_353c
@@ -13639,7 +13637,7 @@ Jump_000_3a7f:
 
 
 Call_000_3a92:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $01
     jp z, Jump_000_3b3c
 
@@ -13649,7 +13647,7 @@ Call_000_3a92:
 
     ld a, $ff
     ld [$c1af], a
-    ld a, [$c105]
+    ld a, [FADE_TIMER]
     or a
     ret nz
 
@@ -13661,7 +13659,7 @@ Call_000_3a92:
     jr nz, jr_000_3abe
 
     ld a, $5c
-    ld [$c105], a
+    ld [FADE_TIMER], a
     ld a, $02
     jp Jump_000_026b
 
@@ -13768,7 +13766,7 @@ Jump_000_3b3d:
 
 
 Call_000_3b41:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $20
     ret z
 
@@ -13785,7 +13783,7 @@ Call_000_3b41:
 
 
 Call_000_3b5d:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $10
     ret z
 
@@ -13802,7 +13800,7 @@ Call_000_3b5d:
 
 
 Call_000_3b79:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr z, jr_000_3b9d
 
@@ -13830,7 +13828,7 @@ jr_000_3b9d:
 
 
 Call_000_3ba2:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $80
     jr z, jr_000_3bcf
 
@@ -13871,7 +13869,7 @@ jr_000_3bcf:
 
 
 Call_000_3bd4:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
     and $40
     jr z, jr_000_3bf8
 
@@ -13901,7 +13899,7 @@ jr_000_3bf8:
 
 
 Call_000_3bfd:
-    ld a, [$c100]
+    ld a, [PRESSED_BUTTON]
 
 Call_000_3c00:
 Jump_000_3c00:
@@ -13944,7 +13942,7 @@ jr_000_3c2a:
 Call_000_3c2f:
     ld hl, $4dba
     ld a, $fc
-    jp Jump_000_0280
+    jp SwitchBank_000_0280
 
 
 Call_000_3c37:
@@ -14153,7 +14151,7 @@ Jump_000_3d31:
 
 Jump_000_3d36:
     push bc
-    ld a, [$c1c0]
+    ld a, [CUTSCENE_MODE]
     ld c, a
     ld a, d
 
@@ -14394,7 +14392,7 @@ Call_000_3e3e:
 
 jr_000_3e47:
     push bc
-    call Call_000_3ed2
+    call GameboyHalt
     pop bc
     dec b
     jr nz, jr_000_3e47
@@ -14518,7 +14516,7 @@ jr_000_3ed0:
     ret
 
 
-Call_000_3ed2:
+GameboyHalt:
     ld a, $ff
     ld [$c103], a
 

@@ -439,7 +439,7 @@ Jump_004_4b5f:
     pop bc
     ret
 
-
+bank004_4c34:
     ld a, [ROOM_NUMBER]
     cp $60
     jr z, jr_004_4c40
@@ -480,20 +480,20 @@ InitPlayerVariables:: ; 0x4c5c
     jp nz, Jump_004_4ca5
 
     ; Chris start game
-    ld a, $19 ; combat knife
+    ld a, ITEM_ID_COMBAT_KNIFE 
     ld [INVENTORY_ITEM_ID_BASE], a
-    ld a, $0e ; first aid spray
+    ld a, ITEM_ID_FIRST_AID_SPRAY 
     ld [INVENTORY_ITEM_ID_BASE + 1], a
     ld a, $00
     ld [INVENTORY_EQUIPPED_ITEM], a
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     ld a, $80
     ld [$c300], a
     ld a, $92
     ld [PLAYER_CHARACTER_MODEL], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld [$c30c], a
     ld [$c30d], a
     ld a, $20
@@ -509,22 +509,22 @@ InitPlayerVariables:: ; 0x4c5c
 
 Jump_004_4ca5:
     ; Jill start game
-    ld a, $1f ; beretta
+    ld a, ITEM_ID_BERETTA 
     ld [INVENTORY_ITEM_ID_BASE], a
-    ld a, $19 ; combat knife
+    ld a, ITEM_ID_COMBAT_KNIFE 
     ld [INVENTORY_ITEM_ID_BASE + 1], a
-    ld a, $0e ; first aid spray
+    ld a, ITEM_ID_FIRST_AID_SPRAY 
     ld [INVENTORY_ITEM_ID_BASE + 2], a
     ld a, $00
     ld [INVENTORY_EQUIPPED_ITEM], a
     ld a, $00
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     ld a, $80
     ld [$c300], a
     ld a, $93
     ld [PLAYER_CHARACTER_MODEL], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld [$c30c], a
     ld [$c30d], a
     ld a, $20
@@ -537,7 +537,7 @@ Jump_004_4ca5:
     ld [INVENTORY_FLAG_EXIT], a
     ret
 
-
+bank004_4ce7:
     ld a, [ROOM_NUMBER]
     cp $01
     jp z, Jump_004_4d4a
@@ -696,7 +696,7 @@ Jump_004_4dda:
 
 
 jr_004_4de6:
-    ld a, [$c485]
+    ld a, [FLAG_PLAYER_CUTSCENE_c485]
     or a
     ret z
 
@@ -720,7 +720,7 @@ jr_004_4de6:
 
 
 jr_004_4e0f:
-    ld a, [$c485]
+    ld a, [FLAG_PLAYER_CUTSCENE_c485]
     or a
     ret z
 

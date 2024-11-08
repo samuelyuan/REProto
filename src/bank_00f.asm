@@ -64,7 +64,7 @@ bank00f_5bb0:
     xor a
     ld [$c319], a
     ld [$c31a], a
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $04
     jp z, Jump_00f_5d0e
 

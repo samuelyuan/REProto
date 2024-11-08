@@ -595,8 +595,9 @@ jr_0c4_64f3:
 jr_0c4_64f9:
     jr jr_0c4_64fb
 
+bank0c4_64fb:
 jr_0c4_64fb:
-    ld a, [$c17c]
+    ld a, [ROOM_NUMBER]
     cp $04
     jp z, Jump_0c4_653b
 

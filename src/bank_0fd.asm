@@ -808,6 +808,8 @@ jr_0fd_4370:
     adc $ff
     ld [hl+], a
     nop
+
+bank0fd_43a0:
     ld a, [ROOM_NUMBER]
     ld l, a
     ld a, [ROOM_NUMBER + 1]
@@ -4242,7 +4244,7 @@ jr_0fd_52dd:
     ldh [rVBK], a
     ret
 
-
+bank0fd_52eb:
     ldh [rP1], a
     db $eb
     ld d, h

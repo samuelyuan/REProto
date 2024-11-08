@@ -12,10 +12,10 @@ RoomCameraHandler_fb_4000:
     jp z, Jump_0fb_41c0
 
     cp $04
-    jp z, Jump_0fb_41eb
+    jp z, Room04Handler_0fb_41eb
 
     cp $05
-    jp z, Jump_0fb_420d
+    jp z, Room05Handler_0fb_420d
 
     cp $06
     jp z, Jump_0fb_422c
@@ -319,7 +319,7 @@ jr_0fb_41ea:
     ret
 
 
-Jump_0fb_41eb:
+Room04Handler_0fb_41eb:
     ld a, [CAMERA_NUMBER]
     cp $02
     jr z, jr_0fb_41f7
@@ -332,7 +332,7 @@ Jump_0fb_41eb:
 
 jr_0fb_41f7:
     ld de, $4852
-    ld a, [$c507]
+    ld a, [PICKED_MAP]
     or a
     call nz, Call_000_1309
     ret
@@ -340,13 +340,13 @@ jr_0fb_41f7:
 
 jr_0fb_4202:
     ld de, $485c
-    ld a, [$c508]
+    ld a, [PICKED_ROOM04_INK_RIBBON]
     or a
     call nz, Call_000_1309
     ret
 
 
-Jump_0fb_420d:
+Room05Handler_0fb_420d:
     ld a, [CAMERA_NUMBER]
     cp $03
     jr z, Room05Camera03Handler_0fb_4219
@@ -3528,7 +3528,7 @@ jr_0fb_52dc:
     ld [$c31b], a
     ld a, $06
     ld [$c306], a
-    ld a, [$c30e]
+    ld a, [PLAYER_HEALTH]
     or a
     jr z, jr_0fb_531f
 
@@ -3536,14 +3536,14 @@ jr_0fb_52dc:
     jr c, jr_0fb_5308
 
     sub $08
-    ld [$c30e], a
+    ld [PLAYER_HEALTH], a
     ld a, $15
     call Call_000_026b
     jr jr_0fb_531f
 
 jr_0fb_5308:
     xor a
-    ld [$c30e], a
+    ld [PLAYER_HEALTH], a
     ld a, $40
     ld [$c105], a
     jr jr_0fb_531f

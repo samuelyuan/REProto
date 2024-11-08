@@ -118,13 +118,19 @@ bank0c5_4000:
     dw $5b17
     dw $5b39
 
-; For door transitions
+; For door transitions (opcode < 0x90)
 ; byte 0 is door id
 ; bytes 1-2 is new room number
 ; bytes 3-4 is address pointing to next room
 ; bytes 5-6 is new player y
 ; bytes 7-8 is new player x
 ; bytes 9-10 is new rotation
+
+; For opcode 0x98, generate zombie
+; byte 0 is 0x98
+; bytes 1-2 is entity id
+; bytes 3-4 is y position copied to offset 0x11 and 0x12 starting from 0xc320
+; bytes 5-6 is x position copied to offset 0x13 and 0x14 starting from 0xc320
 Room00TransitionTable:: ; 0x40e8
     db $40
     dw $0000, $4136, $03d0, $0040, $0018
@@ -1928,14 +1934,19 @@ bank0c5_5b5d:
     dw $4f65, $007f
 
 bank0c5_5f23:
-    db $00, $00, $ff, $ff, $00, $ff, $ff, $ff, $00, $00, $ff, $ff, $ff, $00, $00, $00
-    db $00, $ff, $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $00
-    db $00, $ff, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $00, $ff, $00, $ff, $ff, $ff
-    db $ff, $ff, $ff, $00, $00, $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff
-    db $ff, $00, $ff, $ff, $ff, $00, $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff, $ff, $00
-    db $ff, $ff, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $00, $00, $ff, $ff, $00, $ff
-    db $00, $00, $00, $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $ff, $00, $00, $ff, $ff
-    db $ff, $00, $00, $ff, $00, $ff, $ff, $ff, $ff, $ff, $ff, $00, $ff, $00, $00, $00
+    db $00, $00
+
+bank0c5_5f25: ; 0x5f25
+    db $ff, $ff, $00, $ff, $ff, $ff, $00, $00, $ff, $ff, $ff, $00, $00, $00, $00, $ff
+    db $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $00, $00, $ff
+    db $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $00, $ff, $00, $ff, $ff, $ff, $ff, $ff
+    db $ff, $00, $00, $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff, $ff, $00
+    db $ff, $ff, $ff, $00, $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff, $ff, $00, $ff, $ff
+    db $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $00, $00, $ff, $ff, $00, $ff, $00, $00
+    db $00, $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $ff, $00, $00, $ff, $ff, $ff, $00
+    db $00, $ff, $00, $ff, $ff, $ff, $ff, $ff, $ff, $00, $ff, $00, $00, $00, $00, $00
+
+init_flag_player_cutscene: ; 0x5fa5
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -1945,10 +1956,12 @@ bank0c5_5f23:
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-    db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $ff, $ff
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
-    db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+    db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+    
+init_picked_item_base: ; 0x6073
     db $ff, $00, $ff, $ff, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
     db $00, $ff, $ff, $ff, $ff, $ff, $ff, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $00
@@ -1965,6 +1978,8 @@ bank0c5_5f23:
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+bank0c5_6173: ; 0x6173
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $00, $ff
     db $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $00, $00, $00, $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
@@ -1982,23 +1997,23 @@ bank0c5_5f23:
     db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $ff, $ff, $ff, $ff
     db $ff, $ff, $ff, $00, $ff, $ff, $00, $ff, $ff, $ff, $ff, $00, $ff, $ff, $ff, $ff
 
-bank005_6273:
-    ld de, $5f25
+bank0c5_6273:
+    ld de, bank0c5_5f25
     ld hl, $c400
     ld bc, $0080
-    call Call_000_321c
-    ld de, $5fa5
-    ld hl, $c480
+    call memcpy_bank00
+    ld de, init_flag_player_cutscene
+    ld hl, FLAG_PLAYER_CUTSCENE_BASE
     ld bc, $0080
-    call Call_000_321c
-    ld de, $6073
-    ld hl, $c500
+    call memcpy_bank00
+    ld de, init_picked_item_base
+    ld hl, PICKED_ITEM_BASE
     ld bc, $0100
-    call Call_000_321c
-    ld de, $6173
+    call memcpy_bank00
+    ld de, bank0c5_6173
     ld hl, $c600
     ld bc, $0100
-    call Call_000_321c
+    call memcpy_bank00
     ld hl, $c186
     ld b, $04
 
@@ -2008,7 +2023,7 @@ jr_0c5_62a8:
     dec b
     jr nz, jr_0c5_62a8
 
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_0c5_62c4
 
@@ -2024,7 +2039,7 @@ jr_0c5_62a8:
 jr_0c5_62c4:
     ret
 
-
+bank0c5_62c5:
     xor a
     ld [$c17e], a
     ld a, [$c105]
@@ -2306,7 +2321,7 @@ jr_0c5_6422:
     ld de, $fffe
     add hl, de
     ld a, [hl]
-    ld [$c1c7], a
+    ld [PICKED_ITEM_INDEX], a
     call Call_0c5_6a80
     ld de, $0004
     add hl, de
@@ -2327,7 +2342,7 @@ Jump_0c5_6453:
 
 
 Jump_0c5_6455:
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     ld [$c182], a
     ld a, $ff
     ld [$c183], a
@@ -2433,7 +2448,7 @@ jr_0c5_64c8:
     ld de, $fffe
     add hl, de
     ld a, [hl]
-    ld [$c1c7], a
+    ld [PICKED_ITEM_INDEX], a
     call Call_0c5_6a80
     ld de, $0004
     add hl, de
@@ -2441,9 +2456,9 @@ jr_0c5_64c8:
     jp z, Jump_0c5_6507
 
     ld a, $07
-    ld [$c306], a
+    ld [PLAYER_STATE], a
     xor a
-    ld [$c307], a
+    ld [PLAYER_ANIM_FRAME], a
     ld [$c17e], a
     ret
 
@@ -2459,7 +2474,7 @@ Jump_0c5_6505:
 
 
 Jump_0c5_6507:
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     ld [$c182], a
     ld a, $ff
     ld [$c183], a
@@ -3090,7 +3105,7 @@ jr_0c5_6819:
 
 jr_0c5_6823:
     ld a, [PLAYER_CHARACTER_MODEL]
-    cp $93
+    cp CHARACTER_ID_JILL
     jr z, jr_0c5_6838
 
     ld c, $42
@@ -3103,7 +3118,7 @@ jr_0c5_6823:
 
 
 jr_0c5_6838:
-    ld a, [$c484]
+    ld a, [FLAG_PLAYER_CUTSCENE_c484]
     or a
     jp z, Jump_0c5_67ea
 
@@ -3121,7 +3136,7 @@ Jump_0c5_6844:
 
 jr_0c5_684c:
     ld a, [PLAYER_CHARACTER_MODEL]
-    cp $93
+    cp CHARACTER_ID_JILL
     jr z, jr_0c5_6861
 
     ld c, $42
@@ -3134,7 +3149,7 @@ jr_0c5_684c:
 
 
 jr_0c5_6861:
-    ld a, [$c484]
+    ld a, [FLAG_PLAYER_CUTSCENE_c484]
     or a
     jp z, Jump_0c5_67ea
 
@@ -3152,7 +3167,7 @@ Jump_0c5_686d:
 
 jr_0c5_6875:
     ld a, [PLAYER_CHARACTER_MODEL]
-    cp $93
+    cp CHARACTER_ID_JILL
     jr z, jr_0c5_688a
 
     ld c, $42
@@ -3165,7 +3180,7 @@ jr_0c5_6875:
 
 
 jr_0c5_688a:
-    ld a, [$c484]
+    ld a, [FLAG_PLAYER_CUTSCENE_c484]
     or a
     jp z, Jump_0c5_67ea
 
@@ -3450,7 +3465,7 @@ Jump_0c5_69e5:
 
 
 jr_0c5_69ed:
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_0c5_69fa
 
@@ -3528,7 +3543,7 @@ Call_0c5_6a50:
     push hl
     ld hl, $c1e7
     ld b, $06
-    ld a, [$c11b]
+    ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_0c5_6a5f
 
@@ -3579,7 +3594,7 @@ Call_0c5_6a80:
     push bc
     push de
     push hl
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     cp $07
     jr z, jr_0c5_6ab1
 
@@ -3615,7 +3630,7 @@ jr_0c5_6aa2:
     jr jr_0c5_6a9e
 
 jr_0c5_6aac:
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     jr jr_0c5_6a96
 
 jr_0c5_6ab1:
@@ -3627,7 +3642,7 @@ jr_0c5_6ab1:
     jr jr_0c5_6a9e
 
 jr_0c5_6abb:
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     jr jr_0c5_6a96
 
 jr_0c5_6ac0:
@@ -3639,7 +3654,7 @@ jr_0c5_6ac0:
     jr jr_0c5_6a9e
 
 jr_0c5_6ac9:
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     jr jr_0c5_6a96
 
 jr_0c5_6ace:
@@ -3651,9 +3666,10 @@ jr_0c5_6ace:
     jr jr_0c5_6a9e
 
 jr_0c5_6ad7:
-    ld a, [$c1c7]
+    ld a, [PICKED_ITEM_INDEX]
     jr jr_0c5_6a96
 
+bank0c5_6adc:
     ld hl, $c320
     ld b, $07
 
@@ -3705,13 +3721,13 @@ jr_0c5_6b11:
     jr z, jr_0c5_6b30
 
     cp $98
-    jp z, Jump_0c5_6b31
+    jp z, SpawnEntity
 
     cp $a0
-    jp z, Jump_0c5_6b31
+    jp z, SpawnEntity
 
     cp $95
-    jp z, Jump_0c5_6b31
+    jp z, SpawnEntity
 
     cp $e0
     jp nc, Jump_0c5_6bb4
@@ -3724,7 +3740,7 @@ jr_0c5_6b30:
     ret
 
 
-Jump_0c5_6b31:
+SpawnEntity:
     push hl
     ld c, l
     ld b, h
@@ -3753,12 +3769,14 @@ jr_0c5_6b4d:
     add hl, de
     ld [hl], $80
     
+    ; copy character id type at offset 0xb
     ld hl, $000b
     add hl, de
     ld a, [bc]
     ld [hl], a
     inc bc
     
+    ; copy entity id to offset 0x0f and 0x10
     ld hl, $000f
     add hl, de
     ld a, [bc]
@@ -3770,25 +3788,30 @@ jr_0c5_6b4d:
     inc hl
     inc bc
    
+    ; copy entity y and x position to offset 0x11 - 0x14
     ld hl, $0011
     add hl, de
     ld a, [bc]
     ld [hl], a
     inc hl
     inc bc
+    ; offset 0x12
     ld a, [bc]
     ld [hl], a
     inc hl
     inc bc
+    ; offset 0x13
     ld a, [bc]
     ld [hl], a
     inc hl
     inc bc
+    ; offset 0x14
     ld a, [bc]
     ld [hl], a
     inc hl
     inc bc
     
+    ; set offsets 0x0c, 0x0d, 0x06 - 0x08 to zero
     ld hl, $000c
     add hl, de
     ld [hl], $00
@@ -3797,10 +3820,12 @@ jr_0c5_6b4d:
     add hl, de
     ld [hl], $00
 
+    ; offset 0x6 is for entity state (0x0 is init, 0x1 is moving, 0x2 is dead)
     ld hl, $0006
     add hl, de
     ld [hl], $00
     
+    ; animation frame
     ld hl, $0007
     add hl, de
     ld [hl], $00
@@ -3809,6 +3834,7 @@ jr_0c5_6b4d:
     add hl, de
     ld [hl], $00
     
+    ; copy other values to offset 0x09
     ld hl, $0009
     add hl, de
     ld a, [bc]
@@ -3819,6 +3845,7 @@ jr_0c5_6b4d:
     add hl, de
     ld [hl], $00
     
+    ; set entity health at offset 0x0e to 0x40
     ld hl, $000e
     add hl, de
     
