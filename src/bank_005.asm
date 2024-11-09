@@ -101,99 +101,17 @@ bank005_5b00:
     dw $5700
     dw $5720
 
-bank005_5bc0:
-    nop
-    nop
-    nop
-    nop
-    inc b
-    inc bc
+InventoryItemPaletteIndex:: ; 0x5bc0
+    db $00, $00, $00, $00, $04, $03, $00, $00, $00, $05, $03, $04, $03, $00, $00, $05
+    db $01, $00, $01, $00, $00, $05, $06, $03, $01, $00, $03, $05, $01, $04, $00, $00
+    db $00, $02, $03, $04, $00, $00, $04, $01, $02, $01, $04, $00, $03, $00, $00, $03
+    db $05, $05, $04, $04, $01, $04, $00, $05, $00, $05, $00, $03, $04, $04, $04, $05
+    db $02, $00, $00, $00, $01, $05, $03, $05, $03, $00, $05, $00, $00, $03, $01, $03
+    db $03, $04, $04, $00, $04, $00, $04, $05, $06, $03, $01, $06
 
-jr_005_5bc6:
-    nop
-    nop
-    nop
-    dec b
-    inc bc
-
-jr_005_5bcb:
-    inc b
-    inc bc
-    nop
-    nop
-    dec b
-    ld bc, $0100
-    nop
-    nop
-    dec b
-    ld b, $03
-    ld bc, $0300
-    dec b
-    ld bc, $0004
-    nop
-    nop
-
-jr_005_5be1:
-    ld [bc], a
-    inc bc
-    inc b
-    nop
-    nop
-
-jr_005_5be6:
-    inc b
-    ld bc, $0102
-    inc b
-    nop
-    inc bc
-    nop
-    nop
-    inc bc
-    dec b
-    dec b
-    inc b
-    inc b
-    ld bc, $0004
-    dec b
-    nop
-    dec b
-    nop
-    inc bc
-
-jr_005_5bfc:
-    inc b
-    inc b
-    inc b
-    dec b
-    ld [bc], a
-
-jr_005_5c01:
-    nop
-    nop
-    nop
-    ld bc, $0305
-    dec b
-    inc bc
-    nop
-    dec b
-    nop
-    nop
-    inc bc
-    ld bc, $0303
-    inc b
-    inc b
-    nop
-    inc b
-    nop
-    inc b
-
-jr_005_5c17:
-    dec b
-    ld b, $03
-    ld bc, $2106
-    rst $20
-    pop bc
-    ld e, $08
+LoadInventoryItemSprite_5c1c:: ; 0x5c1c
+    ld hl, INVENTORY_ITEM_ID_BASE
+    ld e, $08 ; init tile index to be 8
     ld b, $00
 
 jr_005_5c23:
@@ -202,15 +120,15 @@ jr_005_5c23:
 jr_005_5c25:
     ld a, [hl]
     push hl
-    ld hl, $5bc0
+    ld hl, InventoryItemPaletteIndex
     add l
     ld l, a
     ld a, $00
     adc h
     ld h, a
     ld d, [hl]
-    push de
-    ld hl, $c908
+    push de ; in register DE, D stores palette index, E stores tile index
+    ld hl, SPRITE_RAM_BASE + 8
     call Call_000_3d85
     ld a, b
     add a
@@ -487,7 +405,7 @@ jr_005_5d62:
 
     xor a
     ldh [rVBK], a
-    ld hl, $5bc0
+    ld hl, InventoryItemPaletteIndex
     ld a, [$c1f4]
     add l
     ld l, a
@@ -652,7 +570,7 @@ Call_005_5dfb:
 
 bank005_5e40:
     ld a, [INVENTORY_EQUIPPED_ITEM]
-    ld hl, $5bc0
+    ld hl, InventoryItemPaletteIndex
     add l
     ld l, a
     ld a, $00
@@ -718,7 +636,7 @@ bank005_5e90:
     add hl, de
     ld a, [hl]
     push af
-    ld hl, $5bc0
+    ld hl, InventoryItemPaletteIndex
     add l
     ld l, a
     ld a, $00

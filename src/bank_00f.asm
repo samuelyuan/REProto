@@ -481,7 +481,7 @@ jr_00f_5dd4:
     or c
     jr nz, jr_00f_5dd4
 
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     call Call_000_3d85
     ld de, $0004
     ld b, $28
@@ -492,7 +492,7 @@ jr_00f_5de7:
     dec b
     jr nz, jr_00f_5de7
 
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     call Call_000_3d85
     ld de, $c2c0
     ld b, $09

@@ -1521,12 +1521,9 @@ jr_0fb_47c2:
     inc b
     ld b, b
     ld b, c
-    cp $03
-    nop
-    ld d, c
-    ld c, c
-    ld [$0410], sp
-    ret nz
+
+bank0fb_480c:
+    db $fe, $03, $00, $51, $49, $08, $10, $04, $c0
 
     ld b, c
     cp $01

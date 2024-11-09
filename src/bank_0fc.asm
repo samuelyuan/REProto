@@ -780,7 +780,7 @@ jr_0fc_44d9:
 
 bank0fc_44db:
     xor a
-    ld [$c17e], a
+    ld [GAME_STATE], a
     ld a, [PLAYER_POS_Y_VAR]
     ld e, a
     ld a, [PLAYER_POS_Y_VAR + 1]
@@ -896,7 +896,7 @@ jr_0fc_4583:
     jr nz, jr_0fc_4590
 
     ld a, $01
-    ld [$c17e], a
+    ld [GAME_STATE], a
     ret
 
 
@@ -960,7 +960,7 @@ Call_0fc_45e1:
     ld [PLAYER_STATE], a
     xor a
     ld [PLAYER_ANIM_FRAME], a
-    jp Jump_0fc_4874
+    jp PlayerMovesForward
 
 
 Call_0fc_45ed:
@@ -968,7 +968,7 @@ Call_0fc_45ed:
     ld [PLAYER_STATE], a
     ld a, $3f
     ld [PLAYER_ANIM_FRAME], a
-    jp Jump_0fc_48fb
+    jp PlayerMovesBackward
 
 
 jr_0fc_45fa:
@@ -1280,10 +1280,10 @@ jr_0fc_47ac:
 jr_0fc_47b8:
     ld a, [PRESSED_BUTTON]
     and $40
-    call nz, Call_0fc_4874
+    call nz, PlayerMovesForward
     ld a, [PRESSED_BUTTON]
     and $80
-    call nz, Call_0fc_48fb
+    call nz, PlayerMovesBackward
     call Call_0fc_4808
     call Call_0fc_483e
     ret
@@ -1314,10 +1314,10 @@ jr_0fc_47ec:
 jr_0fc_47f1:
     ld a, [PRESSED_BUTTON]
     and $40
-    call nz, Call_0fc_4874
+    call nz, PlayerMovesForward
     ld a, [PRESSED_BUTTON]
     and $80
-    call nz, Call_0fc_48fb
+    call nz, PlayerMovesBackward
     call Call_0fc_4808
     call Call_0fc_483e
     ret
@@ -1417,8 +1417,7 @@ jr_0fc_4873:
     ret
 
 
-Call_0fc_4874:
-Jump_0fc_4874:
+PlayerMovesForward:
     ld a, [PLAYER_ANIM_FRAME]
     add $04
     and $3f
@@ -1427,43 +1426,43 @@ Jump_0fc_4874:
     ld de, $000e
     ld a, [PLAYER_POS_ROTATE]
     cp $04
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $000c
     ld de, $000c
     cp $08
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $000e
     ld de, $0000
     cp $0c
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $000c
     ld de, $fff4
     cp $10
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $0000
     ld de, $fff2
     cp $14
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $fff4
     ld de, $fff4
     cp $18
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $fff2
     ld de, $0000
     cp $1c
-    jr c, jr_0fc_48cd
+    jr c, CalculatePlayerDeltaAndMovePlayer
 
     ld bc, $fff4
     ld de, $000c
 
-jr_0fc_48cd:
-    call Call_0fc_4971
+CalculatePlayerDeltaAndMovePlayer:
+    call CalculatePlayerDelta
     ld a, [PLAYER_POS_Y_VAR]
     add c
     ld [PLAYER_POS_Y_VAR], a
@@ -1489,8 +1488,7 @@ jr_0fc_48f6:
     jp Jump_000_026b
 
 
-Call_0fc_48fb:
-Jump_0fc_48fb:
+PlayerMovesBackward:
     ld a, [PLAYER_ANIM_FRAME]
     sub $03
     and $3f
@@ -1550,7 +1548,7 @@ jr_0fc_4954:
     ret
 
 
-Call_0fc_4971:
+CalculatePlayerDelta:
     ld a, [PLAYER_STATE]
     cp $02
     ret nz

@@ -4231,10 +4231,10 @@ door_transition:
     srl a
     srl a
     srl a
-    ld [$c1b6], a
+    ld [DOOR_INDEX_LEFT_BITS], a
     ld a, [hl+]
     and $07
-    ld [$c1b7], a
+    ld [DOOR_PALETTE_INDEX], a
     push hl
     call Call_000_06b5
     pop hl

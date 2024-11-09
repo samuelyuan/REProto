@@ -2041,7 +2041,7 @@ jr_0c5_62c4:
 
 bank0c5_62c5:
     xor a
-    ld [$c17e], a
+    ld [GAME_STATE], a
     ld a, [$c105]
     or a
     ret nz
@@ -2210,7 +2210,7 @@ jr_0c5_63a1:
 
 
 Call_0c5_63a8:
-    ld a, [$c17e]
+    ld a, [GAME_STATE]
     cp $05
     jr z, jr_0c5_63b3
 
@@ -2329,7 +2329,7 @@ jr_0c5_6422:
     jp z, Jump_0c5_6455
 
     ld a, $03
-    ld [$c17e], a
+    ld [GAME_STATE], a
 
 jr_0c5_6450:
     ld a, $ff
@@ -2347,13 +2347,13 @@ Jump_0c5_6455:
     ld a, $ff
     ld [$c183], a
     ld a, $05
-    ld [$c17e], a
+    ld [GAME_STATE], a
     xor a
     ret
 
 
 Call_0c5_6467:
-    ld a, [$c17e]
+    ld a, [GAME_STATE]
     cp $05
     jr z, jr_0c5_6472
 
@@ -2459,7 +2459,7 @@ jr_0c5_64c8:
     ld [PLAYER_STATE], a
     xor a
     ld [PLAYER_ANIM_FRAME], a
-    ld [$c17e], a
+    ld [GAME_STATE], a
     ret
 
 
@@ -2479,13 +2479,13 @@ Jump_0c5_6507:
     ld a, $ff
     ld [$c183], a
     ld a, $05
-    ld [$c17e], a
+    ld [GAME_STATE], a
     xor a
     ret
 
 
 Call_0c5_6519:
-    ld a, [$c17e]
+    ld a, [GAME_STATE]
     or a
     jp nz, PlayerNoTransition
 
@@ -2634,10 +2634,10 @@ PlayerTransitionNewRoom:
     srl a
     srl a
     srl a
-    ld [$c1b6], a
+    ld [DOOR_INDEX_LEFT_BITS], a
     ld a, [hl]
     and $07
-    ld [$c1b7], a
+    ld [DOOR_PALETTE_INDEX], a
     ; register DE has base address of area before entering door
     ; HL still points to area before entering door
     ld de, $0003
@@ -2680,9 +2680,9 @@ PlayerTransitionNewRoom:
     ; byte 9 for new player rotation
     ld a, [de]
     ld [PLAYER_POS_ROTATE], a
-    ; unknown
+    ; set state to door transition
     ld a, $01
-    ld [$c17e], a
+    ld [GAME_STATE], a
 
 jr_0c5_661d:
     ld a, $ff
@@ -2702,13 +2702,13 @@ Jump_0c5_6622:
     ld a, [$c1ff]
     ld [$c183], a
     ld a, $05
-    ld [$c17e], a
+    ld [GAME_STATE], a
     xor a
     ret
 
 
 Call_0c5_6638:
-    ld a, [$c17e]
+    ld a, [GAME_STATE]
     cp $05
     jr z, jr_0c5_6643
 
@@ -2811,7 +2811,7 @@ jr_0c5_66a6:
     ld a, $80
     ld [$c183], a
     ld a, $05
-    ld [$c17e], a
+    ld [GAME_STATE], a
 
 jr_0c5_66c3:
     ld a, $ff
@@ -2824,7 +2824,7 @@ Jump_0c5_66c6:
 
 
 Call_0c5_66c8:
-    ld a, [$c17e]
+    ld a, [GAME_STATE]
     or a
     jp nz, Jump_0c5_6748
 
@@ -2919,7 +2919,7 @@ jr_0c5_6732:
     jr z, jr_0c5_6745
 
     ld a, $04
-    ld [$c17e], a
+    ld [GAME_STATE], a
 
 jr_0c5_6745:
     ld a, $ff

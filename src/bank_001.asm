@@ -740,7 +740,7 @@ Call_001_4457:
     ret
 
 
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     ld de, $ca00
     ld b, $a0
 
@@ -788,7 +788,7 @@ Call_001_4488:
 
 Call_001_4494:
 Jump_001_4494:
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     call Call_000_3d85
     ld de, $0004
     ld b, $28
@@ -1531,7 +1531,7 @@ jr_001_48d6:
     and $f8
     add $24
     ld e, a
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     call Call_000_3d85
     ld c, $30
     ld a, [MENU_CURSOR_OPTION]
@@ -1542,16 +1542,16 @@ jr_001_48d6:
 
 jr_001_490a:
     ld a, c
-    ld [$c108], a
+    ld [CURRENT_TILE_INDEX], a
     xor a
-    ld [$c109], a
+    ld [CURRENT_PALETTE_INDEX], a
     ld bc, $0403
     jp Jump_000_3d04
 
 
 Call_001_4918:
     ld de, $6810
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     call Call_000_3d85
     ld c, $00
     ld a, [SELECTED_CHARACTER_INDEX]
@@ -1562,9 +1562,9 @@ Call_001_4918:
 
 jr_001_492b:
     ld a, c
-    ld [$c108], a
+    ld [CURRENT_TILE_INDEX], a
     ld a, $07
-    ld [$c109], a
+    ld [CURRENT_PALETTE_INDEX], a
     ld bc, $0201
     jp Jump_000_3d04
 
@@ -1580,9 +1580,9 @@ jr_001_492b:
     ld hl, $c930
     call Call_000_3d85
     xor a
-    ld [$c108], a
+    ld [CURRENT_TILE_INDEX], a
     ld a, $01
-    ld [$c109], a
+    ld [CURRENT_PALETTE_INDEX], a
     ld bc, $0403
     jp Jump_000_3d04
 
@@ -2282,64 +2282,64 @@ jr_001_4d44:
     ld d, a
     call Call_001_7135
     ld a, [$c1f4]
-    cp $35
+    cp ITEM_ID_SHEET_MUSIC
     jp z, Jump_001_5554
 
-    cp $0e ; first aid spray
+    cp ITEM_ID_FIRST_AID_SPRAY ; first aid spray
     jp z, InventoryUseFirstAidSpray
 
-    cp $1e
+    cp ITEM_ID_CHEMICAL
     jp z, Jump_001_55d3
 
-    cp $23
+    cp ITEM_ID_GOLD_EMBLEM
     jp z, Jump_001_5459
 
-    cp $1d
+    cp ITEM_ID_WOOD_EMBLEM
     jp z, Jump_001_54f1
 
-    cp $3b
+    cp ITEM_ID_BLUE_JEWEL
     jp z, Jump_001_53eb
 
-    cp $29
+    cp ITEM_ID_RED_JEWEL
     jp z, Jump_001_5422
 
-    cp $28
+    cp ITEM_ID_GREEN_HERB
     jp z, InventoryUseGreenHerb
 
-    cp $1c
+    cp ITEM_ID_RED_HERB
     jp z, InventoryUseRedHerb
 
-    cp $22
+    cp ITEM_ID_BLUE_HERB
     jp z, InventoryUseBlueHerb
 
-    cp $45
+    cp ITEM_ID_STAR_CREST
     jp z, Jump_001_52d9
 
-    cp $39
+    cp ITEM_ID_MOON_CREST
     jp z, Jump_001_52d9
 
-    cp $3f
+    cp ITEM_ID_SUN_CREST
     jp z, Jump_001_52d9
 
-    cp $47
+    cp ITEM_ID_WIND_CREST
     jp z, Jump_001_52d9
 
-    cp $26
+    cp ITEM_ID_CRANK
     jp z, Jump_001_5277
 
-    cp $18
+    cp ITEM_ID_RED_BOOK
     jp z, Jump_001_537d
 
-    cp $14
+    cp ITEM_ID_BATTERY
     jp z, Jump_001_523a
 
-    cp $41
+    cp ITEM_ID_FLAMETHROWER
     jp z, Jump_001_51d5
 
     cp $56
     jp z, Jump_001_50c2
 
-    cp $0f
+    cp ITEM_ID_MO_DISK
     jp z, Jump_001_4fed
 
     cp $15
@@ -2351,7 +2351,7 @@ jr_001_4d44:
     cp $20
     jp z, Jump_001_4fa9
 
-    cp $31
+    cp ITEM_ID_BROKEN_SHOTGUN
     jp z, Jump_001_4f61
 
     cp $09
@@ -4048,7 +4048,7 @@ jr_001_56ce:
     ld [$c1e0], a
     ret
 
-    ld hl, $c900
+    ld hl, SPRITE_RAM_BASE
     call Call_000_3d85
     ld a, [MENU_CURSOR_OPTION]
     add a
@@ -6995,7 +6995,7 @@ jr_001_6a26:
     jp nz, Jump_001_6a3f
 
     ld a, $02
-    ld [$c17e], a
+    ld [GAME_STATE], a
 
 Jump_001_6a3f:
     call Call_000_0c20
