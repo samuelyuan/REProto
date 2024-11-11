@@ -3496,7 +3496,7 @@ Jump_0fb_5225:
     jr nz, jr_0fb_531f
 
     ld a, $15
-    call Call_000_026b
+    call Sound_000_026b
     jr jr_0fb_531f
 
 jr_0fb_52c7:
@@ -3535,7 +3535,7 @@ jr_0fb_52dc:
     sub $08
     ld [PLAYER_HEALTH], a
     ld a, $15
-    call Call_000_026b
+    call Sound_000_026b
     jr jr_0fb_531f
 
 jr_0fb_5308:

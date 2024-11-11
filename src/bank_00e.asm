@@ -220,7 +220,7 @@ Jump_00e_40bf:
 
     ;
     cp $1c
-    jp z, Jump_00e_629a
+    jp z, play_sound
 
     ; sprite anim walk
     cp script_cmd_walk_chris
@@ -4497,11 +4497,11 @@ jr_00e_627b:
     ret
 
 
-Jump_00e_629a:
+play_sound:
     ld a, [hl+]
     ld c, a
     push hl
-    call Call_000_026b
+    call Sound_000_026b
     pop hl
     ret
 

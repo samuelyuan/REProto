@@ -923,7 +923,7 @@ Jump_00f_5fbc:
     ld a, $ff
     ld [$c1fb], a
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     ld a, [$c2e0]
     or a
     jp z, Jump_00f_60a9

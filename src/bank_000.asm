@@ -840,7 +840,7 @@ Call_000_0256:
     jp Jump_000_02ee
 
 
-Call_000_026b:
+Sound_000_026b:
 Jump_000_026b:
     ld c, a
     ld a, [CURRENT_BANK_NUMBER]
@@ -848,7 +848,7 @@ Jump_000_026b:
     ld a, $06
     call SwitchBank
     ld a, c
-    ld [$c17f], a
+    ld [SOUND_ID], a
 
 Jump_000_0279:
     call $4024
@@ -1830,15 +1830,15 @@ Jump_000_075f:
     add hl, bc
     add hl, de
     ld a, [hl+]
-    ld [$c132], a
+    ld [CAMERA0_POS_X], a
     ld a, [hl+]
     ld [$c133], a
     ld a, [hl+]
-    ld [$c134], a
+    ld [CAMERA0_POS_Y], a
     ld a, [hl+]
     ld [$c135], a
     ld a, [hl+]
-    ld [$c136], a
+    ld [CAMERA0_POS_Z], a
     ld a, [hl+]
     ld [$c137], a
     ld a, [hl+]
@@ -1854,15 +1854,15 @@ Call_000_0781:
     ld a, [hl+]
     ld [$c131], a
     ld a, [hl+]
-    ld [$c138], a
+    ld [CAMERA1_POS_X], a
     ld a, [hl+]
-    ld [$c139], a
+    ld [CAMERA1_POS_X + 1], a
     ld a, [hl+]
-    ld [$c13a], a
+    ld [CAMERA1_POS_Y], a
     ld a, [hl+]
     ld [$c13b], a
     ld a, [hl+]
-    ld [$c13c], a
+    ld [CAMERA1_POS_Z], a
     ld a, [hl+]
     ld [$c13d], a
     ld a, [hl+]
@@ -2144,7 +2144,7 @@ Call_000_0908:
     jr SwitchBank_000_0922
 
 Call_000_090d:
-    ld hl, bank0fd_43a0
+    ld hl, $43a0
 
 Jump_000_0910:
     ld a, $fd
@@ -2211,9 +2211,9 @@ Call_000_094a:
     ld d, [hl]
     call $7135
     ld a, e
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, d
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
     pop de
     push de
     ld hl, $0013
@@ -2228,21 +2228,21 @@ Call_000_094a:
     ld [$c143], a
     ld hl, $0000
     ld a, l
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
 
 Call_000_097f:
 Jump_000_097f:
     ld a, h
-    ld [$c141], a
+    ld [SPRITE_VARIABLE_Y + 1], a
     call Call_000_0ec5
     pop de
     ld hl, $0002
     add hl, de
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld [hl], a
     ld hl, $0003
     add hl, de
-    ld a, [$c140]
+    ld a, [SPRITE_VARIABLE_Y]
     ld [hl], a
 
 Jump_000_0997:
@@ -2279,9 +2279,9 @@ Jump_000_09c3:
     ld h, a
     add hl, de
     ld a, l
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, h
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
     pop de
 
 Call_000_09ce:
@@ -2305,12 +2305,12 @@ Jump_000_09d3:
     ld [$c143], a
     ld hl, $0000
     ld a, l
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
     ld a, h
-    ld [$c141], a
+    ld [SPRITE_VARIABLE_Y + 1], a
     call Call_000_0ec5
     pop de
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld c, a
     ld hl, $0002
 
@@ -2381,11 +2381,11 @@ Call_000_0a3b:
     ld a, e
 
 Call_000_0a3f:
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, d
 
 Jump_000_0a43:
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
     pop de
     push de
     ld hl, $0013
@@ -2403,41 +2403,41 @@ Jump_000_0a43:
     ld hl, $0019
     add hl, de
     ld a, [hl+]
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
     ld a, [hl+]
-    ld [$c141], a
+    ld [SPRITE_VARIABLE_Y + 1], a
     call Call_000_0ec5
     pop de
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     or a
     jr z, jr_000_0a7d
 
     cp $ff
     ret nz
 
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     cp $e0
     ret c
 
     jr jr_000_0a83
 
 jr_000_0a7d:
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     cp $a8
     ret nc
 
 jr_000_0a83:
     ld hl, $0002
     add hl, de
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld [hl], a
-    ld a, [$c141]
+    ld a, [SPRITE_VARIABLE_Y + 1]
     or a
     ret nz
 
     ld hl, $0003
     add hl, de
-    ld a, [$c140]
+    ld a, [SPRITE_VARIABLE_Y]
     ld [hl], a
     ld hl, $0001
     add hl, de
@@ -2508,9 +2508,9 @@ Jump_000_0ae7:
     ld h, a
     add hl, de
     ld a, l
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, h
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
     pop de
     push de
 
@@ -2544,16 +2544,16 @@ Jump_000_0b0b:
     ld a, l
 
 Call_000_0b1c:
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
     ld a, h
-    ld [$c141], a
+    ld [SPRITE_VARIABLE_Y + 1], a
 
 Call_000_0b23:
     call Call_000_0ec5
     pop de
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld c, a
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     ld b, a
     ld hl, $0002
     add hl, de
@@ -2979,7 +2979,7 @@ jr_000_0d05:
 Call_000_0d0d:
 Jump_000_0d0d:
     ld a, d
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     ld a, e
     ld [BANK00A_TILEMAP_INDEX], a
 
@@ -3051,7 +3051,7 @@ Call_000_0d6c:
     ld a, h
     ld [$c15d], a
     ld a, d
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     ld a, e
     ld [BANK00A_TILEMAP_INDEX], a
     ld a, b
@@ -3095,7 +3095,7 @@ Call_000_0db3:
 
 jr_000_0db7:
     ld c, $04
-    ld a, [$c17f]
+    ld a, [SOUND_ID]
     cp c
     jr z, jr_000_0dca
 
@@ -3105,7 +3105,7 @@ Call_000_0dbf:
     jr nz, jr_000_0dca
 
     ld a, c
-    call Call_000_026b
+    call Sound_000_026b
 
 jr_000_0dca:
     ld a, [FADE_TIMER]
@@ -3208,7 +3208,7 @@ jr_000_0e3d:
     ld a, h
     ld [$c15d], a
     ld a, d
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     ld a, e
     ld [BANK00A_TILEMAP_INDEX], a
     ld a, b
@@ -3253,7 +3253,7 @@ jr_000_0e82:
 
 jr_000_0e8d:
     ld c, $04
-    ld a, [$c17f]
+    ld a, [SOUND_ID]
     cp c
     jr z, jr_000_0ea0
 
@@ -3262,7 +3262,7 @@ jr_000_0e8d:
     jr nz, jr_000_0ea0
 
     ld a, c
-    call Call_000_026b
+    call Sound_000_026b
 
 jr_000_0ea0:
     ld a, [FADE_TIMER]
@@ -3291,28 +3291,28 @@ Jump_000_0ec0:
 
 
 Call_000_0ec5:
-    ld a, [$c132]
+    ld a, [CAMERA0_POS_X]
     ld e, a
     ld a, [$c133]
     ld d, a
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld l, a
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     ld h, a
     add hl, de
     ld a, l
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld [$c1d5], a
     ld a, h
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
     ld [$c1d6], a
-    ld a, [$c134]
+    ld a, [CAMERA0_POS_Y]
     ld e, a
     ld a, [$c135]
     ld d, a
-    ld a, [$c140]
+    ld a, [SPRITE_VARIABLE_Y]
     ld l, a
-    ld a, [$c141]
+    ld a, [SPRITE_VARIABLE_Y + 1]
 
 Call_000_0ef3:
     ld h, a
@@ -3323,14 +3323,14 @@ Call_000_0ef3:
     ld a, e
 
 Call_000_0efb:
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
     ld [$c1d7], a
     ld a, d
-    ld [$c141], a
+    ld [SPRITE_VARIABLE_Y + 1], a
     ld [$c1d8], a
 
 Call_000_0f08:
-    ld a, [$c136]
+    ld a, [CAMERA0_POS_Z]
 
 Call_000_0f0b:
     ld e, a
@@ -3357,9 +3357,9 @@ Jump_000_0f20:
 
 Jump_000_0f24:
     ld [$c1da], a
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld e, a
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     ld d, a
     ld a, [$c12b]
     ld l, a
@@ -3388,13 +3388,13 @@ Jump_000_0f43:
     ld [$c144], a
     ld a, d
     ld [$c145], a
-    ld a, [$c140]
+    ld a, [SPRITE_VARIABLE_Y]
     ld [$c146], a
-    ld a, [$c141]
+    ld a, [SPRITE_VARIABLE_Y + 1]
     ld [$c147], a
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld e, a
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     ld d, a
     ld a, [$c12a]
     ld l, a
@@ -3426,9 +3426,9 @@ Jump_000_0f87:
     ld a, d
     ld [$c149], a
     ld a, [$c144]
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, [$c145]
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
 
 Jump_000_0faf:
     ld a, [$c146]
@@ -3508,31 +3508,31 @@ Jump_000_100e:
     call Call_000_10fa
     call $7108
     ld a, e
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
 
 Call_000_101b:
     ld a, d
-    ld [$c141], a
-    ld a, [$c138]
+    ld [SPRITE_VARIABLE_Y + 1], a
+    ld a, [CAMERA1_POS_X]
     ld l, a
 
 Call_000_1023:
-    ld a, [$c139]
+    ld a, [CAMERA1_POS_X + 1]
     ld h, a
 
 Call_000_1027:
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld e, a
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     ld d, a
     add hl, de
     ld a, l
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, h
-    ld [$c13f], a
+    ld [SPRITE_VARIABLE_X + 1], a
 
 Call_000_1038:
-    ld a, [$c13a]
+    ld a, [CAMERA1_POS_Y]
 
 Call_000_103b:
     ld l, a
@@ -3542,18 +3542,18 @@ Jump_000_103c:
 
 Jump_000_103f:
     ld h, a
-    ld a, [$c140]
+    ld a, [SPRITE_VARIABLE_Y]
     ld e, a
 
 Jump_000_1044:
-    ld a, [$c141]
+    ld a, [SPRITE_VARIABLE_Y + 1]
     ld d, a
     add hl, de
     ld a, l
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
     ld a, h
-    ld [$c141], a
-    ld a, [$c13c]
+    ld [SPRITE_VARIABLE_Y + 1], a
+    ld a, [CAMERA1_POS_Z]
     ld l, a
     ld a, [$c13d]
     ld h, a
@@ -3566,9 +3566,9 @@ Jump_000_1044:
     ld [SPRITE_VARIABLE_ZOOM], a
     ld a, h
     ld [$c143], a
-    ld hl, $c13e
+    ld hl, SPRITE_VARIABLE_X
     call $704b
-    ld hl, $c140
+    ld hl, SPRITE_VARIABLE_Y
     call $704b
     ld a, [SPRITE_VARIABLE_ZOOM]
     ld e, a
@@ -3586,9 +3586,9 @@ Jump_000_1044:
 Call_000_1090:
     ld a, d
     ld [$c143], a
-    ld a, [$c13e]
+    ld a, [SPRITE_VARIABLE_X]
     ld e, a
-    ld a, [$c13f]
+    ld a, [SPRITE_VARIABLE_X + 1]
     ld d, a
     ld a, [$c1db]
     ld l, a
@@ -3602,13 +3602,13 @@ Call_000_1090:
     call $6fbc
     ld a, e
     add $58
-    ld [$c13e], a
+    ld [SPRITE_VARIABLE_X], a
     ld a, d
     adc $00
-    ld [$c13f], a
-    ld a, [$c140]
+    ld [SPRITE_VARIABLE_X + 1], a
+    ld a, [SPRITE_VARIABLE_Y]
     ld e, a
-    ld a, [$c141]
+    ld a, [SPRITE_VARIABLE_Y + 1]
     ld d, a
     ld a, [$c1dd]
     ld l, a
@@ -3624,10 +3624,10 @@ Call_000_10d4:
     call $6fbc
     ld a, e
     add $50
-    ld [$c140], a
+    ld [SPRITE_VARIABLE_Y], a
     ld a, d
     adc $00
-    ld [$c141], a
+    ld [SPRITE_VARIABLE_Y + 1], a
     ret
 
 
@@ -9800,7 +9800,7 @@ Jump_000_2681:
     rst $38
 
 Call_000_2687:
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     ld c, a
     and $0f
     jr z, jr_000_2695
@@ -9825,7 +9825,7 @@ jr_000_26a0:
     ld a, [BANK00A_TILEMAP_INDEX]
     or $10
     ld [BANK00A_TILEMAP_INDEX], a
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     and $0f
     jr z, jr_000_26d9
 
@@ -9868,7 +9868,7 @@ Call_000_26d9:
 Jump_000_26d9:
 jr_000_26d9:
     pop hl
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     ld c, a
     and $0f
     jr z, jr_000_26e8
@@ -9914,7 +9914,7 @@ jr_000_2701:
     ld [BANK00A_TILEMAP_INDEX], a
     ret
 
-bank000_270b:
+bank000_table_270b:
     dw $2745
     dw $2746
     dw $2746
@@ -10008,7 +10008,7 @@ Jump_000_277f:
     srl d
     ret
 
-
+bank000_2782:
     ld a, e
     and $07
     add a
@@ -10035,7 +10035,7 @@ Jump_000_277f:
     srl d
     ret
 
-
+bank000_27a3:
     ld a, e
     and $0f
     add a
@@ -10056,7 +10056,7 @@ Jump_000_277f:
     ld d, $00
     ret
 
-
+bank000_27ba:
     ld a, e
     add a
     add a
@@ -10073,7 +10073,7 @@ Jump_000_277f:
     ld d, $00
     ret
 
-
+bank000_27cb:
     ld a, e
     add a
     add a
@@ -10171,7 +10171,7 @@ Call_000_2838:
 Call_000_283b:
     ret
 
-
+bank000_283c:
     sla e
     sla e
     ld a, c
@@ -10210,7 +10210,7 @@ Jump_000_2851:
     ld b, a
     ret
 
-
+bank000_286b:
     sla e
     sla e
     ld a, c
@@ -10335,7 +10335,7 @@ Call_000_28e4:
     ld b, a
     ret
 
-
+bank000_28f4:
     sla e
     sla e
     sla e
@@ -10359,7 +10359,7 @@ Jump_000_28ff:
     ld b, $00
     ret
 
-
+bank000_290f:
     sla e
     sla e
 
@@ -10382,7 +10382,7 @@ Call_000_2913:
     ld b, $00
     ret
 
-
+bank000_292c:
     sla e
     sla e
     sla e
@@ -10473,7 +10473,7 @@ Jump_000_293d:
 Call_000_299f:
     push hl
     ld hl, $1397
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     dec a
     add a
     add l
@@ -10488,7 +10488,7 @@ Call_000_299f:
 
 Jump_000_29b2:
     push bc
-    ; ; read bytes 0-1 in bank 0xb to register BC
+    ; ; read bytes 0-1 in current bank to register BC
     ld a, [de]
     ld c, a
     inc de
@@ -10524,7 +10524,7 @@ Jump_000_29d6:
     add $0d ; add 0x0d00 to address in bank 0xa that was stored in register HL
     ld h, a
     push bc
-    ; read bytes 2-3 in bank 0xb to register BC
+    ; read bytes 2-3 in current bank to register BC
     ld a, [de]
     ld c, a
     inc de
@@ -10544,7 +10544,7 @@ Jump_000_29d6:
     pop de
     ld hl, $2a07
     push hl
-    ld hl, $270b
+    ld hl, bank000_table_270b
     ld a, [BANK00A_TILEMAP_INDEX]
 
 Jump_000_29fc:
@@ -10623,7 +10623,7 @@ Jump_000_2a3f:
     ld b, a
 
 Jump_000_2a42:
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     srl a
     srl a
     srl a
@@ -10720,7 +10720,7 @@ jr_000_2a9b:
     ld [BANK00A_TILEMAP_INDEX], a
     inc de
     ld a, [de]
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     inc de
     ld a, [de]
     call SwitchBank
@@ -10803,7 +10803,7 @@ Jump_000_2aff:
     ld [CURRENT_TILE_INDEX], a
     ld a, [$c1c1]
     ld [CURRENT_PALETTE_INDEX], a
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     srl a
     srl a
     srl a
@@ -10834,7 +10834,7 @@ jr_000_2b4b:
     ld [BANK00A_TILEMAP_INDEX], a
     inc de
     ld a, [de]
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     inc de
     inc de
     ld a, [de]
@@ -10877,7 +10877,7 @@ jr_000_2b4b:
     ld [BANK00A_TILEMAP_INDEX], a
     inc de
     ld a, [de]
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     inc de
     ld a, [de]
     ld c, a
@@ -10939,7 +10939,7 @@ Jump_000_2bfd:
     ld [BANK00A_TILEMAP_INDEX], a
     inc de
     ld a, [de]
-    ld [$c118], a
+    ld [SPRITE_TABLE_INDEX], a
     inc de
     ld a, [de]
     ld c, a
@@ -11126,7 +11126,7 @@ Call_000_2d0b:
 jr_000_2d13:
     ld a, c
     ld [CURRENT_PALETTE_INDEX], a
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     ld c, a
     and $0f
     jr z, jr_000_2d25
@@ -11220,7 +11220,7 @@ Call_000_2d62:
     ld [CURRENT_TILE_INDEX], a
     ld a, [SPRITE_VARIABLE_PALETTE]
     ld [CURRENT_PALETTE_INDEX], a
-    ld a, [$c118]
+    ld a, [SPRITE_TABLE_INDEX]
     ld c, a
     and $0f
     jr z, jr_000_2db8
@@ -11311,7 +11311,7 @@ Call_000_2e39:
     ld a, $01
     ld [$c110], a
     ld a, $16
-    call Call_000_026b
+    call Sound_000_026b
     jr jr_000_2e4e
 
 jr_000_2e4a:
@@ -11336,7 +11336,7 @@ jr_000_2e4e:
     ld a, $01
     ld [$c111], a
     ld a, $16
-    call Call_000_026b
+    call Sound_000_026b
     jr jr_000_2e74
 
 jr_000_2e70:
@@ -11409,7 +11409,7 @@ Jump_000_2ed1:
 
 Call_000_2ed5:
     ld a, $17
-    call Call_000_026b
+    call Sound_000_026b
 
 jr_000_2eda:
     call $4457
@@ -12387,7 +12387,7 @@ Call_000_3388:
     ld a, $40
     ld [FADE_TIMER], a
     ld a, $0f
-    call Call_000_026b
+    call Sound_000_026b
 
 jr_000_339d:
     ld a, [FADE_TIMER]
@@ -12504,7 +12504,7 @@ jr_000_346c:
     sub $08
     ld [$c10c], a
     ld a, $00
-    call Call_000_026b
+    call Sound_000_026b
 
 jr_000_3480:
     ld a, [$c10c]
@@ -12525,7 +12525,7 @@ jr_000_3480:
     ld a, $40
     ld [FADE_TIMER], a
     ld a, $17
-    call Call_000_026b
+    call Sound_000_026b
 
 jr_000_34a1:
     ld hl, $2f0a
@@ -13300,7 +13300,7 @@ Call_000_38bb:
     ld a, $00
 
 Jump_000_38c3:
-    call Call_000_026b
+    call Sound_000_026b
 
 Call_000_38c6:
     call Call_000_35bf
@@ -13327,7 +13327,7 @@ Call_000_38e3:
     inc a
     ld [SELECTED_FILE_BOOK_INDEX], a
     ld a, $00
-    call Call_000_026b
+    call Sound_000_026b
     call Call_000_35bf
 
 Call_000_38ef:
@@ -13373,7 +13373,7 @@ Call_000_3924:
     call Call_000_34f7
     call Call_000_36d2
     ld a, $03
-    call Call_000_026b
+    call Sound_000_026b
     ld b, $10
     jp Jump_000_02b2
 
@@ -13414,7 +13414,7 @@ jr_000_395f:
     ld a, $0e
     ld [INVENTORY_CURSOR_OPTION], a
     ld a, $03
-    call Call_000_026b
+    call Sound_000_026b
     ld b, $20
     jp Jump_000_02b2
 
@@ -13502,7 +13502,7 @@ jr_000_39e8:
     ld a, c
     ld [INVENTORY_EQUIPPED_ITEM], a
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     ld a, $04
     ld [INVENTORY_CURSOR_OPTION], a
     call Call_000_34a9
@@ -13522,7 +13522,7 @@ InventoryOptionSelectCheck:
     call Call_000_08ce
     call Call_000_36d2
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     ld a, $84
     ld [INVENTORY_CURSOR_OPTION], a
     ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
@@ -13563,7 +13563,7 @@ InventoryOptionSelectCombine:
     call Call_000_3667
     call Call_000_34f7
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
     add $e0
     ld [INVENTORY_CURSOR_OPTION], a
@@ -13688,7 +13688,7 @@ jr_000_3aea:
     ld a, $0e
     ld [INVENTORY_CURSOR_OPTION], a
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
 
 Jump_000_3b00:
     ld b, $20
@@ -13716,7 +13716,7 @@ jr_000_3b05:
     ld a, $80
     ld [INVENTORY_CURSOR_OPTION], a
     ld a, $00
-    call Call_000_026b
+    call Sound_000_026b
     ld c, $00
     call Call_000_3c2f
     call Call_000_35d7

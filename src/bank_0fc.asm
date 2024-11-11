@@ -660,7 +660,7 @@ Jump_0fc_442c:
 
     ld [hl], $0c
     ld a, $12
-    call Call_000_026b
+    call Sound_000_026b
     jp Jump_0fc_42c8
 
 
@@ -1074,7 +1074,7 @@ jr_0fc_4672:
     ld a, $82
     ld [$c30c], a
     ld a, $10
-    call Call_000_026b
+    call Sound_000_026b
     ld a, [PLAYER_ANIM_FRAME]
     or a
     ret z
@@ -1126,7 +1126,7 @@ jr_0fc_46c4:
     ld a, $82
     ld [$c30c], a
     ld a, $0f
-    call Call_000_026b
+    call Sound_000_026b
     ld a, [PLAYER_ANIM_FRAME]
     or a
     ret z
@@ -2155,7 +2155,7 @@ jr_0fc_4c6c:
     add hl, bc
     ld [hl], $00
     ld a, $13
-    call Call_000_026b
+    call Sound_000_026b
     ld a, $ff
     ret
 

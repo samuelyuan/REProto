@@ -58,7 +58,7 @@ Jump_001_403f:
 
 jr_001_4045:
     ld a, $16
-    call Call_000_026b
+    call Sound_000_026b
     ld a, [INVENTORY_CURSOR_OPTION]
     sub $e0
     ld [INVENTORY_CURSOR_OPTION], a
@@ -116,7 +116,7 @@ jr_001_408a:
 
 jr_001_4090:
     ld a, $03
-    call Call_000_026b
+    call Sound_000_026b
     ld a, [INVENTORY_CURSOR_OPTION]
     sub $e0
     ld [INVENTORY_CURSOR_OPTION], a
@@ -235,7 +235,7 @@ Call_001_4175:
     ld a, $80
     ld [INVENTORY_CURSOR_OPTION], a
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     call Call_000_3f43
     ld b, $10
     jp Jump_000_02b2
@@ -272,7 +272,7 @@ Call_001_41b0:
     call Call_000_3f43
     call Call_000_36d2
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     ld b, $10
     jp Jump_000_02b2
 
@@ -295,7 +295,7 @@ Call_001_41d9:
     ld a, [INVENTORY_CURSOR_OPTION_ITEM_INDEX]
     ld [INVENTORY_CURSOR_OPTION], a
     ld a, $03
-    call Call_000_026b
+    call Sound_000_026b
     call Call_000_3f43
     ld b, $10
     jp Jump_000_02b2
@@ -4224,7 +4224,7 @@ jr_001_5843:
     push de
     push hl
     ld a, $16
-    call Call_000_026b
+    call Sound_000_026b
     ld b, $10
     call Call_000_02b2
     pop hl
@@ -6020,7 +6020,7 @@ jr_001_637f:
 
     call Call_000_0c50
     ld a, $28
-    call Call_000_026b
+    call Sound_000_026b
     ld b, $0a
     call Call_000_02b2
     call Call_001_4c42
@@ -7271,7 +7271,7 @@ Jump_001_6bee:
     call Call_000_0c2e
     call Call_001_6da9
     ld a, $02
-    call Call_000_026b
+    call Sound_000_026b
     pop hl
     jp Jump_001_6a5b
 
@@ -7605,7 +7605,7 @@ jr_001_6dfd:
     ld b, $32
     call Call_000_02b2
     ld a, $27
-    call Call_000_026b
+    call Sound_000_026b
     ld hl, $4174
     call Call_000_0c0a
     call Call_000_0c2e
