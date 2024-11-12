@@ -215,11 +215,11 @@ Jump_00e_40bf:
     cp script_cmd_rotate_barry
     jp z, rotate_barry
 
-    cp $37
+    cp script_cmd_rotate_zombie
     jp z, sprite_zombie_rotate
 
     ;
-    cp $1c
+    cp script_cmd_play_sound
     jp z, play_sound
 
     ; sprite anim walk
@@ -251,27 +251,27 @@ Jump_00e_40bf:
     cp script_cmd_run_jill
     jp z, sprite_jill_run
 
-    cp $1a
+    cp script_cmd_run_wesker
     jp z, sprite_wesker_run
 
-    cp $1b
+    cp script_cmd_run_rebecca
     jp z, sprite_rebecca_run
 
     cp script_cmd_run_barry
     jp z, sprite_barry_run
 
     ; sprite walks backwards
-    cp $26
-    jp z, Jump_00e_62b1
+    cp script_cmd_walk_backwards_chris
+    jp z, sprite_chris_walk_backwards
 
     cp script_cmd_walk_backwards_jill
     jp z, sprite_jill_walk_backwards
 
     cp script_cmd_walk_backwards_rebecca
-    jp z, Jump_00e_62c0
+    jp z, sprite_rebecca_walk_backwards
 
     cp $29
-    jp z, Jump_00e_62bb
+    jp z, sprite_wesker_walk_backwards
 
     cp $2a
     jp z, Jump_00e_62a2
@@ -292,10 +292,10 @@ Jump_00e_40bf:
     jp z, door_transition
 
     cp $36
-    jp z, Jump_00e_603b
+    jp z, cmd36_00e_603b
 
     cp $22
-    jp z, Jump_00e_63cc
+    jp z, cmd22_00e_63cc
 
     cp script_cmd_reset_scene
     jp z, scene_var_reset
@@ -303,7 +303,7 @@ Jump_00e_40bf:
     cp $3a ; 1 byte
     jp z, cmd_3a
 
-    cp $3b
+    cp script_cmd_copy_jill_entity_data
     jp z, Jump_00e_5fd1
 
     cp $3e ; 1 byte
@@ -367,7 +367,7 @@ SceneScriptIntroChris:: ; 0x421b
     dw $4198
     db script_cmd_wait_frames, $32
     db script_cmd_change_camera, $01
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_dialogue_jill
     dw $419b
     db script_cmd_rotate_chris, $04
@@ -620,9 +620,9 @@ SceneScript_4488:: ; 0x4488
     db script_cmd_wait_frames, $32
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $32
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $0f
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_change_camera, $05
     db script_cmd_wait_frames, $96
     db script_cmd_dialogue_rebecca
@@ -651,7 +651,7 @@ SceneScript_4488:: ; 0x4488
     db script_cmd_change_camera, $06
     db script_cmd_rotate_chris, $02
     db script_cmd_set_anim_chris, $00, $18
-    db $26, $28
+    db script_cmd_walk_backwards_chris, $28
     db script_cmd_walk_rebecca, $28
     db script_cmd_rotate_rebecca, $84
     db script_cmd_walk_rebecca, $0a
@@ -687,7 +687,7 @@ SceneScript_4512:: ; 0x4512
     db script_cmd_wait_frames, $32
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $32
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_dialogue_rebecca
     dw $4204
     db script_cmd_wait_frames, $3c
@@ -743,7 +743,7 @@ SceneScript_4574:: ; 0x4574
     db script_cmd_dialogue_chris
     dw $4339
     db script_cmd_wait_frames, $96
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_walk_rebecca, $17
     db script_cmd_wait_frames, $50
     db script_cmd_end
@@ -806,17 +806,17 @@ SceneScript_4612:: ; 0x4612
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $64
     db script_cmd_set_anim_chris, $00, $00
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_wait_frames, $14
     db script_cmd_rotate_chris, $04
     db script_cmd_run_chris, $1e
     db script_cmd_change_camera, $02
     db script_cmd_set_anim_chris, $00, $00
     db script_cmd_rotate_chris, $84
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_set_anim_wesker, $03, $00
     db script_cmd_wait_frames, $32
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_dialogue_chris
     dw $43d2
     db script_cmd_set_anim_wesker, $03, $10
@@ -944,11 +944,11 @@ SceneScript_46f8:: ; 0x46f8
     db script_cmd_set_anim_chris, $03, $08
     db script_cmd_dialogue_chris
     dw $4420
-    db $37, $86
+    db script_cmd_rotate_zombie, $86
     db script_cmd_wait_frames, $14
     db script_cmd_walk_zombie, $14
     db script_cmd_change_camera, $03
-    db $37, $02
+    db script_cmd_rotate_zombie, $02
     db script_cmd_walk_zombie, $32
     db script_cmd_wait_frames, $64
     db script_cmd_init_room_camera, $08, $05
@@ -1040,7 +1040,7 @@ SceneScript_47dd:: ; 0x47dd
     dw $434e
     db script_cmd_wait_frames, $96
     db script_cmd_change_camera, $07
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_dialogue_enrico
     dw $4354
     db script_cmd_wait_frames, $96
@@ -1048,29 +1048,29 @@ SceneScript_47dd:: ; 0x47dd
     db script_cmd_rotate_chris, $04
     db script_cmd_dialogue_chris
     dw $4351
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
     db script_cmd_wait_frames, $32
     db script_cmd_change_camera, $03
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
-    db $1c, $0c
+    db script_cmd_play_sound, $0c
     db script_cmd_wait_frames, $14
     db script_cmd_wait_frames, $0a
     db script_cmd_change_camera, $05
@@ -1127,11 +1127,11 @@ SceneScript_48a3:: ; 0x48a3
     db script_cmd_change_camera, $02
     db script_cmd_dialogue_rebecca
     dw $4399
-    db $1b, $0f
+    db script_cmd_run_rebecca, $0f
     db script_cmd_rotate_rebecca, $04
-    db $1b, $46
+    db script_cmd_run_rebecca, $46
     db script_cmd_rotate_rebecca, $84
-    db $1b, $1e
+    db script_cmd_run_rebecca, $1e
     db script_cmd_rotate_rebecca, $84
     db script_cmd_wait_frames, $3c
     db script_cmd_change_camera, $03
@@ -1276,7 +1276,7 @@ SceneScript_48a3:: ; 0x48a3
     db script_cmd_change_camera, $03
     db script_cmd_dialogue_wesker
     dw $441d
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_wait_frames, $96
     db script_cmd_change_camera, $05
     db script_cmd_set_anim_rebecca, $00, $18
@@ -1354,7 +1354,7 @@ SceneScript_48a3:: ; 0x48a3
     db script_cmd_change_camera, $06
     db script_cmd_wait_frames, $96
     db script_cmd_change_camera, $02
-    db $26, $1e
+    db script_cmd_walk_backwards_chris, $1e
     db script_cmd_dialogue_wesker
     dw $4441
     db $29, $0a
@@ -1414,13 +1414,13 @@ SceneScript_4ae3:: ; 0x4ae3
     db script_cmd_change_camera, $00
     db script_cmd_rotate_rebecca, $08
     db script_cmd_run_chris, $06
-    db $1b, $06
+    db script_cmd_run_rebecca, $06
     db script_cmd_run_chris, $06
-    db $1b, $06
+    db script_cmd_run_rebecca, $06
     db script_cmd_run_chris, $06
-    db $1b, $06
+    db script_cmd_run_rebecca, $06
     db script_cmd_run_chris, $06
-    db $1b, $06
+    db script_cmd_run_rebecca, $06
     db script_cmd_init_room_camera, $6b, $00
     db script_cmd_init_chris
     dw $0000, $ffc0, $0018, $0000, $0000
@@ -1462,12 +1462,12 @@ SceneScript_4ae3:: ; 0x4ae3
     db script_cmd_dialogue_chris
     dw $446b
     db script_cmd_rotate_rebecca, $02
-    db $1b, $14
+    db script_cmd_run_rebecca, $14
     db script_cmd_rotate_chris, $84
     db script_cmd_change_camera, $02
     db script_cmd_rotate_rebecca, $02
-    db $1b, $60
-    db $1c, $05
+    db script_cmd_run_rebecca, $60
+    db script_cmd_play_sound, $05
     db $1e
     db script_cmd_end
 
@@ -1588,7 +1588,7 @@ SceneScript_4c9e:: ; 0x4c9e
     db script_cmd_wait_frames, $32
     db script_cmd_walk_chris, $14
     db script_cmd_change_camera, $04
-    db $1b, $37
+    db script_cmd_run_rebecca, $37
     db script_cmd_change_camera, $05
     db script_cmd_set_anim_rebecca, $00, $00
     db script_cmd_dialogue_rebecca
@@ -1723,7 +1723,7 @@ SceneScriptIntroJill:: ; 0x4d65
     db script_cmd_dialogue_jill
     dw $4231
     db script_cmd_wait_frames, $96
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_rotate_jill, $84
     db script_cmd_dialogue_barry
     dw $4234
@@ -1788,7 +1788,7 @@ SceneScriptIntroJill:: ; 0x4d65
     db script_cmd_init_jill
     dw $fc70, $0000, $0008, $0000, $0000
     db script_cmd_init_room_camera, $01, $ff
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScriptJillAndBarryEnterDiningHall:: ; 0x4e79
@@ -1813,7 +1813,7 @@ SceneScriptJillAndBarryEnterDiningHall:: ; 0x4e79
     db script_cmd_walk_barry, $3c
     db script_cmd_change_camera, $01
     db script_cmd_walk_barry, $3c
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScriptBarryChecksFireplace:: ; 0x4eaf
@@ -1845,7 +1845,7 @@ SceneScriptBarryChecksFireplace:: ; 0x4eaf
     db script_cmd_dialogue_barry
     dw $4252
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScriptBarryKillsFirstZombie:: ; 0x4ef1
@@ -1872,11 +1872,11 @@ SceneScriptBarryKillsFirstZombie:: ; 0x4ef1
     db script_cmd_set_anim_jill, $00, $18
     db script_cmd_dialogue_jill
     dw $4255
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $32
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_walk_zombie, $0a
-    db $37, $02
+    db script_cmd_rotate_zombie, $02
     db script_cmd_rotate_barry, $88
     db script_cmd_change_camera, $02
     db script_cmd_dialogue_barry
@@ -1892,11 +1892,11 @@ SceneScriptBarryKillsFirstZombie:: ; 0x4ef1
     db script_cmd_rotate_barry, $02
     db script_cmd_set_anim_barry, $03, $10
     db script_cmd_set_anim_barry, $03, $08
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_wait_frames, $1e
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_wait_frames, $1e
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_wait_frames, $1e
     db script_cmd_set_anim_zombie, $02, $00
     db script_cmd_rotate_barry, $82
@@ -1918,10 +1918,10 @@ SceneScriptBarryKillsFirstZombie:: ; 0x4ef1
     db script_cmd_change_camera, $01
     db script_cmd_run_barry, $32
     db $20
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $1e
-    db $1c, $05
-    db $3b
+    db script_cmd_play_sound, $05
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScriptJilLAndBarryReturnEntrance:: ; 0x4f92
@@ -2040,10 +2040,10 @@ SceneScriptJilLAndBarryReturnEntrance:: ; 0x4f92
     db script_cmd_rotate_barry, $06
     db script_cmd_walk_barry, $28
     db $20
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $32
-    db $1c, $05
-    db $3b
+    db script_cmd_play_sound, $05
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_508a:: ; 0x508a
@@ -2113,10 +2113,10 @@ SceneScript_508a:: ; 0x508a
     db script_cmd_walk_barry, $28
     db script_cmd_change_camera, $02
     db script_cmd_wait_frames, $50
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $32
-    db $1c, $05
-    db $3b
+    db script_cmd_play_sound, $05
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5118:: ; 0x5118
@@ -2155,7 +2155,7 @@ SceneScript_5118:: ; 0x5118
     db script_cmd_dialogue_barry
     dw $42a0
     db script_cmd_wait_frames, $96
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_door_transition, $40
     db script_cmd_init_room_camera, $19, $01
     db script_cmd_init_jill
@@ -2178,7 +2178,7 @@ SceneScript_5118:: ; 0x5118
     db script_cmd_init_room_camera, $0a, $06
     db script_cmd_init_jill
     dw $0030, $fee8, $0010, $1800, $0000
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_51ad:: ; 0x51ad
@@ -2243,7 +2243,7 @@ SceneScript_51ad:: ; 0x51ad
     db script_cmd_set_anim_barry, $00, $00
     db script_cmd_rotate_jill, $08
     db $1e
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db $3c
     db $2b, $54
     db script_cmd_reset_scene
@@ -2292,7 +2292,7 @@ SceneScript_51ad:: ; 0x51ad
     db script_cmd_rotate_barry, $84
     db script_cmd_walk_barry, $28
     db script_cmd_init_room_camera, $01, $00
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5295:: ; 0x5295
@@ -2370,9 +2370,9 @@ SceneScript_5295:: ; 0x5295
     db script_cmd_wait_frames, $3c
     db script_cmd_change_camera, $02
     db script_cmd_wait_frames, $50
-    db $1c, $04
-    db $1c, $05
-    db $3b
+    db script_cmd_play_sound, $04
+    db script_cmd_play_sound, $05
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5334:: ; 0x5334
@@ -2437,7 +2437,7 @@ SceneScript_5334:: ; 0x5334
     db script_cmd_rotate_barry, $86
     db script_cmd_wait_frames, $46
     db script_cmd_door_transition, $40
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_53b7:: ; 0x53b7
@@ -2500,7 +2500,7 @@ SceneScript_53b7:: ; 0x53b7
     db script_cmd_init_room_camera, $27, $00
     db script_cmd_init_jill
     dw $00c8, $02d0, $0010, $0000, $0000
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5436:: ; 0x5436
@@ -2531,7 +2531,7 @@ SceneScript_5436:: ; 0x5436
     db script_cmd_change_camera, $03
     db script_cmd_set_anim_jill, $00, $00
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5470:: ; 0x5470
@@ -2554,11 +2554,11 @@ SceneScript_5470:: ; 0x5470
     db script_cmd_dialogue_jill
     dw $4339
     db script_cmd_wait_frames, $96
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_walk_barry, $17
     db script_cmd_wait_frames, $50
     db $20
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_54ad:: ; 0x54ad
@@ -2583,7 +2583,7 @@ SceneScript_54ad:: ; 0x54ad
     db script_cmd_dialogue_jill
     dw $4393
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_54d9:: ; 0x54d9
@@ -2623,7 +2623,7 @@ SceneScript_54d9:: ; 0x54d9
     dw $43ae
     db script_cmd_set_anim_jill, $00, $00
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5522:: ; 0x5522
@@ -2685,13 +2685,13 @@ SceneScript_5522:: ; 0x5522
     dw $ff68, $ff28, $0004, $0803, $0000
     db script_cmd_change_camera, $04
     db $22
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $64
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_rotate_jill, $88
     db script_cmd_set_anim_jill, $00, $18
     db script_cmd_wait_frames, $32
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_55b4:: ; 0x55b4
@@ -2706,17 +2706,17 @@ SceneScript_55b4:: ; 0x55b4
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $64
     db script_cmd_set_anim_jill, $00, $00
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_wait_frames, $14
     db script_cmd_rotate_jill, $04
     db script_cmd_run_jill, $1e
     db script_cmd_change_camera, $02
     db script_cmd_set_anim_jill, $00, $00
     db script_cmd_rotate_jill, $84
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_set_anim_wesker, $03, $00
     db script_cmd_wait_frames, $32
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_dialogue_jill
     dw $43d2
     db script_cmd_set_anim_wesker, $03, $10
@@ -2753,7 +2753,7 @@ SceneScript_55b4:: ; 0x55b4
     dw $fd30, $03d0, $0010, $0000, $0000
     db $22
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_563e:: ; 0x563e
@@ -2773,7 +2773,7 @@ SceneScript_563e:: ; 0x563e
     db script_cmd_dialogue_jill
     dw $4396
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5663:: ; 0x5663
@@ -2788,9 +2788,9 @@ SceneScript_5663:: ; 0x5663
     db script_cmd_wait_frames, $32
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $32
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $32
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_wait_frames, $33
     db script_cmd_change_camera, $00
     db script_cmd_walk_barry, $50
@@ -2856,7 +2856,7 @@ SceneScript_5663:: ; 0x5663
     db script_cmd_rotate_jill, $88
     db script_cmd_set_anim_jill, $00, $18
     db script_cmd_wait_frames, $a0
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_571c:: ; 0x571c
@@ -2869,7 +2869,7 @@ SceneScript_571c:: ; 0x571c
     db script_cmd_wait_frames, $32
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $32
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_run_barry, $19
     db script_cmd_rotate_barry, $02
     db script_cmd_run_barry, $0a
@@ -2919,11 +2919,11 @@ SceneScript_571c:: ; 0x571c
     db script_cmd_rotate_barry, $08
     db script_cmd_walk_barry, $46
     db script_cmd_rotate_jill, $82
-    db $1c, $04
+    db script_cmd_play_sound, $04
     db script_cmd_wait_frames, $1e
-    db $1c, $05
+    db script_cmd_play_sound, $05
     db script_cmd_wait_frames, $64
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_57ab:: ; 0x57ab
@@ -2956,7 +2956,7 @@ SceneScript_57ab:: ; 0x57ab
     db script_cmd_wait_frames, $96
     db script_cmd_wait_frames, $96
     db $1e
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_57f1:: ; 0x57f1
@@ -3024,7 +3024,7 @@ SceneScript_57f1:: ; 0x57f1
     db script_cmd_change_camera, $03
     db script_cmd_dialogue_enrico
     dw $4384
-    db $1c, $0f
+    db script_cmd_play_sound, $0f
     db script_cmd_dialogue_enrico
     dw $4387
     db script_cmd_wait_frames, $96
@@ -3036,7 +3036,7 @@ SceneScript_57f1:: ; 0x57f1
     db script_cmd_wait_frames, $96
     db script_cmd_change_camera, $03
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_588c:: ; 0x588c
@@ -3073,7 +3073,7 @@ SceneScript_588c:: ; 0x588c
     db script_cmd_wait_frames, $96
     db script_cmd_change_camera, $02
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_58ce:: ; 0x58ce
@@ -3363,7 +3363,7 @@ SceneScript_58ce:: ; 0x58ce
     db script_cmd_init_jill
     dw $fd90, $fd38, $0000, $0000, $0000
     db script_cmd_init_room_camera, $6e, $01
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5b2f:: ; 0x5b2f
@@ -3458,7 +3458,7 @@ SceneScript_5b2f:: ; 0x5b2f
     dw $4501
     db script_cmd_walk_backwards_jill, $14
     db script_cmd_wait_frames, $64
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5bec:: ; 0x5bec
@@ -3492,7 +3492,7 @@ SceneScript_5bec:: ; 0x5bec
     db script_cmd_rotate_barry, $06
     db script_cmd_rotate_jill, $88
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5c34:: ; 0x5c34
@@ -3555,7 +3555,7 @@ SceneScript_5c34:: ; 0x5c34
     db script_cmd_run_barry, $05
     db script_cmd_run_jill, $05
     db script_cmd_door_transition, $40
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5cb4:: ; 0x5cb4
@@ -3590,7 +3590,7 @@ SceneScript_5cb4:: ; 0x5cb4
     db script_cmd_walk_jill, $05
     db script_cmd_walk_chris, $0a
     db script_cmd_door_transition, $40
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5cfc:: ; 0x5cfc
@@ -3625,7 +3625,7 @@ SceneScript_5cfc:: ; 0x5cfc
     db script_cmd_walk_jill, $05
     db script_cmd_walk_chris, $0a
     db script_cmd_door_transition, $40
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5d44:: ; 0x5d44
@@ -3658,7 +3658,7 @@ SceneScript_5d44:: ; 0x5d44
     db script_cmd_wait_frames, $96
     db script_cmd_change_camera, $03
     db script_cmd_wait_frames, $64
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5d8c:: ; 0x5d8c
@@ -3681,7 +3681,7 @@ SceneScript_5d8c:: ; 0x5d8c
     db script_cmd_rotate_chris, $88
     db script_cmd_run_chris, $32
     db script_cmd_wait_frames, $64
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5dbf:: ; 0x5dbf
@@ -3702,7 +3702,7 @@ SceneScript_5dbf:: ; 0x5dbf
     db script_cmd_wait_frames, $0a
     db script_cmd_set_anim_barry, $00, $18
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5de9:: ; 0x5de9
@@ -3722,7 +3722,7 @@ SceneScript_5de9:: ; 0x5de9
     db $2f
     dw $4531
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5e1c:: ; 0x5e1c
@@ -3750,7 +3750,7 @@ SceneScript_5e1c:: ; 0x5e1c
     db script_cmd_wait_frames, $64
     db script_cmd_change_camera, $00
     db script_cmd_wait_frames, $96
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5e54:: ; 0x5e54
@@ -3761,7 +3761,7 @@ SceneScript_5e54:: ; 0x5e54
     db script_cmd_wait_frames, $32
     db script_cmd_cutscene_mode
     db script_cmd_wait_frames, $32
-    db $3b
+    db script_cmd_copy_jill_entity_data
     db script_cmd_end
 
 SceneScript_5e61:: ; 0x5e61
@@ -3932,13 +3932,13 @@ SceneScript_5fc6:: ; 0x5fc6
     db $05
     db script_cmd_wait_frames, $dc
     db $20
-    db $1c, $23
+    db script_cmd_play_sound, $23
     db $3e, $02
     db script_cmd_end
 
 Jump_00e_5fd1:
     push hl
-    ld hl, $c320
+    ld hl, cutscene_entity_jill_base
     ld de, $c300
     ld b, $20
 
@@ -3990,7 +3990,7 @@ Jump_00e_6002:
     ld [$c504], a
     ld [$c48b], a
     push hl
-    ld de, $c320
+    ld de, cutscene_entity_jill_base
     ld b, $07
 
 jr_00e_6014:
@@ -4028,7 +4028,7 @@ jr_00e_6033:
     ret
 
 
-Jump_00e_603b:
+cmd36_00e_603b:
     call GameboyHalt
     ld a, [CUTSCENE_MODE]
     sub $01
@@ -4517,7 +4517,7 @@ Jump_00e_62a7:
     ld de, cutscene_entity_zombie_base
     jr sprite_anim_walk_backwards
 
-Jump_00e_62b1:
+sprite_chris_walk_backwards:
     ld de, cutscene_entity_chris_base
     jr sprite_anim_walk_backwards
 
@@ -4525,11 +4525,11 @@ sprite_jill_walk_backwards:
     ld de, cutscene_entity_jill_base
     jr sprite_anim_walk_backwards
 
-Jump_00e_62bb:
+sprite_wesker_walk_backwards:
     ld de, cutscene_entity_wesker_base
     jr sprite_anim_walk_backwards
 
-Jump_00e_62c0:
+sprite_rebecca_walk_backwards:
     ld de, cutscene_entity_rebecca_base
 
 sprite_anim_walk_backwards:
@@ -4750,7 +4750,7 @@ jr_00e_638a:
 
 
 Call_00e_63cc:
-Jump_00e_63cc:
+cmd22_00e_63cc:
     push hl
     call Call_000_06d6
     pop hl

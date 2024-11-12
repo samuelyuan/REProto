@@ -132,6 +132,27 @@ DEF PICKED_ROOM05_CLIP EQU $c509
 ; byte 3 - source attributes
 DEF SPRITE_RAM_BASE EQU $c900
 
+; sound
+DEF SOUND_CHANNEL1_BASE_RAM_ADDR EQU $dd00
+DEF SOUND_CHANNEL1_ADDR1 EQU $dd02
+DEF SOUND_CHANNEL2_BASE_RAM_ADDR EQU $dd18
+DEF SOUND_CHANNEL2_ADDR1 EQU $dd1a
+DEF SOUND_CHANNEL3_BASE_RAM_ADDR EQU $dd30
+DEF SOUND_CHANNEL3_ADDR1 EQU $dd32
+DEF SOUND_CHANNEL4_BASE_RAM_ADDR EQU $dd48
+DEF SOUND_CHANNEL4_ADDR1 EQU $dd4a
+DEF SOUND_ADDR_dd60 EQU $dd60
+DEF SOUND_ADDR_dd62 EQU $dd62
+DEF SOUND_CHANNEL1_LAST_SEEN_ADDR EQU $dd68
+DEF SOUND_CHANNEL1_CYCLES EQU $dd6a
+DEF SOUND_CHANNEL2_LAST_SEEN_ADDR EQU $dd6b
+DEF SOUND_CHANNEL2_CYCLES EQU $dd6d
+DEF SOUND_CHANNEL3_LAST_SEEN_ADDR EQU $dd6e
+DEF SOUND_CHANNEL3_CYCLES EQU $dd70
+DEF SOUND_CHANNEL4_LAST_SEEN_ADDR EQU $dd71
+DEF SOUND_CHANNEL4_CYCLES EQU $dd73
+DEF SOUND_GENERAL_LAST_SEEN_ADDR EQU $dd74
+
 ; sram
 DEF SRAM_VARIABLE_BASE1 EQU $a000
 DEF SRAM_VARIABLE_BASE2 EQU $a600
@@ -197,11 +218,15 @@ DEF script_cmd_walk_wesker EQU $16
 DEF script_cmd_walk_rebecca EQU $17
 DEF script_cmd_run_chris EQU $18
 DEF script_cmd_run_jill EQU $19
+DEF script_cmd_run_wesker EQU $1a
+DEF script_cmd_run_rebecca EQU $1b
+DEF script_cmd_play_sound EQU $1c
 DEF script_cmd_end EQU $1d
 DEF script_cmd_cutscene_mode EQU $1f
 DEF script_cmd_door_transition EQU $21
 DEF script_cmd_walk_barry EQU $23
 DEF script_cmd_walk_zombie EQU $25
+DEF script_cmd_walk_backwards_chris EQU $26
 DEF script_cmd_walk_backwards_jill EQU $27
 DEF script_cmd_walk_backwards_rebecca EQU $28
 DEF script_cmd_run_barry EQU $2c
@@ -211,8 +236,10 @@ DEF script_cmd_rotate_barry EQU $30
 DEF script_cmd_init_barry EQU $32
 DEF script_cmd_init_zombie EQU $33
 DEF script_cmd_set_anim_barry EQU $35
+DEF script_cmd_rotate_zombie EQU $37
 DEF script_cmd_set_anim_zombie EQU $38
 DEF script_cmd_reset_scene EQU $39
+DEF script_cmd_copy_jill_entity_data EQU $3b
 
 ; these registers are used differently during cutscenes
 DEF cutscene_entity_chris_base EQU $c300

@@ -835,7 +835,7 @@ Call_000_0256:
     call SwitchBank
     ld a, c
     ld [$c180], a
-    call $4006
+    call bank006_4006
     pop af
     jp Jump_000_02ee
 
@@ -11455,8 +11455,9 @@ SelectCharacterImageTable:: ; 0x2f02
     dw $0002
 
 SelectCharacterPaletteTable:: ; 0x2f08
-    dw $652a
-    dw $677c
+    dw SelectCharacterPaletteIndex
+bank000_SelectCharacterPalette_2f0a:
+    dw SelectCharacterPaletteBGP
     dw $67bc
     dw $0002
 
@@ -12518,17 +12519,19 @@ jr_000_3480:
     or a
     jr nz, jr_000_34a1
 
+    ; check if player pressed button to select character
     ld a, [PRESSED_BUTTON]
     and $09
     jr z, jr_000_34a1
 
     ld a, $40
     ld [FADE_TIMER], a
+    ; play alarm sound
     ld a, $17
     call Sound_000_026b
 
 jr_000_34a1:
-    ld hl, $2f0a
+    ld hl, bank000_SelectCharacterPalette_2f0a
     call $44a7
     jr jr_000_3437
 

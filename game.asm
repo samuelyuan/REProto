@@ -1,4 +1,5 @@
 INCLUDE "src/hardware.inc"
+INCLUDE "src/constants.asm"
 INCLUDE "src/bank_000.asm"
 INCLUDE "src/bank_001.asm"
 INCLUDE "src/bank_002.asm"
