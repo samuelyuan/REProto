@@ -4170,7 +4170,7 @@ jr_000_1387:
     push bc
     jp hl
 
-
+bank000_138c:
     pop de
     ld a, e
 
@@ -11418,14 +11418,10 @@ jr_000_2eda:
     jp Jump_000_2e23
 
 
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
+    dw $0000
+    dw $0000
+    dw $0000
+    dw $0000
 
 bank000_2eee:
     dw $5900

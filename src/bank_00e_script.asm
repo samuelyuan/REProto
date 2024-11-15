@@ -1,8 +1,8 @@
 SECTION "ROM Bank $00e", ROMX[$4000], BANK[$e]
 
 ; Addresses are in bank 0xe
-SceneScriptTable:: ; 0x4000
-    dw $421b
+SceneScriptTableChris:: ; 0x4000
+    dw SceneScriptIntroChris ; 0x421b
     dw $42cd
     dw $431c
     dw $436d
@@ -31,7 +31,9 @@ SceneScriptTable:: ; 0x4000
     dw $4c9e
     dw $4d1f
     dw $4d65
-    dw $4d65
+
+SceneScriptTableJill:: ; 0x403a
+    dw SceneScriptIntroJill ; 0x4d65
     dw $4e79
     dw $4eaf
     dw $4ef1
@@ -67,6 +69,8 @@ SceneScriptTable:: ; 0x4000
     dw $5de9
     dw $5e1c
     dw $5e54
+
+SceneScriptTableBothCharacters:: ; 0x4082
     dw $5e61
     dw $5e86
     dw $5eab
@@ -75,7 +79,7 @@ SceneScriptTable:: ; 0x4000
     dw $5f1a
     dw $5f3f
     dw $5f64
-    dw $5f89
+    dw SceneScriptFirstZombie ; 0x5f89
     dw $5f90
     dw $5fab
     dw $5fc6
@@ -83,19 +87,19 @@ SceneScriptTable:: ; 0x4000
 bank00e_409a:
     xor a
     ld [$c1c6], a
-    ld hl, $4000
+    ld hl, SceneScriptTableChris
     ld a, [SELECTED_CHARACTER_INDEX]
     or a
     jr z, jr_00e_40aa
 
-    ld hl, $403a
+    ld hl, SceneScriptTableJill
 
 jr_00e_40aa:
     ld a, [CUTSCENE_NUMBER]
     cp $80
     jr c, jr_00e_40b6
 
-    ld hl, $4082
+    ld hl, SceneScriptTableBothCharacters
     sub $7f
 
 jr_00e_40b6:
@@ -297,6 +301,7 @@ Jump_00e_40bf:
     cp $22
     jp z, cmd22_00e_63cc
 
+    ; 0x39
     cp script_cmd_reset_scene
     jp z, scene_var_reset
 
@@ -4546,7 +4551,7 @@ jr_00e_62c6:
     ld a, [hl]
     add $10
     and $1c
-    ld bc, $63d2
+    ld bc, RotationPositionDeltaWalk
     add c
     ld c, a
     ld a, $00
@@ -4630,7 +4635,7 @@ jr_00e_632e:
     add hl, de
     ld a, [hl]
     and $1c
-    ld bc, $63d2
+    ld bc, RotationPositionDeltaWalk
     add c
     ld c, a
     ld a, $00
@@ -4643,17 +4648,24 @@ jr_00e_632e:
     add [hl]
     ld [hl+], a
     inc bc
+    
+    ; offset 0x12
     ld a, [bc]
     adc [hl]
     ld [hl+], a
     inc bc
+    
+    ; offset 0x13
     ld a, [bc]
     add [hl]
     ld [hl+], a
     inc bc
+    
+    ; offset 0x14
     ld a, [bc]
     adc [hl]
     ld [hl+], a
+
     ; animation state and frame stored at 0x06 and 0x7
     ld hl, $0006
     add hl, de
@@ -4706,29 +4718,35 @@ jr_00e_638a:
     add hl, de
     ld a, [hl]
     and $1c
-    ld bc, $63f2
+    ld bc, RotationPositionDeltaRun
     add c
     ld c, a
     ld a, $00
     adc b
     ld b, a
+    ; position stored at 0x11 to 0x14
     ld hl, $0011
     add hl, de
     ld a, [bc]
     add [hl]
     ld [hl+], a
     inc bc
+
     ld a, [bc]
     adc [hl]
     ld [hl+], a
     inc bc
+    
     ld a, [bc]
     add [hl]
     ld [hl+], a
     inc bc
+    
     ld a, [bc]
     adc [hl]
     ld [hl+], a
+    
+    ; animation state and frame stored at 0x06 and 0x7
     ld hl, $0006
     add hl, de
     ld [hl], $02
@@ -4756,60 +4774,43 @@ cmd22_00e_63cc:
     pop hl
     ret
 
+; bytes 0 to 4 are added as delta to character y and x position
+RotationPositionDeltaWalk:: ; 0x63d2
+    ; rotation 0x00
+    dw 0, 7
+    ; rotation 0x04
+    dw 6, 6
+    ; rotation 0x08
+    dw 7, 0
+    ; rotation 0x0c
+    dw 6, -6
+    ; rotation 0x10
+    dw 0, -7
+    ; rotation 0x14
+    dw -6, -6
+    ; rotation 0x18
+    dw -7, 0
+    ; rotation 0x1c
+    dw -6, 6
 
-    nop
-    nop
-    rlca
-    nop
-    ld b, $00
-    ld b, $00
-    rlca
-    nop
-    nop
-    nop
-    ld b, $00
-    ld a, [$00ff]
-    nop
-    ld sp, hl
-    rst $38
-    ld a, [$faff]
-    rst $38
-    ld sp, hl
-    rst $38
-    nop
-    nop
-    ld a, [$06ff]
-    nop
-    nop
-    nop
-    ld c, $00
-    inc c
-    nop
-    inc c
-    nop
-    ld c, $00
-    nop
-    nop
-    inc c
-    nop
-    db $f4
-    rst $38
-    nop
-    nop
-    ld a, [c]
-    rst $38
-    db $f4
-    rst $38
-    db $f4
-    rst $38
-    ld a, [c]
-    rst $38
-    nop
-    nop
-    db $f4
-    rst $38
-    inc c
-    nop
+; bytes 0 to 4 are added as delta to character y and x position
+RotationPositionDeltaRun:: ; 0x63f2
+    ; rotation 0x00
+    dw 0, 14
+    ; rotation 0x04
+    dw 12, 12
+    ; rotation 0x08
+    dw 14, 0
+    ; rotation 0x0c
+    dw 12, -12
+    ; rotation 0x10
+    dw 0, -14
+    ; rotation 0x14
+    dw -12, -12
+    ; rotation 0x18
+    dw -14, 0
+    ; rotation 0x1c
+    dw -12, 12
 
 scene_var_reset:
     ld a, [PLAYER_HEALTH]
@@ -4817,15 +4818,17 @@ scene_var_reset:
     ld de, $c300
     ld bc, $0100
 
-jr_00e_641c:
+; set each value from 0xc300 to 0xc400 to 0
+Loop_00e_641c:
     xor a
     ld [de], a
     inc de
     dec bc
     ld a, b
     or c
-    jr nz, jr_00e_641c
+    jr nz, Loop_00e_641c
 
+    ; restore value for player health
     pop af
     ld [PLAYER_HEALTH], a
     ret
@@ -4839,7 +4842,7 @@ cmd_3a:
     pop hl
     ret
 
-
+bank00e_6433:
     ld b, d
     ld b, c
     ld c, [hl]

@@ -1,3 +1,4 @@
+SECTION "ROM Bank $0f8", ROMX[$4000], BANK[$f8]
 
 NameChris:: ; 0x4000
     db "CHRIS: ", $01

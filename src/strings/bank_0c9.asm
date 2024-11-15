@@ -1,3 +1,5 @@
+SECTION "ROM Bank $0c9", ROMX[$4000], BANK[$c9]
+
     db "I wonder if everyone", $00, "is ok.", $01
     db "Will you take", $00, "Rebecca with you?", $00, " Yes No ", $01
     db "I need to prepare.", $00, "Please go ahead.", $01

@@ -1,120 +1,16 @@
 SECTION "ROM Bank $0fc", ROMX[$4000], BANK[$fc]
 
-    dw $409c
-    dw $40a4
-    dw $40ac
-    dw $40b4
-    dw $40bc
-    dw $40c4
-    dw $40cc
-    dw $40d4
-    dw $40dc
-    dw $40e4
-    dw $40ec
-    dw $40f4
-    dw $40fc
-    dw $4104
-    dw $410c
-    dw $4114
-    dw $411c
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    dw $4124
-    dw $412c
-    dw $4134
-    dw $413c
-    dw $4144
-    dw $414c
-    dw $4154
-    dw $415c
-    dw $4164
-    dw $416c
-    dw $4174
-    dw $417c
-    dw $4184
-    dw $418c
-    dw $4194
-    dw $419c
-    dw $41a4
-    dw $41ac
-    dw $41b4
-    dw $41bc
-    dw $41c4
-    dw $41cc
-    dw $41d4
-    dw $41dc
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
+bank0fc_4000:
+    dw $409c, $40a4, $40ac, $40b4, $40bc, $40c4, $40cc, $40d4
+    dw $40dc, $40e4, $40ec, $40f4, $40fc, $4104, $410c, $4114
+    dw $411c, $0000, $0000, $0000, $0000, $0000, $0000, $0000
+    dw $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
+    dw $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
+    dw $4124, $412c, $4134, $413c, $4144, $414c, $4154, $415c
+    dw $4164, $416c, $4174, $417c, $4184, $418c, $4194, $419c
+    dw $41a4, $41ac, $41b4, $41bc, $41c4, $41cc, $41d4, $41dc
+    dw $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
+    dw $0000, $0000, $0000, $0000, $0000, $0000
 
 bank0fc_409c: ; 0x409c
     db $40, $00, $70, $03, $f8, $fc, $48, $fd
@@ -618,7 +514,7 @@ Jump_0fc_43c5:
     and $1c
     ld c, a
     ld b, $00
-    ld hl, $4489
+    ld hl, CharacterDeltaWalk
     add hl, bc
     ld c, l
     ld b, h
@@ -681,7 +577,7 @@ Jump_0fc_444f:
     and $1c
     ld c, a
     ld b, $00
-    ld hl, $44a9
+    ld hl, CharacterDeltaRun
     add hl, bc
     ld c, l
     ld b, h
@@ -705,57 +601,25 @@ Jump_0fc_444f:
     inc bc
     jp Jump_0fc_42c8
 
-bank0fc_4489:
-    nop
-    nop
-    inc b
-    nop
-    inc bc
-    nop
-    inc bc
-    nop
-    inc b
-    nop
-    nop
-    nop
-    inc bc
-    nop
-    db $fd
-    rst $38
-    nop
-    nop
-    db $fc
-    rst $38
-    db $fd
-    rst $38
-    db $fd
-    rst $38
-    db $fc
-    rst $38
-    nop
-    nop
-    db $fd
-    rst $38
-    inc bc
-    nop
-    nop
-    nop
-    ld [$0600], sp
-    nop
-    ld b, $00
-    ld [$0000], sp
-    nop
-    ld b, $00
-    ld a, [$00ff]
-    nop
-    ld hl, sp-$01
-    ld a, [$faff]
-    rst $38
-    ld hl, sp-$01
-    nop
-    nop
-    ld a, [$06ff]
-    nop
+CharacterDeltaWalk:: ; 0x4489
+    dw 0, 4
+    dw 3, 3
+    dw 4, 0
+    dw 3, -3
+    dw 0, -4
+    dw -3, -3
+    dw -4, 0
+    dw -3, 3
+
+CharacterDeltaRun:: ; 0x44a9
+    dw 0, 8
+    dw 6, 6
+    dw 8, 0
+    dw 6, -6
+    dw 0, -8
+    dw -6, -6
+    dw -8, 0
+    dw -6, 6
 
 Call_0fc_44c9:
     cp $04
@@ -853,25 +717,25 @@ jr_0fc_4544:
     ld [$c30d], a
     ld a, [PLAYER_STATE]
     cp $00
-    jp z, Jump_0fc_459d
+    jp z, PlayerState00_0fc_459d
 
     cp $01
-    jp z, Jump_0fc_4794
+    jp z, PlayerState01_0fc_4794
 
     cp $02
-    jp z, Jump_0fc_47cf
+    jp z, PlayerState02_0fc_47cf
 
     cp $03
-    jp z, Jump_0fc_46a9
+    jp z, PlayerState03_0fc_46a9
 
     cp $04
-    jp z, Jump_0fc_4657
+    jp z, PlayerState04_0fc_4657
 
     cp $05
-    jp z, Jump_0fc_46fb
+    jp z, PlayerState05_0fc_46fb
 
     cp $07
-    jp z, Jump_0fc_4577
+    jp z, PlayerState07_0fc_4577
 
     ld a, $00
     ld [PLAYER_STATE], a
@@ -880,7 +744,7 @@ jr_0fc_4544:
     ret
 
 
-Jump_0fc_4577:
+PlayerState07_0fc_4577:
     ld a, [PLAYER_ANIM_FRAME]
     inc a
     cp $10
@@ -911,7 +775,7 @@ jr_0fc_4590:
     ret
 
 
-Jump_0fc_459d:
+PlayerState00_0fc_459d:
     ld a, [PRESSED_BUTTON]
     and $02
     jr nz, jr_0fc_45fa
@@ -921,17 +785,17 @@ Jump_0fc_459d:
 
 CheckButtonPressMovePlayer:
     ld a, [PRESSED_BUTTON]
-    and $20
-    call nz, Call_0fc_45df
+    and BUTTON_PRESS_LEFT
+    call nz, PlayerRotateLeft_0fc_45df
     ld a, [PRESSED_BUTTON]
-    and $10
-    call nz, Call_0fc_45e0
+    and BUTTON_PRESS_RIGHT
+    call nz, PlayerRotateRight_0fc_45e0
     ld a, [PRESSED_BUTTON]
-    and $40
-    call nz, Call_0fc_45e1
+    and BUTTON_PRESS_UP
+    call nz, PlayerMoveForward_0fc_45e1
     ld a, [PRESSED_BUTTON]
-    and $80
-    call nz, Call_0fc_45ed
+    and BUTTON_PRESS_DOWN
+    call nz, PlayerMoveBackward_0fc_45ed
     call Call_0fc_4808
     call Call_0fc_483e
     ld a, [PRESSED_BUTTON]
@@ -947,15 +811,15 @@ CheckButtonPressMovePlayer:
     ret
 
 
-Call_0fc_45df:
+PlayerRotateLeft_0fc_45df:
     ret
 
 
-Call_0fc_45e0:
+PlayerRotateRight_0fc_45e0:
     ret
 
 
-Call_0fc_45e1:
+PlayerMoveForward_0fc_45e1:
     ld a, $01
     ld [PLAYER_STATE], a
     xor a
@@ -963,7 +827,7 @@ Call_0fc_45e1:
     jp PlayerMovesForward
 
 
-Call_0fc_45ed:
+PlayerMoveBackward_0fc_45ed:
     ld a, $01
     ld [PLAYER_STATE], a
     ld a, $3f
@@ -977,13 +841,13 @@ jr_0fc_45fa:
     jp nz, CheckButtonPressMovePlayer
 
     ld a, [INVENTORY_EQUIPPED_ITEM]
-    cp $1f
+    cp ITEM_ID_BERETTA
     jr z, jr_0fc_462f
 
-    cp $37
+    cp ITEM_ID_SHOTGUN
     jr z, jr_0fc_4611
 
-    cp $19
+    cp ITEM_ID_COMBAT_KNIFE
     jr z, jr_0fc_464d
 
     ret
@@ -994,12 +858,12 @@ jr_0fc_4611:
     ld [PLAYER_STATE], a
     ld c, $00
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     jr nz, jr_0fc_462a
 
     ld c, $10
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     jr nz, jr_0fc_462a
 
     ld c, $08
@@ -1015,12 +879,12 @@ jr_0fc_462f:
     ld [PLAYER_STATE], a
     ld c, $00
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     jr nz, jr_0fc_4648
 
     ld c, $10
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     jr nz, jr_0fc_4648
 
     ld c, $08
@@ -1039,19 +903,19 @@ jr_0fc_464d:
     ret
 
 
-Jump_0fc_4657:
+PlayerState04_0fc_4657:
     ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_0fc_469f
 
     ld c, $00
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     jr nz, jr_0fc_4672
 
     ld c, $10
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     jr nz, jr_0fc_4672
 
     ld c, $08
@@ -1091,19 +955,19 @@ jr_0fc_469f:
     ret
 
 
-Jump_0fc_46a9:
+PlayerState03_0fc_46a9:
     ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_0fc_46f1
 
     ld c, $00
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     jr nz, jr_0fc_46c4
 
     ld c, $10
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     jr nz, jr_0fc_46c4
 
     ld c, $08
@@ -1143,7 +1007,7 @@ jr_0fc_46f1:
     ret
 
 
-Jump_0fc_46fb:
+PlayerState05_0fc_46fb:
     ld a, [PRESSED_BUTTON]
     and $02
     jp z, Jump_0fc_4785
@@ -1215,11 +1079,11 @@ jr_0fc_4748:
     ld a, $ff
     ld [$c1af], a
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     jr nz, jr_0fc_4779
 
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     jr nz, jr_0fc_477f
 
     ld a, $20
@@ -1253,7 +1117,7 @@ jr_0fc_478f:
     ret
 
 
-Jump_0fc_4794:
+PlayerState01_0fc_4794:
     ld a, [PRESSED_BUTTON]
     and $02
     jr nz, jr_0fc_47ac
@@ -1271,7 +1135,7 @@ Jump_0fc_4794:
 
 jr_0fc_47ac:
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     jr nz, jr_0fc_47b8
 
     ld a, $02
@@ -1279,17 +1143,17 @@ jr_0fc_47ac:
 
 jr_0fc_47b8:
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     call nz, PlayerMovesForward
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     call nz, PlayerMovesBackward
     call Call_0fc_4808
     call Call_0fc_483e
     ret
 
 
-Jump_0fc_47cf:
+PlayerState02_0fc_47cf:
     ld a, [PRESSED_BUTTON]
     and $02
     jr z, jr_0fc_47ec
@@ -1313,10 +1177,10 @@ jr_0fc_47ec:
 
 jr_0fc_47f1:
     ld a, [PRESSED_BUTTON]
-    and $40
+    and BUTTON_PRESS_UP
     call nz, PlayerMovesForward
     ld a, [PRESSED_BUTTON]
-    and $80
+    and BUTTON_PRESS_DOWN
     call nz, PlayerMovesBackward
     call Call_0fc_4808
     call Call_0fc_483e
@@ -1326,7 +1190,7 @@ jr_0fc_47f1:
 Call_0fc_4808:
     ld hl, $c16b
     ld a, [PRESSED_BUTTON]
-    and $20
+    and BUTTON_PRESS_LEFT
     jp z, Jump_0fc_483a
 
     ld a, [hl]
@@ -1373,7 +1237,7 @@ jr_0fc_483d:
 Call_0fc_483e:
     ld hl, $c16c
     ld a, [PRESSED_BUTTON]
-    and $10
+    and BUTTON_PRESS_RIGHT
     jp z, Jump_0fc_4870
 
     ld a, [hl]
@@ -2238,7 +2102,7 @@ jr_0fc_4cec:
 
     ret
 
-
+bank0fc_4cf4:
     ld c, l
     sbc b
     inc a

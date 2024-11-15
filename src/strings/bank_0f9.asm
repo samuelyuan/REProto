@@ -1,3 +1,5 @@
+SECTION "ROM Bank $0f9", ROMX[$4000], BANK[$f9]
+
     db "My dear Alma", $00, $00, "The fact that you", $00, "have received this", $00, "letter is both a joy", $00, "and a sadness for", $00, "me.", $00, "I could not even", $00, "talk to you because", $00, "of that guy in the", $00, "sunglasses.", $00, "Alma, be calm and", $00, "read this.", $00, $02
     db "I think I've told", $00, "you that I moved to", $00, "a pharmaceutical", $00, "company's lab.", $00, "They headhunted me.", $00, "Last month, there", $00, "was an accident in", $00, "the lab, and the", $00, "virus we were", $00, "studying escaped.", $00, $02
     db "All my colleagues", $00, "who were infected", $00, "by the virus are", $00, "dead.", $00, "To be accurate,", $00, "they're not dead.", $00, "They still wander", $00, "around.", $00, "Actually, some of", $00, "them are knocking", $00, "on my room door", $00, "desperately right", $00, "now.", $00, "But there's no", $00, "sign of", $00, "intelligence in", $00, "their eyes.", $00, $02

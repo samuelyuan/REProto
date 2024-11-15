@@ -1,6 +1,6 @@
 SECTION "ROM Bank $005", ROMX[$4000], BANK[$5]
 
-InventroyItemsTileset:: ; 0x4000
+InventoryItemsTileset:: ; 0x4000
     INCBIN "gfx/bank005_inventoryitems_4000.2bpp"
 
 bank005_5b00:
