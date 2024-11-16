@@ -4047,26 +4047,32 @@ Jump_000_12ff:
     rst $38
     rst $38
 
-Call_000_1309:
+LoadRoomEntitySprite:
 Jump_000_1309:
+    ; Load address into register HL
     ld a, [$c115]
     ld l, a
     ld a, [$c116]
     ld h, a
+
     ld a, [de]
     ld [hl+], a
     inc de
+    
     ld a, [de]
     ld [hl+], a
 
 Call_000_1316:
     inc de
+    
     ld a, [de]
     ld [hl+], a
     inc de
+    
     ld a, [de]
     ld [hl+], a
     inc de
+    
     ld a, [de]
     push bc
     ld c, a
@@ -4081,6 +4087,7 @@ Call_000_1320:
 
 Jump_000_1328:
     inc de
+    
     ld a, [de]
     ld [hl+], a
     inc de
@@ -4089,9 +4096,11 @@ Call_000_132c:
     ld a, [de]
     ld [hl+], a
     inc de
+    
     ld a, [de]
     ld [hl+], a
     inc de
+    
     ld a, [de]
     ld [hl+], a
     inc de
@@ -4100,6 +4109,8 @@ Call_000_1335:
     ld a, [de]
     ld [hl+], a
     ld [hl], $00
+    
+    ; Store current address of HL back
     ld a, l
     ld [$c115], a
 
